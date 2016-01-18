@@ -1,11 +1,11 @@
 # Site settings
 title: Iterations
-email: s@l.co
-description: 
+email:
+description: Jekyll + Github Page + Matlab publishing  
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
-twitter_username: .
-github_username:  .
+url: "" # the base hostname & protocol for your site
+twitter_username:
+github_username:
 
 # Build settings
 markdown: kramdown
