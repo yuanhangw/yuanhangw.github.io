@@ -4,8 +4,8 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
 
+<!--
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
@@ -17,10 +17,11 @@ layout: default
       </li>
     {% endfor %}
   </ul>
-
+-->
 
   <ul class="post-list">
     {% for page in site.pages %}
+      {% if page.tag == 'post' %}
       <li>
         <span class="post-meta">{{ page.date | date: "%b %-d, %Y" }}</span>
 
@@ -28,11 +29,12 @@ layout: default
           <a class="post-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
         </h2>
       </li>
+      {% endif %}
     {% endfor %}
   </ul>
 
 
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+ <!-- <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> -->
 
 </div>
