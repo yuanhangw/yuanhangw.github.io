@@ -1,11 +1,11 @@
 # Site settings
-title: Origin of Value 
-email: yuanhangw.sg@gmail.com	
+title: Odyssey
+email: <*>
 description: A Jekyll Journal to write down some useful things. 
-baseurl: "/blog/" # the subpath of your site, e.g. /blog/
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: <*>
+github_username:  <*>
 
 # Build settings
 markdown: kramdown
