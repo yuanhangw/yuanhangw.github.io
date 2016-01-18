@@ -1,13 +1,401 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jekyll Journal</title>
-    <description>A Jekyll Journal to write down some simple things.</description>
-    <link>http://yuanhangw.github.com/</link>
-    <atom:link href="http://yuanhangw.github.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 18 Jan 2016 13:09:55 +0800</pubDate>
-    <lastBuildDate>Mon, 18 Jan 2016 13:09:55 +0800</lastBuildDate>
+    <title>Your awesome title</title>
+    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 18 Jan 2016 15:59:46 +0800</pubDate>
+    <lastBuildDate>Mon, 18 Jan 2016 15:59:46 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>second post</title>
+        <description>&lt;!DOCTYPE html
+  PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+   &lt;!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --&gt;&lt;title&gt;FRED data&lt;/title&gt;&lt;meta name=&quot;generator&quot; content=&quot;MATLAB 8.4&quot;&gt;&lt;link rel=&quot;schema.DC&quot; href=&quot;http://purl.org/dc/elements/1.1/&quot;&gt;&lt;meta name=&quot;DC.date&quot; content=&quot;2016-01-17&quot;&gt;&lt;meta name=&quot;DC.source&quot; content=&quot;FREDData.m&quot;&gt;&lt;style type=&quot;text/css&quot;&gt;
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:&#39;&#39;;content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;content&quot;&gt;&lt;h1&gt;FRED data&lt;/h1&gt;&lt;!--introduction--&gt;&lt;p&gt;We will retrieve data from FRED and present it nicely.&lt;/p&gt;&lt;!--/introduction--&gt;&lt;p&gt;First, let&#39;s establish the connection. Note that you should use &#39;https://&#39; instead of &#39;http://&#39;, FRED no longer accept unsecured connections.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    c = fred(&lt;span class=&quot;string&quot;&gt;&#39;https://research.stlouisfed.org/fred2/&#39;&lt;/span&gt;) ;
+&lt;/pre&gt;&lt;p&gt;We try to retrieve CPATAX: corporate profit before tax here. Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    data = fetch(c, &lt;span class=&quot;string&quot;&gt;&#39;CPATAX&#39;&lt;/span&gt;);
+    &lt;span class=&quot;comment&quot;&gt;% alternatively data = fetch(c, &#39;GDP&#39;);&lt;/span&gt;
+&lt;/pre&gt;&lt;p&gt;Now let&#39;s display the time series properly, the data struct contains 11 field. the main data series content is in &#39;Data&#39;. We want to display the time series in semilog scales. let&#39;s take a look at the data content first:&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    disp(data);
+&lt;/pre&gt;&lt;pre class=&quot;codeoutput&quot;&gt;                 Title: &#39; Corporate Profits After Tax with Inventory Valua...&#39;
+              SeriesID: &#39; CPATAX&#39;
+                Source: &#39; US. Bureau of Economic Analysis&#39;
+               Release: &#39; Gross Domestic Product&#39;
+    SeasonalAdjustment: &#39; Seasonally Adjusted Annual Rate&#39;
+             Frequency: &#39; Quarterly&#39;
+                 Units: &#39; Billions of Dollars&#39;
+             DateRange: &#39; 1947-01-01 to 2015-07-01&#39;
+           LastUpdated: &#39; 2015-12-22 7:51 AM CST&#39;
+                 Notes: &#39; BEA Account Code: A551RC1  A Guide to the Nation...&#39;
+                  Data: [275x2 double]
+
+&lt;/pre&gt;&lt;p&gt;Now Let&#39;s get the date &amp;amp; data out of STRUCT Data:&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    content = data.Data;
+    dt = content(:,1);
+    dd = content(:,2);
+&lt;/pre&gt;&lt;p&gt;Plot the semilogy plot&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    fredplot = semilogy(dt, dd);
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_01.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set the numerical mark straight&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTick&#39;&lt;/span&gt;,[10 50 100 500 1000 5000],&lt;span class=&quot;keyword&quot;&gt;...&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,{&lt;span class=&quot;string&quot;&gt;&#39;10&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;50&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;100&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;500&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;1,000&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;5,000&#39;&lt;/span&gt;});
+    datetick(&lt;span class=&quot;string&quot;&gt;&#39;x&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy&#39;&lt;/span&gt;);
+
+    xlim &lt;span class=&quot;string&quot;&gt;auto&lt;/span&gt;;
+    &lt;span class=&quot;comment&quot;&gt;%for finer control, do something like this:&lt;/span&gt;
+    &lt;span class=&quot;comment&quot;&gt;%ylim([5 3000]);&lt;/span&gt;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_02.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s add title &amp;amp; labels, by pulling from the STRUCT fields&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    title(data.Title(1:40), &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    ylabel(data.Units, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    xlabel(&lt;span class=&quot;string&quot;&gt;&#39;Year&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_03.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set fontsize of Xtick Ytick label to 10.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    xlhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;);
+    ylhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;);
+
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;,xlhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,ylhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_04.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set the linewidth to 1.5, and make the line half transparent&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    set(fredplot,&lt;span class=&quot;string&quot;&gt;&#39;linewidth&#39;&lt;/span&gt;,1.5);
+    fredplot.Color(4) = 0.5;  &lt;span class=&quot;comment&quot;&gt;% 50% transparent&lt;/span&gt;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_05.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Voila! In the long run, it has been a pretty straight line : ).&lt;/p&gt;&lt;p&gt;In normal scale, this time series looks much more volatile.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    fredplotnormal = plot(dt, dd);
+    datetick(&lt;span class=&quot;string&quot;&gt;&#39;x&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy&#39;&lt;/span&gt;);
+
+
+    title(data.Title(1:40), &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    ylabel(data.Units, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    xlabel(&lt;span class=&quot;string&quot;&gt;&#39;Year&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+
+    xlhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;);
+    ylhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;);
+
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;,xlhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,ylhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+
+    set(fredplotnormal,&lt;span class=&quot;string&quot;&gt;&#39;linewidth&#39;&lt;/span&gt;,1.5);
+    fredplotnormal.Color(4) = 0.5;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_06.png&quot; alt=&quot;&quot;&gt; &lt;p class=&quot;footer&quot;&gt;&lt;br&gt;&lt;a href=&quot;http://www.mathworks.com/products/matlab/&quot;&gt;Published with MATLAB&amp;reg; R2014b&lt;/a&gt;&lt;br&gt;&lt;/p&gt;&lt;/div&gt;&lt;!--
+##### SOURCE BEGIN #####
+%% FRED data
+% We will retrieve data from FRED and present it nicely. 
+
+%% 
+% First, let&#39;s establish the connection. Note that you should use
+% &#39;https://&#39; instead of &#39;http://&#39;, FRED no longer accept unsecured connections. 
+
+  
+    c = fred(&#39;https://research.stlouisfed.org/fred2/&#39;) ; 
+  
+  
+%%
+% We try to retrieve CPATAX: corporate profit before tax here.
+% Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP
+
+    data = fetch(c, &#39;CPATAX&#39;); 
+    % alternatively data = fetch(c, &#39;GDP&#39;); 
+
+%%
+% Now let&#39;s display the time series properly, the data struct
+% contains 11 field. the main data series content is in &#39;Data&#39;. We want to
+% display the time series in semilog scales. 
+% let&#39;s take a look at the data content first:
+
+    disp(data);
+    
+%%
+% Now Let&#39;s get the date &amp; data out of STRUCT Data:
+
+
+    content = data.Data;
+    dt = content(:,1);
+    dd = content(:,2);
+
+%%    
+% Plot the semilogy plot
+
+    fredplot = semilogy(dt, dd); 
+    
+%%    
+% Let&#39;s set the numerical mark straight
+
+    set(gca,&#39;YTick&#39;,[10 50 100 500 1000 5000],...
+      &#39;YTickLabel&#39;,{&#39;10&#39;,&#39;50&#39;, &#39;100&#39;,&#39;500&#39;, &#39;1,000&#39;,&#39;5,000&#39;});
+    datetick(&#39;x&#39;,&#39;yyyy&#39;);
+    
+    xlim auto;
+    %for finer control, do something like this:
+    %ylim([5 3000]);
+%%
+% Let&#39;s add title &amp; labels, by pulling from the STRUCT fields  
+
+    title(data.Title(1:40), &#39;FontSize&#39;, 10);
+    ylabel(data.Units, &#39;FontSize&#39;, 10);
+    xlabel(&#39;Year&#39;, &#39;FontSize&#39;, 10);
+
+%%
+% Let&#39;s set fontsize of Xtick Ytick label to 10. 
+
+    xlhand = get(gca,&#39;XTickLabel&#39;);
+    ylhand = get(gca,&#39;YTickLabel&#39;);
+
+    set(gca,&#39;XTickLabel&#39;,xlhand,&#39;fontsize&#39;,8)
+    set(gca,&#39;YTickLabel&#39;,ylhand,&#39;fontsize&#39;,8)
+%%  
+% Let&#39;s set the linewidth to 1.5, and make the line half transparent
+
+    set(fredplot,&#39;linewidth&#39;,1.5);
+    fredplot.Color(4) = 0.5;  % 50% transparent
+
+
+%% 
+% Voila! 
+% In the long run, it has been a pretty straight line : ). 
+
+%%
+% In normal scale, this time series looks much more volatile. 
+
+    fredplotnormal = plot(dt, dd); 
+    datetick(&#39;x&#39;,&#39;yyyy&#39;);
+
+
+    title(data.Title(1:40), &#39;FontSize&#39;, 10);
+    ylabel(data.Units, &#39;FontSize&#39;, 10);
+    xlabel(&#39;Year&#39;, &#39;FontSize&#39;, 10);
+
+    xlhand = get(gca,&#39;XTickLabel&#39;);
+    ylhand = get(gca,&#39;YTickLabel&#39;);
+
+    set(gca,&#39;XTickLabel&#39;,xlhand,&#39;fontsize&#39;,8)
+    set(gca,&#39;YTickLabel&#39;,ylhand,&#39;fontsize&#39;,8)
+
+    set(fredplotnormal,&#39;linewidth&#39;,1.5);
+    fredplotnormal.Color(4) = 0.5; 
+    
+    
+
+##### SOURCE END #####
+--&gt;&lt;/body&gt;&lt;/html&gt;</description>
+        <pubDate>Mon, 18 Jan 2016 21:27:18 +0800</pubDate>
+        <link>http://yourdomain.com/matlab/2016/01/18/FREDData.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/matlab/2016/01/18/FREDData.html</guid>
+        
+        
+        <category>matlab</category>
+        
+      </item>
+    
+      <item>
+        <title>first post</title>
+        <description>&lt;!DOCTYPE html
+  PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+   &lt;!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --&gt;&lt;title&gt;ExpectedMaximumDrawDown&lt;/title&gt;&lt;meta name=&quot;generator&quot; content=&quot;MATLAB 8.4&quot;&gt;&lt;link rel=&quot;schema.DC&quot; href=&quot;http://purl.org/dc/elements/1.1/&quot;&gt;&lt;meta name=&quot;DC.date&quot; content=&quot;2016-01-17&quot;&gt;&lt;meta name=&quot;DC.source&quot; content=&quot;ExpectedMaximumDrawDown.m&quot;&gt;&lt;style type=&quot;text/css&quot;&gt;
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:&#39;&#39;;content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;content&quot;&gt;&lt;pre class=&quot;codeinput&quot;&gt;&lt;span class=&quot;comment&quot;&gt;%%Expected Maximum Drawdown&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;% In this post we explore matlab&#39;s emaxdrawdown function.&lt;/span&gt;
+
+
+k = 1;
+
+&lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; k&amp;lt;=4
+
+
+    j  =1;
+    &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; j&amp;lt;=3
+&lt;/pre&gt;&lt;p&gt;let&#39;s see&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    mu = 0.05*k;
+    sigma = [0.05:0.01:0.40];
+    T = 10;
+
+        i=1;
+        &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; i&amp;lt;=size(sigma,2)
+
+        emdd(i) = emaxdrawdown(mu-sigma(i)^2/2, sigma(i), T);
+
+        i = i+1;
+        &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;
+
+        plot(sigma, 1-exp(-emdd));
+
+        hold &lt;span class=&quot;string&quot;&gt;on&lt;/span&gt;;
+
+        j= j+1;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_01.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_02.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_03.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_04.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_05.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_06.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_07.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_08.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_09.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_10.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_11.png&quot; alt=&quot;&quot;&gt; &lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;ExpectedMaximumDrawDown_12.png&quot; alt=&quot;&quot;&gt; &lt;pre class=&quot;codeinput&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;
+    k = k+1;
+
+&lt;span class=&quot;keyword&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;p class=&quot;footer&quot;&gt;&lt;br&gt;&lt;a href=&quot;http://www.mathworks.com/products/matlab/&quot;&gt;Published with MATLAB&amp;reg; R2014b&lt;/a&gt;&lt;br&gt;&lt;/p&gt;&lt;/div&gt;&lt;!--
+##### SOURCE BEGIN #####
+
+%%Expected Maximum Drawdown 
+% In this post we explore matlab&#39;s emaxdrawdown function.
+
+
+k = 1; 
+
+while k&lt;=4
+  
+
+    j  =1; 
+    while j&lt;=3
+    
+      %%
+      % let&#39;s see
+    
+    mu = 0.05*k; 
+    sigma = [0.05:0.01:0.40];
+    T = 10; 
+
+        i=1; 
+        while i&lt;=size(sigma,2)
+
+        emdd(i) = emaxdrawdown(mu-sigma(i)^2/2, sigma(i), T); 
+
+        i = i+1; 
+        end 
+
+        plot(sigma, 1-exp(-emdd)); 
+
+        hold on;
+        
+        j= j+1; 
+
+    end
+    k = k+1; 
+    
+end
+
+
+
+##### SOURCE END #####
+--&gt;&lt;/body&gt;&lt;/html&gt;</description>
+        <pubDate>Mon, 18 Jan 2016 21:27:18 +0800</pubDate>
+        <link>http://yourdomain.com/matlab/2016/01/18/ExpectedMaximumDrawDown.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/matlab/2016/01/18/ExpectedMaximumDrawDown.html</guid>
+        
+        
+        <category>matlab</category>
+        
+      </item>
     
       <item>
         <title>Welcome to Jekyll!</title>
@@ -26,14 +414,260 @@
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 
 </description>
-        <pubDate>Mon, 18 Jan 2016 19:55:18 +0800</pubDate>
-        <link>http://yuanhangw.github.com/jekyll/update/2016/01/18/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yuanhangw.github.com/jekyll/update/2016/01/18/welcome-to-jekyll.html</guid>
+        <pubDate>Mon, 18 Jan 2016 21:18:06 +0800</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2016/01/18/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/01/18/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
         
         <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Matmlab Post</title>
+        <description>&lt;!DOCTYPE html
+  PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+   &lt;!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --&gt;&lt;title&gt;FRED data&lt;/title&gt;&lt;meta name=&quot;generator&quot; content=&quot;MATLAB 8.4&quot;&gt;&lt;link rel=&quot;schema.DC&quot; href=&quot;http://purl.org/dc/elements/1.1/&quot;&gt;&lt;meta name=&quot;DC.date&quot; content=&quot;2016-01-17&quot;&gt;&lt;meta name=&quot;DC.source&quot; content=&quot;FREDData.m&quot;&gt;&lt;style type=&quot;text/css&quot;&gt;
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:&#39;&#39;;content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;content&quot;&gt;&lt;h1&gt;FRED data&lt;/h1&gt;&lt;!--introduction--&gt;&lt;p&gt;We will retrieve data from FRED and present it nicely.&lt;/p&gt;&lt;!--/introduction--&gt;&lt;p&gt;First, let&#39;s establish the connection. Note that you should use &#39;https://&#39; instead of &#39;http://&#39;, FRED no longer accept unsecured connections.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    c = fred(&lt;span class=&quot;string&quot;&gt;&#39;https://research.stlouisfed.org/fred2/&#39;&lt;/span&gt;) ;
+&lt;/pre&gt;&lt;p&gt;We try to retrieve CPATAX: corporate profit before tax here. Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    data = fetch(c, &lt;span class=&quot;string&quot;&gt;&#39;CPATAX&#39;&lt;/span&gt;);
+    &lt;span class=&quot;comment&quot;&gt;% alternatively data = fetch(c, &#39;GDP&#39;);&lt;/span&gt;
+&lt;/pre&gt;&lt;p&gt;Now let&#39;s display the time series properly, the data struct contains 11 field. the main data series content is in &#39;Data&#39;. We want to display the time series in semilog scales. let&#39;s take a look at the data content first:&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    disp(data);
+&lt;/pre&gt;&lt;pre class=&quot;codeoutput&quot;&gt;                 Title: &#39; Corporate Profits After Tax with Inventory Valua...&#39;
+              SeriesID: &#39; CPATAX&#39;
+                Source: &#39; US. Bureau of Economic Analysis&#39;
+               Release: &#39; Gross Domestic Product&#39;
+    SeasonalAdjustment: &#39; Seasonally Adjusted Annual Rate&#39;
+             Frequency: &#39; Quarterly&#39;
+                 Units: &#39; Billions of Dollars&#39;
+             DateRange: &#39; 1947-01-01 to 2015-07-01&#39;
+           LastUpdated: &#39; 2015-12-22 7:51 AM CST&#39;
+                 Notes: &#39; BEA Account Code: A551RC1  A Guide to the Nation...&#39;
+                  Data: [275x2 double]
+
+&lt;/pre&gt;&lt;p&gt;Now Let&#39;s get the date &amp;amp; data out of STRUCT Data:&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    content = data.Data;
+    dt = content(:,1);
+    dd = content(:,2);
+&lt;/pre&gt;&lt;p&gt;Plot the semilogy plot&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    fredplot = semilogy(dt, dd);
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_01.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set the numerical mark straight&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTick&#39;&lt;/span&gt;,[10 50 100 500 1000 5000],&lt;span class=&quot;keyword&quot;&gt;...&lt;/span&gt;
+      &lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,{&lt;span class=&quot;string&quot;&gt;&#39;10&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;50&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;100&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;500&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;1,000&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;5,000&#39;&lt;/span&gt;});
+    datetick(&lt;span class=&quot;string&quot;&gt;&#39;x&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy&#39;&lt;/span&gt;);
+
+    xlim &lt;span class=&quot;string&quot;&gt;auto&lt;/span&gt;;
+    &lt;span class=&quot;comment&quot;&gt;%for finer control, do something like this:&lt;/span&gt;
+    &lt;span class=&quot;comment&quot;&gt;%ylim([5 3000]);&lt;/span&gt;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_02.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s add title &amp;amp; labels, by pulling from the STRUCT fields&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    title(data.Title(1:40), &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    ylabel(data.Units, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    xlabel(&lt;span class=&quot;string&quot;&gt;&#39;Year&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_03.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set fontsize of Xtick Ytick label to 10.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    xlhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;);
+    ylhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;);
+
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;,xlhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,ylhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_04.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Let&#39;s set the linewidth to 1.5, and make the line half transparent&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    set(fredplot,&lt;span class=&quot;string&quot;&gt;&#39;linewidth&#39;&lt;/span&gt;,1.5);
+    fredplot.Color(4) = 0.5;  &lt;span class=&quot;comment&quot;&gt;% 50% transparent&lt;/span&gt;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_05.png&quot; alt=&quot;&quot;&gt; &lt;p&gt;Voila! In the long run, it has been a pretty straight line : ).&lt;/p&gt;&lt;p&gt;In normal scale, this time series looks much more volatile.&lt;/p&gt;&lt;pre class=&quot;codeinput&quot;&gt;    fredplotnormal = plot(dt, dd);
+    datetick(&lt;span class=&quot;string&quot;&gt;&#39;x&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy&#39;&lt;/span&gt;);
+
+
+    title(data.Title(1:40), &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    ylabel(data.Units, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+    xlabel(&lt;span class=&quot;string&quot;&gt;&#39;Year&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;FontSize&#39;&lt;/span&gt;, 10);
+
+    xlhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;);
+    ylhand = get(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;);
+
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;XTickLabel&#39;&lt;/span&gt;,xlhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+    set(gca,&lt;span class=&quot;string&quot;&gt;&#39;YTickLabel&#39;&lt;/span&gt;,ylhand,&lt;span class=&quot;string&quot;&gt;&#39;fontsize&#39;&lt;/span&gt;,8)
+
+    set(fredplotnormal,&lt;span class=&quot;string&quot;&gt;&#39;linewidth&#39;&lt;/span&gt;,1.5);
+    fredplotnormal.Color(4) = 0.5;
+&lt;/pre&gt;&lt;img vspace=&quot;5&quot; hspace=&quot;5&quot; src=&quot;FREDData_06.png&quot; alt=&quot;&quot;&gt; &lt;p class=&quot;footer&quot;&gt;&lt;br&gt;&lt;a href=&quot;http://www.mathworks.com/products/matlab/&quot;&gt;Published with MATLAB&amp;reg; R2014b&lt;/a&gt;&lt;br&gt;&lt;/p&gt;&lt;/div&gt;&lt;!--
+##### SOURCE BEGIN #####
+%% FRED data
+% We will retrieve data from FRED and present it nicely. 
+
+%% 
+% First, let&#39;s establish the connection. Note that you should use
+% &#39;https://&#39; instead of &#39;http://&#39;, FRED no longer accept unsecured connections. 
+
+  
+    c = fred(&#39;https://research.stlouisfed.org/fred2/&#39;) ; 
+  
+  
+%%
+% We try to retrieve CPATAX: corporate profit before tax here.
+% Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP
+
+    data = fetch(c, &#39;CPATAX&#39;); 
+    % alternatively data = fetch(c, &#39;GDP&#39;); 
+
+%%
+% Now let&#39;s display the time series properly, the data struct
+% contains 11 field. the main data series content is in &#39;Data&#39;. We want to
+% display the time series in semilog scales. 
+% let&#39;s take a look at the data content first:
+
+    disp(data);
+    
+%%
+% Now Let&#39;s get the date &amp; data out of STRUCT Data:
+
+
+    content = data.Data;
+    dt = content(:,1);
+    dd = content(:,2);
+
+%%    
+% Plot the semilogy plot
+
+    fredplot = semilogy(dt, dd); 
+    
+%%    
+% Let&#39;s set the numerical mark straight
+
+    set(gca,&#39;YTick&#39;,[10 50 100 500 1000 5000],...
+      &#39;YTickLabel&#39;,{&#39;10&#39;,&#39;50&#39;, &#39;100&#39;,&#39;500&#39;, &#39;1,000&#39;,&#39;5,000&#39;});
+    datetick(&#39;x&#39;,&#39;yyyy&#39;);
+    
+    xlim auto;
+    %for finer control, do something like this:
+    %ylim([5 3000]);
+%%
+% Let&#39;s add title &amp; labels, by pulling from the STRUCT fields  
+
+    title(data.Title(1:40), &#39;FontSize&#39;, 10);
+    ylabel(data.Units, &#39;FontSize&#39;, 10);
+    xlabel(&#39;Year&#39;, &#39;FontSize&#39;, 10);
+
+%%
+% Let&#39;s set fontsize of Xtick Ytick label to 10. 
+
+    xlhand = get(gca,&#39;XTickLabel&#39;);
+    ylhand = get(gca,&#39;YTickLabel&#39;);
+
+    set(gca,&#39;XTickLabel&#39;,xlhand,&#39;fontsize&#39;,8)
+    set(gca,&#39;YTickLabel&#39;,ylhand,&#39;fontsize&#39;,8)
+%%  
+% Let&#39;s set the linewidth to 1.5, and make the line half transparent
+
+    set(fredplot,&#39;linewidth&#39;,1.5);
+    fredplot.Color(4) = 0.5;  % 50% transparent
+
+
+%% 
+% Voila! 
+% In the long run, it has been a pretty straight line : ). 
+
+%%
+% In normal scale, this time series looks much more volatile. 
+
+    fredplotnormal = plot(dt, dd); 
+    datetick(&#39;x&#39;,&#39;yyyy&#39;);
+
+
+    title(data.Title(1:40), &#39;FontSize&#39;, 10);
+    ylabel(data.Units, &#39;FontSize&#39;, 10);
+    xlabel(&#39;Year&#39;, &#39;FontSize&#39;, 10);
+
+    xlhand = get(gca,&#39;XTickLabel&#39;);
+    ylhand = get(gca,&#39;YTickLabel&#39;);
+
+    set(gca,&#39;XTickLabel&#39;,xlhand,&#39;fontsize&#39;,8)
+    set(gca,&#39;YTickLabel&#39;,ylhand,&#39;fontsize&#39;,8)
+
+    set(fredplotnormal,&#39;linewidth&#39;,1.5);
+    fredplotnormal.Color(4) = 0.5; 
+    
+    
+
+##### SOURCE END #####
+--&gt;&lt;/body&gt;&lt;/html&gt;</description>
+        <pubDate>Mon, 18 Jan 2016 21:18:06 +0800</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2016/01/18/Matlab-Post.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/01/18/Matlab-Post.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>A Draft Post</title>
+        <description>&lt;p&gt;test test 1 2 3&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 18 Jan 2016 13:59:25 +0800</pubDate>
+        <link>http://yourdomain.com/2016/01/18/a-draft-post.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2016/01/18/a-draft-post.html</guid>
+        
         
       </item>
     
