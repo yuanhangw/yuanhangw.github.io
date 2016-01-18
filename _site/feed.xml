@@ -6,8 +6,8 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 18 Jan 2016 15:59:46 +0800</pubDate>
-    <lastBuildDate>Mon, 18 Jan 2016 15:59:46 +0800</lastBuildDate>
+    <pubDate>Mon, 18 Jan 2016 16:50:11 +0800</pubDate>
+    <lastBuildDate>Mon, 18 Jan 2016 16:50:11 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -656,18 +656,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
         <category>jekyll</category>
         
         <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>A Draft Post</title>
-        <description>&lt;p&gt;test test 1 2 3&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 18 Jan 2016 13:59:25 +0800</pubDate>
-        <link>http://yourdomain.com/2016/01/18/a-draft-post.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2016/01/18/a-draft-post.html</guid>
-        
         
       </item>
     
