@@ -1,11 +1,11 @@
 # Site settings
 title: Matlab Journal  
-email: yuanhangw.sg@gmail.com
+email: @large
 description: A Jekyll Journal to write down some useful things. 
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
-twitter_username: YHWang
-github_username:  yuanhangw
+twitter_username: @large
+github_username:  @large
 
 # Build settings
 markdown: kramdown
