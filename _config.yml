@@ -1,7 +1,7 @@
 # Site settings
-title: Jekyll Journal  
-email: .
-description: A Jekyll Journal to write down some simple things. 
+title: Iterations
+email: s@l.co
+description: 
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
 twitter_username: .
