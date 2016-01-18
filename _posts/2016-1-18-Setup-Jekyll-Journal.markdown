@@ -6,9 +6,13 @@ categories: general
 ---
 
 
-It take me six hours to re-learn and setup git/github, and another six hours to figure out the basic of github pages & [Jekyll][jekyll]. 
 
-As a result of this mini-struggle, now my [MATLAB][matpub] published htmls are automatically published to Jekyll Journal hosted on github, as simple as drag and drop. 
+HTMLs published by [MATLAB][matpub] can now be pushed to Jekyll site hosted on github, and automagically become a nice public journal. 
+
+Matlab data + matlab script -> matlab publishing -> html -> github pages -> [Jekyll][jekyll] -> website. 
+
+                            ||                            automated                         ||                 
+                            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
 
 [jekyll]:      http://jekyllrb.com
