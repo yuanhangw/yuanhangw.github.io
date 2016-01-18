@@ -1,0 +1,11 @@
+# Site settings
+title: Jekyll Journal  
+email: .
+description: A Jekyll Journal to write down some simple things. 
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
+twitter_username: .
+github_username:  .
+
+# Build settings
+markdown: kramdown
