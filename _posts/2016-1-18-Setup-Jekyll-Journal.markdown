@@ -11,9 +11,6 @@ HTMLs published by [MATLAB][matpub] can now be pushed to Jekyll site hosted on g
 
 Matlab data + matlab script -> matlab publishing -> html -> github pages -> [Jekyll][jekyll] -> website. 
 
-                            ||                            automated                         ||                 
-                            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-
 
 [jekyll]:      http://jekyllrb.com
 [matpub]:		http://www.mathworks.com/help/matlab/matlab_prog/publishing-matlab-code.html
