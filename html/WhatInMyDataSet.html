@@ -1,0 +1,854 @@
+---
+layout: page
+title: What's in my dataset
+tag: post
+date: 2016-01-19 20:45:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>What's in my data set</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="WhatInMyDataSet.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>What's in my data set</h1><!--introduction--><p>The full data set takes a few Gigabytes and consists of 14000 from 30+ countries. Here we explore a reduced data set consists of the largest 2500 companies, in terms of market capitalization, this is similar to MSCI world.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The data set</a></li><li><a href="#6">Data consistency check</a></li><li><a href="#10">Play around with the data set.</a></li><li><a href="#17">Data for Airline sector</a></li><li><a href="#20">Price data for all sectors</a></li></ul></div><h2>The data set<a name="1"></a></h2><p>The data set consists of 2500x3 cell.</p><pre class="codeinput">load(<span class="string">'data_historical_data.mat'</span>);
+load(<span class="string">'data_equity_list.mat'</span>)
+load(<span class="string">'data_field_list.mat'</span>)
+</pre><p>Let's trim the equity list to suit our dataset.</p><pre class="codeinput">equity_list  = equity_list(1:2500,:);
+</pre><p>Cell 1 contains historical fundamental data in monthly frequency.</p><pre class="codeinput">fundamentals = history{1,1};
+
+i = 1;
+<span class="keyword">while</span> i&lt;=6
+  subplot(3,2,i)
+  plot(fundamentals(:,1),fundamentals(:,i+1));
+  datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+  title(field_list1(i,2),<span class="string">'fontsize'</span>,10);
+  i = i+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_01.png" alt=""> <p>Cell2 contains historical daily price data.</p><pre class="codeinput">dailyprice = history{1,2};
+
+figure
+plot(dailyprice(:,1),dailyprice(:,2));
+datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+title(equity_list(1,4),<span class="string">'fontsize'</span>,10);
+ylabel(<span class="string">'Daily Price'</span>, <span class="string">'fontsize'</span>,10);
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_02.png" alt=""> <p>Cell3 contains snapshot data of the company in question.</p><pre class="codeinput">snapshot = history{1,3}
+</pre><pre class="codeoutput">
+snapshot = 
+
+                     BEST_SALES: 6.7213e+04
+                BEST_EPS_NUMEST: 0
+                    EQY_BETA_6M: 1.0230
+                       EQY_BETA: 1.0798
+                 VOLATILITY_90D: 22.9590
+        SI_PERCENT_EQUITY_FLOAT: 0.9854
+                  EQY_INST_HOLD: 3116
+    PCT_FLT_SHARES_INSTITUTIONS: 51.9737
+       PCT_CHG_INSIDER_HOLDINGS: -0.0355
+                   EFF_TAX_RATE: 34.8925
+             EQY_FREE_FLOAT_PCT: 99.7728
+                INDUSTRY_SECTOR: {'Energy'}
+                 INDUSTRY_GROUP: {'Oil&amp;Gas'}
+              INDUSTRY_SUBGROUP: {'Oil Comp-Integrated'}
+              CNTRY_OF_DOMICILE: {'US'}
+                           NAME: {'EXXON MOBIL CORP'}
+                  MARKET_STATUS: {'ACTV'}
+                   SECURITY_TYP: {'Common Stock'}
+                  BEST_PE_RATIO: {[]}
+                   EEPS_CURR_YR: {[]}
+                   EEPS_CUR_QTR: {[]}
+                    EEPS_NXT_YR: {[]}
+
+</pre><h2>Data consistency check<a name="6"></a></h2><p>First let's see if there is any empty cell.</p><pre class="codeinput">sum(cellfun(@isempty,history))
+
+equity_list(cellfun(@isempty,history(:,1)),:)
+</pre><pre class="codeoutput">
+ans =
+
+     1     1     1
+
+
+ans = 
+
+  Columns 1 through 5
+
+    'ABS US Equity'    'US'    'US'    'ALBERTSON'S LLC'    'Common Stock'
+
+  Columns 6 through 11
+
+    'ACQU'    'Consumer, Non-cy...'    'Food'    'Food-Retail'    []    []
+
+  Column 12
+
+    []
+
+</pre><p>hmm... seems we don't have any data for this food retail. let's take note of this and move on.</p><p>The data is downloaded according to the equity list and field list. let's see if its name checks out with the equity list.</p><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;length(history)
+
+<span class="keyword">if</span> not(isempty(history{i,3}))
+  <span class="keyword">if</span> not(strcmp(history{i,3}.NAME,equity_list(i,4)))
+    disp(history{i,3}.NAME);
+    disp(equity_list(i,4));
+    disp(<span class="string">'==============='</span>);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+  i=i+1;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">    'GAZPROM PAO -SPON ADR'
+
+    'GAZPROM OAO-SPON ADR'
+
+===============
+    'RELX NV'
+
+    'REED ELSEVIER NV'
+
+===============
+    'UBS GROUP AG-REG'
+
+    'UBS GROUP AG'
+
+===============
+    'RELX PLC'
+
+    'REED ELSEVIER PLC'
+
+===============
+    'HOLCIM LTD'
+
+    'HOLCIM LTD-REG'
+
+===============
+    'ANHEUSER-BUSCH INBEV SA/NV'
+
+    'ANHEUSER-BUSCH INBEV NV'
+
+===============
+    'CK HUTCHISON HOLDINGS LTD'
+
+    'CHEUNG KONG HOLDINGS LTD'
+
+===============
+    'SOFTBANK GROUP CORP-UNSP ADR'
+
+    'SOFTBANK CORP-UNSPON ADR'
+
+===============
+    'SOFTBANK GROUP CORP'
+
+    'SOFTBANK CORP'
+
+===============
+    'INDUSTRIA DE DISENO TEXTIL'
+
+    'INDITEX'
+
+===============
+    'KINTETSU GROUP HOLDINGS CO L'
+
+    'KINTETSU CORP'
+
+===============
+    'LUKOIL PJSC-SPON ADR'
+
+    'LUKOIL OAO-SPON ADR'
+
+===============
+    'NIPPON YUSEN KK'
+
+    'NIPPON YUSEN'
+
+===============
+    'MMC NORILSK NICKEL PJSC-ADR'
+
+    'MMC NORILSK NICKEL JSC-ADR'
+
+===============
+    'BIOGEN INC'
+
+    'BIOGEN IDEC INC'
+
+===============
+    'AIRBUS GROUP SE'
+
+    'AIRBUS GROUP NV'
+
+===============
+    'AIRBUS GROUP SE - UNSP ADR'
+
+    'AIRBUS GROUP NV - UNSP ADR'
+
+===============
+    'WEC ENERGY GROUP INC'
+
+    'WISCONSIN ENERGY CORP'
+
+===============
+    'VTB BANK JSC -GDR-REG S'
+
+    'VTB BANK OJSC-GDR-REG S'
+
+===============
+    'AMADA HOLDINGS CO LTD'
+
+    'AMADA CO LTD'
+
+===============
+    'ALLERGAN PLC'
+
+    'ALLERGAN INC'
+
+===============
+    'LAFARGEHOLCIM LTD-UNSP ADR'
+
+    'HOLCIM LTD-UNSPON ADR'
+
+===============
+    'KB INSURANCE CO LTD'
+
+    'LIG INSURANCE CO LTD'
+
+===============
+    'IMMIGON PORTFOLIOABBAU AG'
+
+    'OESTERREICH VOLKSBANKEN-PART'
+
+===============
+    'DMG MORI CO LTD'
+
+    'DMG MORI SEIKI CO LTD'
+
+===============
+    'SK HOLDINGS CO LTD/OLD'
+
+    'SK HOLDINGS CO LTD'
+
+===============
+    'FUTABA CORP'
+
+    'FUTABA CORP/CHIBA'
+
+===============
+</pre><p>A few name in equity list is not exactly the same, but all of them referring to the same company.</p><h2>Play around with the data set.<a name="10"></a></h2><p>Let's take a look at U.S. airline sector.</p><pre class="codeinput">countrylisting = unique(equity_list(not(cellfun(@isempty,equity_list(:,2))),2));
+countrydomicile = unique(equity_list(not(cellfun(@isempty,equity_list(:,3))),3));
+securitytype = unique(equity_list(not(cellfun(@isempty,equity_list(:,5))),5));
+listingstatus = unique(equity_list(not(cellfun(@isempty,equity_list(:,6))),6));
+sectorlist1 = unique(equity_list(not(cellfun(@isempty,equity_list(:,7))),7));
+sectorlist2 = unique(equity_list(not(cellfun(@isempty,equity_list(:,8))),8));
+sectorlist3 = unique(equity_list(not(cellfun(@isempty,equity_list(:,9))),9));
+</pre><p>Let's first construct a selector</p><pre class="codeinput">sector = <span class="string">'Airlines'</span>;
+country = <span class="string">'US'</span>;
+status = <span class="string">'ACTV'</span>;
+type = <span class="string">'Common Stock'</span>;
+
+
+index1 = strcmp(equity_list(:,3),country);
+index2 = strcmp(equity_list(:,8),sector);
+
+selector = index1&amp;index2;
+
+equity_list(selector,:)
+</pre><pre class="codeoutput">
+ans = 
+
+  Columns 1 through 4
+
+    'LUV US Equity'      'US'    'US'    'SOUTHWEST AIRLIN...'
+    'UALAQ US Equity'    'US'    'US'    'UAL CORP-OLD'       
+    'NWACQ US Equity'    'US'    'US'    'NORTHWEST AIRLIN...'
+    'UAWGQ US Equity'    'US'    'US'    'US AIRWAYS GROUP...'
+    'DAL US Equity'      'US'    'US'    'DELTA AIR LINES INC'
+
+  Columns 5 through 8
+
+    'Common Stock'    'ACTV'    'Consumer, Cyclical'    'Airlines'
+    'Common Stock'    'DLST'    'Consumer, Cyclical'    'Airlines'
+    'Common Stock'    'DLST'    'Consumer, Cyclical'    'Airlines'
+    'Common Stock'    'DLST'    'Consumer, Cyclical'    'Airlines'
+    'Common Stock'    'ACTV'    'Consumer, Cyclical'    'Airlines'
+
+  Columns 9 through 12
+
+    'Airlines'    []    []    'sep15'
+    'Airlines'    []    []         []
+    'Airlines'    []    []         []
+    'Airlines'    []    []         []
+    'Airlines'    []    []    'sep15'
+
+</pre><p>The list is not very long, let's take a look at their share performance</p><pre class="codeinput">selectedhistory = history(selector,:)
+</pre><pre class="codeoutput">
+selectedhistory = 
+
+    [365x36 double]    [11104x2 double]    [1x1 struct]
+    [247x36 double]    [10951x2 double]    [1x1 struct]
+    [162x36 double]    [10951x2 double]    [1x1 struct]
+    [220x36 double]    [10951x2 double]    [1x1 struct]
+    [100x36 double]    [11104x2 double]    [1x1 struct]
+
+</pre><p>since all data is in cell, we need to look into each cell to retrieve what we need.</p><pre class="codeinput">figure
+i = 1;
+<span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+  dt = selectedhistory{i,1}(:,1);
+  da = selectedhistory{i,1}(:,2);
+
+  plot(dt,da);
+  datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+  hold <span class="string">on</span>
+
+i = i+1;
+<span class="keyword">end</span>
+
+legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northeast'</span>)
+title(sector);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_03.png" alt=""> <p>many failures in this sector in early 2000s.</p><p>I normally prefer log scale, let's take a look,</p><pre class="codeinput">figure
+i = 1;
+<span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+  dt = selectedhistory{i,1}(:,1);
+  da = selectedhistory{i,1}(:,2);
+
+  semilogy(dt,da);
+  datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+  hold <span class="string">on</span>
+
+i = i+1;
+<span class="keyword">end</span>
+
+legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northeast'</span>)
+title(sector);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_04.png" alt=""> <p>the downfall looks more dramatic in log chart, you can imagine the headline. 'northwest airline drop 20% after market open... etc.'</p><h2>Data for Airline sector<a name="17"></a></h2><p>we can also take a look at the daily price data.</p><pre class="codeinput">figure
+i = 1;
+<span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+  dt = selectedhistory{i,2}(:,1);
+  da = selectedhistory{i,2}(:,2);
+
+  plot(dt,da);
+  datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+  hold <span class="string">on</span>
+
+i = i+1;
+<span class="keyword">end</span>
+
+legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northeast'</span>)
+title(sector);
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_05.png" alt=""> <p>and all the fundamental data available in the dataset for U.S. airline sector</p><pre class="codeinput">k=1;
+<span class="keyword">while</span> k&lt;= size(field_list1,1)
+
+
+    i = 1;
+    <span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+      dt = selectedhistory{i,1}(:,1);
+      da = selectedhistory{i,1}(:,1+k);
+
+      plot(dt,da);
+      datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+      hold <span class="string">on</span>
+
+    i = i+1;
+    <span class="keyword">end</span>
+
+    legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northeast'</span>)
+    title(strcat({sector},{<span class="string">' '</span>},field_list1(k,2)));
+    hold <span class="string">off</span>
+    snapnow;
+
+  k = k+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_06.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_07.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_08.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_09.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_10.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_11.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_12.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_13.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_14.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_15.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_16.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_17.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_18.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_19.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_20.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_21.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_22.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_23.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_24.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_25.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_26.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_27.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_28.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_29.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_30.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_31.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_32.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_33.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_34.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_35.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_36.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_37.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_38.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_39.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_40.png" alt=""> <p>all looks quite messy upto this point. what we are going to do it try to make sense of all these data.</p><h2>Price data for all sectors<a name="20"></a></h2><p>besides look at one single sector, we can also look across different sectors, for example we can plot share performance, sector by sector.</p><pre class="codeinput">n=1;
+
+<span class="keyword">while</span> n&lt;=size(sectorlist2,1)
+
+  sector = sectorlist2(n);
+  country = <span class="string">'US'</span>;
+  status = <span class="string">'ACTV'</span>;
+  type = <span class="string">'Common Stock'</span>;
+
+
+  index1 = strcmp(equity_list(:,3),country);
+  index2 = strcmp(equity_list(:,8),sector);
+
+  selector = index1&amp;index2;
+
+  equity_list(selector,:);
+
+  selectedhistory = history(selector,:);
+
+
+
+
+  i = 1;
+  <span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+    <span class="keyword">if</span> not(isempty(selectedhistory{i,1}))
+
+      dt = selectedhistory{i,1}(:,1);
+      da = selectedhistory{i,1}(:,2);
+
+      plot(dt,da);
+      datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+      hold <span class="string">on</span>
+
+    <span class="keyword">end</span>
+  i = i+1;
+  <span class="keyword">end</span>
+
+  legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northwest'</span>);
+  title(sector);
+  hold <span class="string">off</span>
+  snapnow;
+
+  n = n+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_41.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_42.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_43.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_44.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_45.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_46.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_47.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_48.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_49.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_50.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_51.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_52.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_53.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_54.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_55.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_56.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_57.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_58.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_59.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_60.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_61.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_62.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_63.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_64.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_65.png" alt=""> <pre class="codeoutput">Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_66.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_67.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_68.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_69.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_70.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_71.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_72.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_73.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_74.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_75.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_76.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_77.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_78.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_79.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_80.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_81.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_82.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_83.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_84.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_85.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_86.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_87.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_88.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_89.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_90.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_91.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_92.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_93.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_94.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_95.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_96.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_97.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_98.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_99.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_100.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_101.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_102.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_103.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_104.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_105.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_106.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_107.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_108.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_109.png" alt=""> <p>or in log scale</p><pre class="codeinput">n=1;
+
+<span class="keyword">while</span> n&lt;=size(sectorlist2,1)
+
+  sector = sectorlist2(n);
+  country = <span class="string">'US'</span>;
+  status = <span class="string">'ACTV'</span>;
+  type = <span class="string">'Common Stock'</span>;
+
+
+  index1 = strcmp(equity_list(:,3),country);
+  index2 = strcmp(equity_list(:,8),sector);
+
+  selector = index1&amp;index2;
+
+  equity_list(selector,:);
+
+  selectedhistory = history(selector,:);
+
+
+
+
+  i = 1;
+  <span class="keyword">while</span> i &lt;= size(selectedhistory,1)
+
+    <span class="keyword">if</span> not(isempty(selectedhistory{i,1}))
+
+      dt = selectedhistory{i,1}(:,1);
+      da = selectedhistory{i,1}(:,2);
+
+      semilogy(dt,da);
+      datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+      hold <span class="string">on</span>
+
+    <span class="keyword">end</span>
+  i = i+1;
+  <span class="keyword">end</span>
+
+  legend(equity_list(selector,4),<span class="string">'location'</span>,<span class="string">'Northwest'</span>);
+  title(sector);
+  hold <span class="string">off</span>
+  snapnow;
+
+  n = n+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_110.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_111.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_112.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_113.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_114.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_115.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_116.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_117.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_118.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_119.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_120.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_121.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_122.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_123.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_124.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_125.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_126.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_127.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_128.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_129.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_130.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_131.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_132.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_133.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_134.png" alt=""> <pre class="codeoutput">Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="WhatInMyDataSet_135.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_136.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_137.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_138.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_139.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_140.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_141.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_142.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_143.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_144.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_145.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_146.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_147.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_148.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_149.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_150.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_151.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_152.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_153.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_154.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_155.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_156.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_157.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_158.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_159.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_160.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_161.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_162.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_163.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_164.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_165.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_166.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_167.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_168.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_169.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_170.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_171.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_172.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_173.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_174.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_175.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_176.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_177.png" alt=""> <img vspace="5" hspace="5" src="WhatInMyDataSet_178.png" alt=""> <p>what can we learn from the past? 1) sector in important 2) timing the market is hard, but when it's recession everybody knows it. 3) 1 &amp; 2 probably contributes 80% of the portfolio return.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% What's in my data set
+% The full data set takes a few Gigabytes and consists of 14000 from 30+
+% countries. Here we explore a reduced data set consists of the largest
+% 2500 companies, in terms of market capitalization, this is similar to MSCI world. 
+
+
+%% The data set 
+% The data set consists of 2500x3 cell. 
+
+load('data_historical_data.mat'); 
+load('data_equity_list.mat')
+load('data_field_list.mat')
+
+%%
+% Let's trim the equity list to suit our dataset. 
+equity_list  = equity_list(1:2500,:);
+
+%%
+% Cell 1 contains historical
+% fundamental data in monthly frequency. 
+
+fundamentals = history{1,1};
+
+i = 1;
+while i<=6
+  subplot(3,2,i)
+  plot(fundamentals(:,1),fundamentals(:,i+1)); 
+  datetick('x','yyyy');
+  title(field_list1(i,2),'fontsize',10);
+  i = i+1; 
+end 
+%%
+% Cell2 contains historical daily price data. 
+
+dailyprice = history{1,2};
+
+figure
+plot(dailyprice(:,1),dailyprice(:,2)); 
+datetick('x','yyyy'); 
+title(equity_list(1,4),'fontsize',10); 
+ylabel('Daily Price', 'fontsize',10); 
+
+%%
+% Cell3 contains snapshot data of the company in question. 
+
+snapshot = history{1,3}
+
+
+%% Data consistency check 
+% First let's see if there is any empty cell. 
+
+sum(cellfun(@isempty,history))
+
+equity_list(cellfun(@isempty,history(:,1)),:)
+
+%%
+% hmm... seems we don't have any data for this food retail. let's take note of this and move on. 
+
+
+%%
+% The data is downloaded according to the equity list and field list. 
+% let's see if its name checks out with the equity list. 
+
+
+i = 1; 
+while i<length(history)
+  
+if not(isempty(history{i,3}))
+  if not(strcmp(history{i,3}.NAME,equity_list(i,4)))
+    disp(history{i,3}.NAME); 
+    disp(equity_list(i,4)); 
+    disp('===============');
+  end 
+end
+  i=i+1; 
+end 
+
+%%
+% A few name in equity list is not exactly the same, but all of them 
+% referring to the same company. 
+
+%% Play around with the data set.
+% Let's take a look at U.S. airline sector. 
+
+countrylisting = unique(equity_list(not(cellfun(@isempty,equity_list(:,2))),2));
+countrydomicile = unique(equity_list(not(cellfun(@isempty,equity_list(:,3))),3));
+securitytype = unique(equity_list(not(cellfun(@isempty,equity_list(:,5))),5));
+listingstatus = unique(equity_list(not(cellfun(@isempty,equity_list(:,6))),6));
+sectorlist1 = unique(equity_list(not(cellfun(@isempty,equity_list(:,7))),7));
+sectorlist2 = unique(equity_list(not(cellfun(@isempty,equity_list(:,8))),8));
+sectorlist3 = unique(equity_list(not(cellfun(@isempty,equity_list(:,9))),9));
+
+
+%%
+% Let's first construct a selector
+
+sector = 'Airlines';
+country = 'US';
+status = 'ACTV';
+type = 'Common Stock';
+
+
+index1 = strcmp(equity_list(:,3),country); 
+index2 = strcmp(equity_list(:,8),sector); 
+
+selector = index1&index2; 
+
+equity_list(selector,:)
+
+%%
+% The list is not very long, let's take a look at their share performance
+
+selectedhistory = history(selector,:)
+
+
+%%
+% since all data is in cell, we need to look into each cell to retrieve
+% what we need. 
+
+figure
+i = 1;
+while i <= size(selectedhistory,1)
+  
+  dt = selectedhistory{i,1}(:,1); 
+  da = selectedhistory{i,1}(:,2); 
+  
+  plot(dt,da); 
+  datetick('x','yyyy'); 
+  hold on
+
+i = i+1; 
+end
+
+legend(equity_list(selector,4),'location','Northeast')
+title(sector); 
+hold off
+
+%%
+% many failures in this sector in early 2000s. 
+
+%%
+% I normally prefer log scale, let's take a look, 
+figure
+i = 1;
+while i <= size(selectedhistory,1)
+  
+  dt = selectedhistory{i,1}(:,1); 
+  da = selectedhistory{i,1}(:,2); 
+  
+  semilogy(dt,da); 
+  datetick('x','yyyy'); 
+  hold on
+
+i = i+1; 
+end
+
+legend(equity_list(selector,4),'location','Northeast')
+title(sector); 
+hold off
+
+%%
+% the downfall looks more dramatic in log chart, you can imagine the
+% headline. 'northwest airline drop 20% after market open... etc.' 
+
+
+%% Data for Airline sector
+% we can also take a look at the daily price data. 
+
+
+
+figure
+i = 1;
+while i <= size(selectedhistory,1)
+  
+  dt = selectedhistory{i,2}(:,1); 
+  da = selectedhistory{i,2}(:,2); 
+  
+  plot(dt,da); 
+  datetick('x','yyyy'); 
+  hold on
+
+i = i+1; 
+end
+
+legend(equity_list(selector,4),'location','Northeast')
+title(sector); 
+hold off
+
+
+%% 
+% and all the fundamental data available in the dataset for U.S. airline
+% sector
+
+k=1;
+while k<= size(field_list1,1)
+
+    
+    i = 1;
+    while i <= size(selectedhistory,1)
+
+      dt = selectedhistory{i,1}(:,1); 
+      da = selectedhistory{i,1}(:,1+k); 
+
+      plot(dt,da); 
+      datetick('x','yyyy'); 
+      hold on
+
+    i = i+1; 
+    end
+
+    legend(equity_list(selector,4),'location','Northeast')
+    title(strcat({sector},{' '},field_list1(k,2))); 
+    hold off
+    snapnow;
+
+  k = k+1; 
+end
+
+%%
+% all looks quite messy upto this point. what we are going to do it try to
+% make sense of all these data. 
+
+%% Price data for all sectors 
+% besides look at one single sector, we can also look across different
+% sectors, for example we can plot share performance, sector by sector. 
+
+n=1;
+
+while n<=size(sectorlist2,1)
+
+  sector = sectorlist2(n);
+  country = 'US';
+  status = 'ACTV';
+  type = 'Common Stock';
+
+
+  index1 = strcmp(equity_list(:,3),country); 
+  index2 = strcmp(equity_list(:,8),sector); 
+
+  selector = index1&index2; 
+
+  equity_list(selector,:);
+
+  selectedhistory = history(selector,:);
+
+
+
+  
+  i = 1;
+  while i <= size(selectedhistory,1)
+
+    if not(isempty(selectedhistory{i,1}))
+      
+      dt = selectedhistory{i,1}(:,1); 
+      da = selectedhistory{i,1}(:,2); 
+
+      plot(dt,da); 
+      datetick('x','yyyy'); 
+      hold on
+    
+    end
+  i = i+1; 
+  end
+
+  legend(equity_list(selector,4),'location','Northwest');
+  title(sector); 
+  hold off
+  snapnow;
+  
+  n = n+1;
+end
+
+
+%%
+% or in log scale 
+
+
+n=1;
+
+while n<=size(sectorlist2,1)
+
+  sector = sectorlist2(n);
+  country = 'US';
+  status = 'ACTV';
+  type = 'Common Stock';
+
+
+  index1 = strcmp(equity_list(:,3),country); 
+  index2 = strcmp(equity_list(:,8),sector); 
+
+  selector = index1&index2; 
+
+  equity_list(selector,:);
+
+  selectedhistory = history(selector,:);
+
+
+
+  
+  i = 1;
+  while i <= size(selectedhistory,1)
+
+    if not(isempty(selectedhistory{i,1}))
+      
+      dt = selectedhistory{i,1}(:,1); 
+      da = selectedhistory{i,1}(:,2); 
+
+      semilogy(dt,da); 
+      datetick('x','yyyy'); 
+      hold on
+    
+    end
+  i = i+1; 
+  end
+
+  legend(equity_list(selector,4),'location','Northwest');
+  title(sector); 
+  hold off
+  snapnow;
+  
+  n = n+1;
+end
+
+
+%%
+% what can we learn from the past? 
+% 1) sector in important 
+% 2) timing the market is hard, but when it's recession everybody knows it. 
+% 3) 1 & 2 probably contributes 80% of the portfolio return. 
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
