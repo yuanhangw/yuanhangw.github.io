@@ -1,10 +1,11 @@
 ---
 layout: page
-title: What's in my Equity List
+title: Equity List and Field List 
 tag: post
-date: 2016-01-19 15:45:18
+date: 2016-01-19 16:12:18
 categories: matlab
 ---
+
 
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -13,7 +14,7 @@ categories: matlab
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>What's in my Equity List</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="WhatInMyEquityList.m"><style type="text/css">
+      --><title>What's in my Equity List and Field List</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="WhatInMyEquityList.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,7 +74,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>What's in my Equity List</h1><p>my equity list is downloaded from bloomberg EQS function. It is large, let's take a first look at it.</p><pre class="codeinput">load(<span class="string">'equity_list.mat'</span>);
+  </style></head><body><div class="content"><h1>What's in my Equity List and Field List</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Equity List</a></li><li><a href="#15">Field List</a></li></ul></div><h2>Equity List<a name="1"></a></h2><p>my equity list is downloaded from bloomberg EQS function. It is large, let's take a first look at it.</p><pre class="codeinput">load(<span class="string">'data_equity_list.mat'</span>);
 </pre><p>the first 4 rows of the table looks like this:</p><pre class="codeinput">equity_list(1:4,:)
 </pre><pre class="codeoutput">
 ans = 
@@ -816,13 +817,86 @@ ans =
     'Wound/Burn &amp; Skin Care'
     'X-Ray Equipment'
 
-</pre><p>This last list is rather looooong. From here we can generate a few tables to investigate the concentration of industry in different countries. But since I want to keep everything minimal and simple, I will stop it here for the time being.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><p>This last list is rather looooong. From here we can generate a few tables to investigate the concentration of industry in different countries. But since I want to keep everything minimal and simple, I will stop it here for the time being.</p><h2>Field List<a name="15"></a></h2><p>the field list is simpler than the equity list field_list1 includes 35 bloomberg company fundamentals for historical field_list2 includes 22 current snap shot, which I never use.</p><pre class="codeinput">load(<span class="string">'data_field_list.mat'</span>)
+</pre><p>let's take a look</p><pre class="codeinput">field_list1(:,1:2)
+
+field_list2(:,1:2)
+</pre><pre class="codeoutput">
+ans = 
+
+    'OVERVIEW'                           'PRICE'            
+    'OVERVIEW'                           'MARKET CAP'       
+    'OVERVIEW'                           'EV'               
+    'OVERVIEW'                           'SHARE OUTSTANDING'
+    'OVERVIEW'                           'NO. EMPLOYEE'     
+    'INCOME STATEMENT'                   'REVENUE'          
+    'INCOME STATEMENT'                   'EPS_TRAILING_12M' 
+    'INCOME STATEMENT'                   'COMP_TO_EXEC'     
+    'INCOME STATEMENT'                   'COMP_TO_CEO'      
+    'INCOME STATEMENT'                   'EBIT'             
+    'INCOME STATEMENT'                   'EBITDA'           
+    'INCOME STATEMENT'                   'NETINCOME'        
+    'INCOME STATEMENT'                   'CAPEX'            
+    'INCOME STATEMENT'                   'CASH FROM OPS'    
+    'INCOME STATEMENT'                   'FREE CASH FLOW'   
+    'INCOME STATEMENT'                   'DIVIDENT YIELD'   
+    'EFFICIENCY/PROFITABLITY'            'EBIT MARGIN'      
+    'EFFICIENCY/PROFITABLITY'            'PROFIT MARGIN'    
+    'EFFICIENCY/PROFITABLITY'            'GROSS MARGIN'     
+    'EFFICIENCY/PROFITABLITY'            'ROA'              
+    'EFFICIENCY/PROFITABLITY'            'ROE'              
+    'EFFICIENCY/PROFITABLITY'            'ASSET TURNOVER'   
+    'BALANCE SHEET'                      'TOTAL DEBT'       
+    'BALANCE SHEET'                      'TOTAL EQUITY'     
+    'BALANCE SHEET'                      'TOTAL COMM EQUITY'
+    'BALANCE SHEET'                      'TOTAL ASSET'      
+    'BALANCE SHEET'                      'TANGIBLE ASSET'   
+    'BALANCE SHEET'                      'ACCURAL'          
+    'BALANCE SHEET'                      'CASH &amp; NEAR CASH' 
+    'BALANCE SHEET'                      'D/E RATIO'        
+    'BALANCE SHEET'                      'ALTMAN-Z'         
+    'VALUATION'                          'PE'               
+    'VALUATION'                          'PB TANGIBLE'      
+    'VALUATION'                          'PB'               
+    'MARKET RISK AND CHARACTERISTICS'    'BETA HISTORY'     
+
+
+ans = 
+
+    'INCOME STATEMENT'                   'BEST REV'      
+    'INCOME STATEMENT'                   'BEST EPS Q'    
+    'INCOME STATEMENT'                   'BEST EPS Y'    
+    'INCOME STATEMENT'                   'BEST EPS NXT Y'
+    'INCOME STATEMENT'                   'BEST EPS #'    
+    'VALUATION'                          'BEST PE'       
+    'MARKET RISK AND CHARACTERISTICS'    'BETA 6M'       
+    'MARKET RISK AND CHARACTERISTICS'    'BETA'          
+    'MARKET RISK AND CHARACTERISTICS'    'VOL 90D'       
+    'MARKET RISK AND CHARACTERISTICS'    'SHORT INT'     
+    'MARKET RISK AND CHARACTERISTICS'    'INST HOLDER'   
+    'MARKET RISK AND CHARACTERISTICS'    '% INST'        
+    'MARKET RISK AND CHARACTERISTICS'    '% INSIDER'     
+    'MICS'                               'TAX RATE'      
+    'MICS'                               '% FLOAT'       
+                                   []                  []
+                                   []                  []
+                                   []                  []
+                                   []                  []
+                                   []                  []
+                                   []                  []
+                                   []                  []
+
+</pre><p>with Equity List and Field List, I'm able to tell matlab what data to download from bloomberg. With fundamental data and historical price data, we reconstruct historical factor portfolio and test its performance. That's the simple idea.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% What's in my Equity List
+%% What's in my Equity List and Field List 
+%
+
+
+%% Equity List
 % my equity list is downloaded from bloomberg EQS function. It is large,
 % let's take a first look at it. 
 
-load('equity_list.mat'); 
+load('data_equity_list.mat'); 
 
 %% 
 % the first 4 rows of the table looks like this:
@@ -906,10 +980,28 @@ unique(SectorCategorizationIII)
 
 
 
+%% Field List
+% the field list is simpler than the equity list
+% field_list1 includes 35 bloomberg company fundamentals for historical
+% field_list2 includes 22 current snap shot, which I never use. 
 
 
+load('data_field_list.mat')
 
 
+%%
+% let's take a look 
+
+field_list1(:,1:2)
+
+field_list2(:,1:2)
+
+
+%%
+% with Equity List and Field List, I'm able to tell matlab what data to
+% download from bloomberg. With fundamental data and historical price data,
+% we reconstruct historical factor portfolio and test its performance.
+% That's the simple idea. 
 
 
 
