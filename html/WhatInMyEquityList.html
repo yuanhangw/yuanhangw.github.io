@@ -1,0 +1,922 @@
+---
+layout: page
+title: What's in my Equity List
+tag: post
+date: 2016-01-19 15:45:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>What's in my Equity List</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="WhatInMyEquityList.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>What's in my Equity List</h1><p>my equity list is downloaded from bloomberg EQS function. It is large, let's take a first look at it.</p><pre class="codeinput">load(<span class="string">'equity_list.mat'</span>);
+</pre><p>the first 4 rows of the table looks like this:</p><pre class="codeinput">equity_list(1:4,:)
+</pre><pre class="codeoutput">
+ans = 
+
+  Columns 1 through 5
+
+    'XOM US Equity'     'US'    'US'    'EXXON MOBIL CORP'       'Common Stock'
+    'WMT US Equity'     'US'    'US'    'WAL-MART STORES INC'    'Common Stock'
+    'HNR1 GR Equity'    'GR'    'DE'    'HANNOVER RUECK SE'      'Common Stock'
+    'TWX US Equity'     'US'    'US'    'TIME WARNER INC'        'Common Stock'
+
+  Columns 6 through 9
+
+    'ACTV'    'Energy'                'Oil&amp;Gas'      'Oil Comp-Integrated'
+    'ACTV'    'Consumer, Cyclical'    'Retail'       'Retail-Discount'    
+    'ACTV'    'Financial'             'Insurance'    'Reinsurance'        
+    'ACTV'    'Communications'        'Media'        'Multimedia'         
+
+  Columns 10 through 12
+
+    []    []    'sep15'
+    []    []    'sep15'
+    []    []    'sep15'
+    []    []    'sep15'
+
+</pre><p>it's a big cell matrix by the size of:</p><pre class="codeinput">class(equity_list)
+size(equity_list)
+</pre><pre class="codeoutput">
+ans =
+
+cell
+
+
+ans =
+
+       30323          12
+
+</pre><p>is there many empty cells? let's take a look</p><pre class="codeinput">sum(cellfun(@isempty,equity_list))
+</pre><pre class="codeoutput">
+ans =
+
+  Columns 1 through 6
+
+           0           0       16429       16429       16429       16429
+
+  Columns 7 through 12
+
+       16493       16493       16493       30132       29981       22502
+
+</pre><p>so it seems there is some empty cell somewhere, except for the first two columns. oh, I remeber now. This equity is ranked by market cap, and I only use the first 14100 equity name in it. let's see what about this first 14100 names.</p><pre class="codeinput">sum(cellfun(@isempty,equity_list(1:14100,:)))
+</pre><pre class="codeoutput">
+ans =
+
+  Columns 1 through 6
+
+           0           0         206         206         206         206
+
+  Columns 7 through 12
+
+         270         270         270       13909       13758        6279
+
+</pre><p>let's more like it. From now on we call the the reduce list, list.</p><pre class="codeinput">list = equity_list(1:14100,:);
+</pre><p>using unique function, we can get a unique list of country of listing:</p><pre class="codeinput">unique(list(:,2))
+</pre><pre class="codeoutput">
+ans = 
+
+    'AU'
+    'AV'
+    'BB'
+    'CH'
+    'CN'
+    'CY'
+    'DC'
+    'FH'
+    'FP'
+    'G4'
+    'GA'
+    'GR'
+    'HK'
+    'ID'
+    'IM'
+    'IR'
+    'IT'
+    'JP'
+    'KS'
+    'LI'
+    'LN'
+    'LX'
+    'MV'
+    'NA'
+    'NO'
+    'NZ'
+    'PL'
+    'PZ'
+    'SM'
+    'SP'
+    'SS'
+    'SW'
+    'TE'
+    'TH'
+    'TT'
+    'US'
+    'VX'
+
+</pre><p>country of domicile unique function doesn't like empty cells, so we take those out first.</p><pre class="codeinput">CountryofDomicile = list(not(cellfun(@isempty,list(:,3))),3);
+unique(CountryofDomicile)
+</pre><pre class="codeoutput">
+ans = 
+
+    'AT'
+    'AU'
+    'BE'
+    'BM'
+    'BR'
+    'CA'
+    'CH'
+    'CN'
+    'CY'
+    'DE'
+    'DK'
+    'ES'
+    'FI'
+    'FR'
+    'GB'
+    'GG'
+    'GI'
+    'GR'
+    'HK'
+    'IE'
+    'IL'
+    'IM'
+    'IN'
+    'IS'
+    'IT'
+    'JE'
+    'JO'
+    'JP'
+    'KR'
+    'KY'
+    'LI'
+    'LU'
+    'MC'
+    'MO'
+    'MT'
+    'MX'
+    'NL'
+    'NO'
+    'NZ'
+    'PT'
+    'RU'
+    'SE'
+    'SG'
+    'TW'
+    'US'
+    'ZA'
+
+</pre><p>security types</p><pre class="codeinput">SecurityType = list(not(cellfun(@isempty,list(:,5))),5);
+unique(SecurityType)
+</pre><pre class="codeoutput">
+ans = 
+
+    'ADR'
+    'Belgium Cert'
+    'CDI'
+    'CDR'
+    'Common Stock'
+    'Dutch Cert'
+    'EDR'
+    'GDR'
+    'German Cert'
+    'HDR'
+    'IDR'
+    'Ltd Part'
+    'MLP'
+    'Misc.'
+    'NY Reg Shrs'
+    'REIT'
+    'Receipt'
+    'Royalty Trst'
+    'SDR'
+    'Savings Share'
+    'Stapled Security'
+    'Swiss Cert'
+    'TDR'
+    'Tracking Stk'
+
+</pre><p>current listing status</p><pre class="codeinput">ListingStatus = list(not(cellfun(@isempty,list(:,6))),6);
+unique(ListingStatus)
+</pre><pre class="codeoutput">
+ans = 
+
+    'ACQU'
+    'ACTV'
+    'AHLT'
+    'DLST'
+    'EXPD'
+    'HALT'
+    'INFO'
+    'LIQU'
+    'PEND'
+    'PRIV'
+    'PRNA'
+    'RSUS'
+    'SUSP'
+    'TKCH'
+    'UNLS'
+
+</pre><p>Level I sector categorization</p><pre class="codeinput">SectorCategorizationI = list(not(cellfun(@isempty,list(:,7))),7);
+unique(SectorCategorizationI)
+</pre><pre class="codeoutput">
+ans = 
+
+    'Basic Materials'
+    'Communications'
+    'Consumer, Cyclical'
+    'Consumer, Non-cyclical'
+    'Diversified'
+    'Energy'
+    'Financial'
+    'Industrial'
+    'Technology'
+    'Utilities'
+
+</pre><p>Level II sector categorization</p><pre class="codeinput">SectorCategorizationII = list(not(cellfun(@isempty,list(:,8))),8);
+unique(SectorCategorizationII)
+</pre><pre class="codeoutput">
+ans = 
+
+    'Advertising'
+    'Aerospace/Defense'
+    'Agriculture'
+    'Airlines'
+    'Apparel'
+    'Auto Manufacturers'
+    'Auto Parts&amp;Equipment'
+    'Banks'
+    'Beverages'
+    'Biotechnology'
+    'Building Materials'
+    'Chemicals'
+    'Coal'
+    'Commercial Services'
+    'Computers'
+    'Cosmetics/Personal Care'
+    'Distribution/Wholesale'
+    'Diversified Finan Serv'
+    'Electric'
+    'Electrical Compo&amp;Equip'
+    'Electronics'
+    'Energy-Alternate Sources'
+    'Engineering&amp;Construction'
+    'Entertainment'
+    'Environmental Control'
+    'Food'
+    'Food Service'
+    'Forest Products&amp;Paper'
+    'Gas'
+    'Hand/Machine Tools'
+    'Healthcare-Products'
+    'Healthcare-Services'
+    'Holding Companies-Divers'
+    'Home Builders'
+    'Home Furnishings'
+    'Household Products/Wares'
+    'Housewares'
+    'Insurance'
+    'Internet'
+    'Investment Companies'
+    'Iron/Steel'
+    'Leisure Time'
+    'Lodging'
+    'Machinery-Constr&amp;Mining'
+    'Machinery-Diversified'
+    'Media'
+    'Metal Fabricate/Hardware'
+    'Mining'
+    'Miscellaneous Manufactur'
+    'Office Furnishings'
+    'Office/Business Equip'
+    'Oil&amp;Gas'
+    'Oil&amp;Gas Services'
+    'Packaging&amp;Containers'
+    'Pharmaceuticals'
+    'Pipelines'
+    'Private Equity'
+    'REITS'
+    'Real Estate'
+    'Retail'
+    'Savings&amp;Loans'
+    'Semiconductors'
+    'Shipbuilding'
+    'Software'
+    'Storage/Warehousing'
+    'Telecommunications'
+    'Textiles'
+    'Toys/Games/Hobbies'
+    'Transportation'
+    'Trucking&amp;Leasing'
+    'Water'
+
+</pre><p>Level III sector categorization</p><pre class="codeinput">SectorCategorizationIII = list(not(cellfun(@isempty,list(:,9))),9);
+unique(SectorCategorizationIII)
+</pre><pre class="codeoutput">
+ans = 
+
+    'Advanced Materials/Prd'
+    'Advertising Agencies'
+    'Advertising Sales'
+    'Advertising Services'
+    'Aerospace/Defense'
+    'Aerospace/Defense-Equip'
+    'Agricultural Biotech'
+    'Agricultural Chemicals'
+    'Agricultural Operations'
+    'Air Pollution Control Eq'
+    'Airlines'
+    'Airport Develop/Maint'
+    'Alternative Waste Tech'
+    'Apparel Manufacturers'
+    'Appliances'
+    'Applications Software'
+    'Athletic Equipment'
+    'Athletic Footwear'
+    'Auction House/Art Dealer'
+    'Audio/Video Products'
+    'Auto Repair Centers'
+    'Auto-Cars/Light Trucks'
+    'Auto-Med&amp;Heavy Duty Trks'
+    'Auto-Truck Trailers'
+    'Auto/Trk Prts&amp;Equip-Orig'
+    'Auto/Trk Prts&amp;Equip-Repl'
+    'B2B/E-Commerce'
+    'Batteries/Battery Sys'
+    'Beverages-Non-alcoholic'
+    'Beverages-Wine/Spirits'
+    'Bicycle Manufacturing'
+    'Bldg Prod-Air&amp;Heating'
+    'Bldg Prod-Cement/Aggreg'
+    'Bldg Prod-Doors&amp;Windows'
+    'Bldg Prod-Light Fixtures'
+    'Bldg Prod-Wood'
+    'Bldg&amp;Construct Prod-Misc'
+    'Bldg-Mobil Home/Mfd Hous'
+    'Bldg-Residential/Commer'
+    'Blood Collection Banking'
+    'Brewery'
+    'Broadcast Serv/Program'
+    'Building&amp;Construct-Misc'
+    'Building-Heavy Construct'
+    'Building-Maint&amp;Service'
+    'Cable/Satellite TV'
+    'Capacitors'
+    'Casino Hotels'
+    'Casino Services'
+    'Cellular Telecom'
+    'Central Bank'
+    'Ceramic Products'
+    'Chemicals-Diversified'
+    'Chemicals-Fibers'
+    'Chemicals-Other'
+    'Chemicals-Plastics'
+    'Chemicals-Specialty'
+    'Circuit Boards'
+    'Circuits'
+    'Coal'
+    'Coatings/Paint'
+    'Coffee'
+    'Collectibles'
+    'Commer Banks Non-US'
+    'Commer Banks-Central US'
+    'Commer Banks-Eastern US'
+    'Commer Banks-Southern US'
+    'Commer Banks-Western US'
+    'Commercial Serv-Finance'
+    'Commercial Services'
+    'Communications Software'
+    'Computer Aided Design'
+    'Computer Data Security'
+    'Computer Graphics'
+    'Computer Services'
+    'Computer Software'
+    'Computers'
+    'Computers-Integrated Sys'
+    'Computers-Memory Devices'
+    'Computers-Other'
+    'Computers-Peripher Equip'
+    'Computers-Voice Recogn'
+    'Consulting Services'
+    'Consumer Products-Misc'
+    'Containers-Metal/Glass'
+    'Containers-Paper/Plastic'
+    'Cooperative Banks'
+    'Cosmetics&amp;Toiletries'
+    'Cruise Lines'
+    'Crystal&amp;Giftware'
+    'Data Processing/Mgmt'
+    'Decision Support Softwar'
+    'Dental Supplies&amp;Equip'
+    'Diagnostic Equipment'
+    'Diagnostic Kits'
+    'Dialysis Centers'
+    'Diamonds/Precious Stones'
+    'Direct Marketing'
+    'Disposable Medical Prod'
+    'Distribution/Wholesale'
+    'Divers Oper/Commer Serv'
+    'Diversified Banking Inst'
+    'Diversified Finan Serv'
+    'Diversified Manufact Op'
+    'Diversified Minerals'
+    'Diversified Operations'
+    'Drug Delivery Systems'
+    'E-Commerce/Products'
+    'E-Commerce/Services'
+    'E-Marketing/Info'
+    'E-Services/Consulting'
+    'Educational Software'
+    'Electric Products-Misc'
+    'Electric-Distribution'
+    'Electric-Generation'
+    'Electric-Integrated'
+    'Electric-Transmission'
+    'Electronic Compo-Misc'
+    'Electronic Compo-Semicon'
+    'Electronic Connectors'
+    'Electronic Design Automa'
+    'Electronic Forms'
+    'Electronic Measur Instr'
+    'Electronic Parts Distrib'
+    'Electronic Secur Devices'
+    'Electronics-Military'
+    'Energy-Alternate Sources'
+    'Engineering/R&amp;D Services'
+    'Engines-Internal Combust'
+    'Enterprise Software/Serv'
+    'Entertainment Software'
+    'Environ Consulting&amp;Eng'
+    'Environ Monitoring&amp;Det'
+    'Explosives'
+    'Extended Serv Contracts'
+    'Feminine Health Care Prd'
+    'Fiduciary Banks'
+    'Film Processing'
+    'Filtration/Separat Prod'
+    'Finance-Auto Loans'
+    'Finance-Commercial'
+    'Finance-Consumer Loans'
+    'Finance-Credit Card'
+    'Finance-Invest Bnkr/Brkr'
+    'Finance-Leasing Compan'
+    'Finance-Mtge Loan/Banker'
+    'Finance-Other Services'
+    'Financial Guarantee Ins'
+    'Firearms&amp;Ammunition'
+    'Fisheries'
+    'Food-Baking'
+    'Food-Canned'
+    'Food-Catering'
+    'Food-Confectionery'
+    'Food-Dairy Products'
+    'Food-Flour&amp;Grain'
+    'Food-Meat Products'
+    'Food-Misc/Diversified'
+    'Food-Retail'
+    'Food-Wholesale/Distrib'
+    'Footwear&amp;Related Apparel'
+    'Forestry'
+    'Funeral Serv&amp;Rel Items'
+    'Gambling (Non-Hotel)'
+    'Garden Products'
+    'Gas-Distribution'
+    'Gas-Transportation'
+    'Gold Mining'
+    'Golf'
+    'Hazardous Waste Disposal'
+    'Health Care Cost Contain'
+    'Home Decoration Products'
+    'Home Furnishings'
+    'Hospital Beds/Equipment'
+    'Hotels&amp;Motels'
+    'Housewares'
+    'Human Resources'
+    'Identification Sys/Dev'
+    'Import/Export'
+    'Inactive/Unknown'
+    'Independ Power Producer'
+    'Industr Audio&amp;Video Prod'
+    'Industrial Automat/Robot'
+    'Industrial Gases'
+    'Instruments-Controls'
+    'Instruments-Scientific'
+    'Insurance Brokers'
+    'Interior Design/Architec'
+    'Internet Applic Sftwr'
+    'Internet Brokers'
+    'Internet Connectiv Svcs'
+    'Internet Content-Entmnt'
+    'Internet Content-Info/Ne'
+    'Internet Financial Svcs'
+    'Internet Gambling'
+    'Internet Incubators'
+    'Internet Infrastr Equip'
+    'Internet Infrastr Sftwr'
+    'Internet Security'
+    'Internet Telephony'
+    'Intimate Apparel'
+    'Invest Comp - Resources'
+    'Invest Mgmnt/Advis Serv'
+    'Investment Companies'
+    'Lasers-Syst/Components'
+    'Leisure&amp;Rec Products'
+    'Leisure&amp;Rec/Games'
+    'Life/Health Insurance'
+    'Lighting Products&amp;Sys'
+    'Linen Supply&amp;Rel Items'
+    'Lottery Services'
+    'MRI Equipment'
+    'MRI/Medical Diag Imaging'
+    'Mach Tools&amp;Rel Products'
+    'Machinery-Constr&amp;Mining'
+    'Machinery-Electric Util'
+    'Machinery-Electrical'
+    'Machinery-Farm'
+    'Machinery-General Indust'
+    'Machinery-Material Handl'
+    'Machinery-Print Trade'
+    'Machinery-Pumps'
+    'Machinery-Therml Process'
+    'Marine Services'
+    'Medical Imaging Systems'
+    'Medical Information Sys'
+    'Medical Instruments'
+    'Medical Labs&amp;Testing Srv'
+    'Medical Laser Systems'
+    'Medical Products'
+    'Medical Steriliz Product'
+    'Medical-Biomedical/Gene'
+    'Medical-Drugs'
+    'Medical-Generic Drugs'
+    'Medical-HMO'
+    'Medical-Hospitals'
+    'Medical-Nursing Homes'
+    'Medical-Outptnt/Home Med'
+    'Medical-Whsle Drug Dist'
+    'Metal Processors&amp;Fabrica'
+    'Metal Products-Distrib'
+    'Metal Products-Fasteners'
+    'Metal-Aluminum'
+    'Metal-Copper'
+    'Metal-Diversified'
+    'Metal-Iron'
+    'Mining Services'
+    'Miscellaneous Manufactur'
+    'Money Center Banks'
+    'Mortgage Banks'
+    'Motion Pictures&amp;Services'
+    'Motorcycle/Motor Scooter'
+    'Multi-line Insurance'
+    'Multilevel Dir Selling'
+    'Multimedia'
+    'Music'
+    'Networking Products'
+    'Night Clubs'
+    'Non-Ferrous Metals'
+    'Non-hazardous Waste Disp'
+    'Office Automation&amp;Equip'
+    'Office Furnishings-Orig'
+    'Office Supplies&amp;Forms'
+    'Oil Comp-Explor&amp;Prodtn'
+    'Oil Comp-Integrated'
+    'Oil Field Mach&amp;Equip'
+    'Oil Refining&amp;Marketing'
+    'Oil&amp;Gas Drilling'
+    'Oil-Field Services'
+    'Oil-US Royalty Trusts'
+    'Optical Recognition Equi'
+    'Optical Supplies'
+    'Paper&amp;Related Products'
+    'Pastoral&amp;Agricultural'
+    'Patient Monitoring Equip'
+    'Petrochemicals'
+    'Pharmacy Services'
+    'Photo Equipment&amp;Supplies'
+    'Phys Practice Mgmnt'
+    'Phys Therapy/Rehab Cntrs'
+    'Pipelines'
+    'Platinum'
+    'Pollution Control'
+    'Poultry'
+    'Power Conv/Supply Equip'
+    'Precious Metals'
+    'Printing-Commercial'
+    'Private Equity'
+    'Professional Sports'
+    'Property Trust'
+    'Property/Casualty Ins'
+    'Protection-Safety'
+    'Public Thoroughfares'
+    'Publishing-Books'
+    'Publishing-Newspapers'
+    'Publishing-Periodicals'
+    'Quarrying'
+    'REITS-Apartments'
+    'REITS-Diversified'
+    'REITS-Health Care'
+    'REITS-Hotels'
+    'REITS-Manufactured Homes'
+    'REITS-Mortgage'
+    'REITS-Office Property'
+    'REITS-Regional Malls'
+    'REITS-Shopping Centers'
+    'REITS-Single Tenant'
+    'REITS-Storage'
+    'REITS-Warehouse/Industr'
+    'REITS-Whole Loans'
+    'Racetracks'
+    'Radio'
+    'Real Estate Mgmnt/Servic'
+    'Real Estate Oper/Develop'
+    'Recreational Centers'
+    'Recreational Vehicles'
+    'Recycling'
+    'Regional Banks-Non US'
+    'Reinsurance'
+    'Remediation Services'
+    'Rental Auto/Equipment'
+    'Research&amp;Development'
+    'Resorts/Theme Parks'
+    'Respiratory Products'
+    'Retail-Apparel/Shoe'
+    'Retail-Appliances'
+    'Retail-Arts&amp;Crafts'
+    'Retail-Auto Parts'
+    'Retail-Automobile'
+    'Retail-Bedding'
+    'Retail-Bookstore'
+    'Retail-Building Products'
+    'Retail-Catalog Shopping'
+    'Retail-Computer Equip'
+    'Retail-Consumer Electron'
+    'Retail-Convenience Store'
+    'Retail-Cutlery&amp;Cookware'
+    'Retail-Discount'
+    'Retail-Drug Store'
+    'Retail-Fabric Store'
+    'Retail-Floor Coverings'
+    'Retail-Gardening Prod'
+    'Retail-Hair Salons'
+    'Retail-Home Furnishings'
+    'Retail-Hypermarkets'
+    'Retail-Jewelry'
+    'Retail-Leisure Products'
+    'Retail-Mail Order'
+    'Retail-Major Dept Store'
+    'Retail-Misc/Diversified'
+    'Retail-Music Store'
+    'Retail-Office Supplies'
+    'Retail-Pawn Shops'
+    'Retail-Perfume&amp;Cosmetics'
+    'Retail-Pet Food&amp;Supplies'
+    'Retail-Petroleum Prod'
+    'Retail-Photo Studio'
+    'Retail-Propane Distrib'
+    'Retail-Pubs'
+    'Retail-Regnl Dept Store'
+    'Retail-Restaurants'
+    'Retail-Science&amp;Nature'
+    'Retail-Sporting Goods'
+    'Retail-Sunglasses'
+    'Retail-Toy Store'
+    'Retail-Variety Store'
+    'Retail-Video Rental'
+    'Retail-Vision Serv Cntr'
+    'Retail-Vitamins/Nutr Sup'
+    'Retirement/Aged Care'
+    'Rubber&amp;Vinyl'
+    'Rubber-Tires'
+    'Rubber/Plastic Products'
+    'S&amp;L/Thrifts-Central US'
+    'S&amp;L/Thrifts-Eastern US'
+    'S&amp;L/Thrifts-Southern US'
+    'S&amp;L/Thrifts-Western US'
+    'Satellite Telecom'
+    'Schools'
+    'Schools-Day Care'
+    'Security Services'
+    'Seismic Data Collection'
+    'Semicon Compo-Intg Circu'
+    'Semiconductor Equipment'
+    'Shipbuilding'
+    'Silver Mining'
+    'Soap&amp;Cleaning Prepar'
+    'Software Tools'
+    'Special Purpose Banks'
+    'Specified Purpose Acquis'
+    'Steel Pipe&amp;Tube'
+    'Steel-Producers'
+    'Steel-Specialty'
+    'Storage/Warehousing'
+    'Sugar'
+    'Super-Regional Banks-US'
+    'Superconductor Prod&amp;Sys'
+    'Tannery'
+    'Tea'
+    'Telecom Eq Fiber Optics'
+    'Telecom Services'
+    'Telecommunication Equip'
+    'Telephone-Integrated'
+    'Television'
+    'Textile-Apparel'
+    'Textile-Home Furnishings'
+    'Textile-Products'
+    'Theaters'
+    'Therapeutics'
+    'Tobacco'
+    'Tools-Hand Held'
+    'Toys'
+    'Transactional Software'
+    'Transport-Air Freight'
+    'Transport-Equip&amp;Leasng'
+    'Transport-Marine'
+    'Transport-Rail'
+    'Transport-Services'
+    'Transport-Truck'
+    'Travel Services'
+    'Trucking&amp;Leasing'
+    'Ultra Sound Imaging Sys'
+    'Venture Capital'
+    'Veterinary Diagnostics'
+    'Veterinary Products'
+    'Vitamins&amp;Nutrition Prod'
+    'Water'
+    'Water Treatment Systems'
+    'Web Hosting/Design'
+    'Web Portals/ISP'
+    'Whsing&amp;Harbor Trans Serv'
+    'Wire&amp;Cable Products'
+    'Wireless Equipment'
+    'Wool'
+    'Wound/Burn &amp; Skin Care'
+    'X-Ray Equipment'
+
+</pre><p>This last list is rather looooong. From here we can generate a few tables to investigate the concentration of industry in different countries. But since I want to keep everything minimal and simple, I will stop it here for the time being.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% What's in my Equity List
+% my equity list is downloaded from bloomberg EQS function. It is large,
+% let's take a first look at it. 
+
+load('equity_list.mat'); 
+
+%% 
+% the first 4 rows of the table looks like this:
+
+equity_list(1:4,:)
+
+%%
+% it's a big cell matrix by the size of:
+
+class(equity_list)
+size(equity_list)
+
+
+%%
+% is there many empty cells? let's take a look 
+
+sum(cellfun(@isempty,equity_list))
+
+
+%%
+% so it seems there is some empty cell somewhere, except for the first two columns. 
+% oh, I remeber now. This equity is ranked by market cap, and I only use the first 14100 
+% equity name in it. let's see what about this first 14100 names. 
+
+sum(cellfun(@isempty,equity_list(1:14100,:)))
+
+
+%%
+% let's more like it. From now on we call the the reduce list, list. 
+
+list = equity_list(1:14100,:); 
+
+
+%%
+% using unique function, we can get a unique list of country of listing:
+
+unique(list(:,2))
+
+%%
+% country of domicile 
+% unique function doesn't like empty cells, so we take those out first. 
+
+CountryofDomicile = list(not(cellfun(@isempty,list(:,3))),3); 
+unique(CountryofDomicile)
+
+%%
+% security types
+SecurityType = list(not(cellfun(@isempty,list(:,5))),5); 
+unique(SecurityType)
+
+%%
+% current listing status 
+
+ListingStatus = list(not(cellfun(@isempty,list(:,6))),6); 
+unique(ListingStatus)
+
+%%
+% Level I sector categorization 
+
+SectorCategorizationI = list(not(cellfun(@isempty,list(:,7))),7); 
+unique(SectorCategorizationI)
+
+%%
+% Level II sector categorization 
+
+SectorCategorizationII = list(not(cellfun(@isempty,list(:,8))),8); 
+unique(SectorCategorizationII)
+
+%%
+% Level III sector categorization 
+
+SectorCategorizationIII = list(not(cellfun(@isempty,list(:,9))),9); 
+unique(SectorCategorizationIII)
+
+
+%%
+% This last list is rather looooong. From here we can generate a few tables
+% to investigate the concentration of industry in different countries. But
+% since I want to keep everything minimal and simple, I will stop it here
+% for the time being. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
