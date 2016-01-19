@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>FRED data</title>
+    <title>Retrieve data from FRED database</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
@@ -36,11 +36,11 @@
       <div class="trigger">
         
           
-          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Expected Maximum Drawdown</a>
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
           
         
           
-          <a class="page-link" href="/html/FREDData.html">FRED data</a>
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
           
         
           
@@ -93,7 +93,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">FRED data</h1>
+    <h1 class="post-title">Retrieve data from FRED database</h1>
   </header>
 
   <article class="post-content">
@@ -104,7 +104,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>FRED data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-17"><meta name="DC.source" content="FREDData.m"><style type="text/css">
+      --><title>Data from FRED (St Louis Federal Reserve Data Base)</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="FREDData.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -164,8 +164,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>FRED data</h1><!--introduction--><p>We will retrieve data from FRED and present it nicely.</p><!--/introduction--><p>First, let's establish the connection. Note that you should use 'https://' instead of 'http://', FRED no longer accept unsecured connections.</p><pre class="codeinput">    c = fred(<span class="string">'https://research.stlouisfed.org/fred2/'</span>) ;
-</pre><p>We try to retrieve CPATAX: corporate profit before tax here. Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP</p><pre class="codeinput">    data = fetch(c, <span class="string">'CPATAX'</span>);
+  </style></head><body><div class="content"><h1>Data from FRED (St Louis Federal Reserve Data Base)</h1><!--introduction--><p>We will retrieve data from FRED and present it nicely.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Retrieve data from FRED</a></li><li><a href="#5">Plot the data properly</a></li><li><a href="#11">Log scale v.s. Normal scale</a></li></ul></div><h2>Retrieve data from FRED<a name="1"></a></h2><p>First, let's establish the connection. Note that you should use 'https://' instead of 'http://', FRED no longer accept unsecured connections.</p><pre class="codeinput">    c = fred(<span class="string">'https://research.stlouisfed.org/fred2/'</span>) ;
+</pre><p>We try to retrieve CPATAX: corporate profit before tax. Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP</p><pre class="codeinput">    data = fetch(c, <span class="string">'CPATAX'</span>);
     <span class="comment">% alternatively data = fetch(c, 'GDP');</span>
 </pre><p>Now let's display the time series properly, the data struct contains 11 field. the main data series content is in 'Data'. We want to display the time series in semilog scales. let's take a look at the data content first:</p><pre class="codeinput">    disp(data);
 </pre><pre class="codeoutput">                 Title: ' Corporate Profits After Tax with Inventory Valua...'
@@ -183,7 +183,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </pre><p>Now Let's get the date &amp; data out of STRUCT Data:</p><pre class="codeinput">    content = data.Data;
     dt = content(:,1);
     dd = content(:,2);
-</pre><p>Plot the semilogy plot</p><pre class="codeinput">    fredplot = semilogy(dt, dd);
+</pre><h2>Plot the data properly<a name="5"></a></h2><p>Plot the semilogy plot</p><pre class="codeinput">    fredplot = semilogy(dt, dd);
 </pre><img vspace="5" hspace="5" src="FREDData_01.png" alt=""> <p>Let's set the numerical mark straight</p><pre class="codeinput">    set(gca,<span class="string">'YTick'</span>,[10 50 100 500 1000 5000],<span class="keyword">...</span>
       <span class="string">'YTickLabel'</span>,{<span class="string">'10'</span>,<span class="string">'50'</span>, <span class="string">'100'</span>,<span class="string">'500'</span>, <span class="string">'1,000'</span>,<span class="string">'5,000'</span>});
     datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
@@ -201,7 +201,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     set(gca,<span class="string">'YTickLabel'</span>,ylhand,<span class="string">'fontsize'</span>,8)
 </pre><img vspace="5" hspace="5" src="FREDData_04.png" alt=""> <p>Let's set the linewidth to 1.5, and make the line half transparent</p><pre class="codeinput">    set(fredplot,<span class="string">'linewidth'</span>,1.5);
     fredplot.Color(4) = 0.5;  <span class="comment">% 50% transparent</span>
-</pre><img vspace="5" hspace="5" src="FREDData_05.png" alt=""> <p>Voila! In the long run, it has been a pretty straight line : ).</p><p>In normal scale, this time series looks much more volatile.</p><pre class="codeinput">    fredplotnormal = plot(dt, dd);
+</pre><img vspace="5" hspace="5" src="FREDData_05.png" alt=""> <p>Voila! In the long run, it has been a pretty straight line : ).</p><h2>Log scale v.s. Normal scale<a name="11"></a></h2><p>In normal scale, this time series looks much more volatile.</p><pre class="codeinput">    fredplotnormal = plot(dt, dd);
     datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
 
 
@@ -219,10 +219,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     fredplotnormal.Color(4) = 0.5;
 </pre><img vspace="5" hspace="5" src="FREDData_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% FRED data
+%% Data from FRED (St Louis Federal Reserve Data Base)
 % We will retrieve data from FRED and present it nicely. 
 
-%% 
+%% Retrieve data from FRED
 % First, let's establish the connection. Note that you should use
 % 'https://' instead of 'http://', FRED no longer accept unsecured connections. 
 
@@ -231,7 +231,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   
   
 %%
-% We try to retrieve CPATAX: corporate profit before tax here.
+% We try to retrieve CPATAX: corporate profit before tax.
 % Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP
 
     data = fetch(c, 'CPATAX'); 
@@ -253,7 +253,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
     dt = content(:,1);
     dd = content(:,2);
 
-%%    
+%% Plot the data properly   
 % Plot the semilogy plot
 
     fredplot = semilogy(dt, dd); 
@@ -294,7 +294,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % Voila! 
 % In the long run, it has been a pretty straight line : ). 
 
-%%
+%% Log scale v.s. Normal scale
 % In normal scale, this time series looks much more volatile. 
 
     fredplotnormal = plot(dt, dd); 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Expected Maximum Drawdown</title>
+    <title>Drawdown</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
@@ -36,11 +36,11 @@
       <div class="trigger">
         
           
-          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Expected Maximum Drawdown</a>
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
           
         
           
-          <a class="page-link" href="/html/FREDData.html">FRED data</a>
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
           
         
           
@@ -93,7 +93,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Expected Maximum Drawdown</h1>
+    <h1 class="post-title">Drawdown</h1>
   </header>
 
   <article class="post-content">
@@ -104,7 +104,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>ExpectedMaximumDrawDown</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-17"><meta name="DC.source" content="ExpectedMaximumDrawDown.m"><style type="text/css">
+      --><title>Maximum Drawdown &amp; Expected Maximum Drawdown</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="ExpectedMaximumDrawDown.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -164,80 +164,466 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">%%Expected Maximum Drawdown</span>
-<span class="comment">% In this post we explore matlab's emaxdrawdown function.</span>
+  </style></head><body><div class="content"><h1>Maximum Drawdown &amp; Expected Maximum Drawdown</h1><!--introduction--><p>I want to see what matlab's emaxdrawdown &amp; maxdrawdown function can do. Other portfolio performance metrics provided in matlab includes: portalpha, sharpe, inforatio, lpm, elpm. We will explore those later.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Maximum Drawdown Basics</a></li><li><a href="#14">Expected Maximum Drawdown</a></li></ul></div><h2>Maximum Drawdown Basics<a name="1"></a></h2><p>Let's Load some example dataset</p><pre class="codeinput">load <span class="string">FundMarketCash</span>
+
+Assets
+TestData
+</pre><pre class="codeoutput">
+Assets = 
+
+    'Fund'    'Market'    'Cash'
 
 
-k = 1;
+TestData =
 
-<span class="keyword">while</span> k&lt;=4
+    1.0000    1.0000    1.0000
+    1.0168    1.0067    1.0030
+    1.0060    0.9822    1.0059
+    1.0094    0.9725    1.0088
+    0.9906    0.9116    1.0116
+    0.9516    0.8380    1.0135
+    0.9550    0.8540    1.0152
+    0.9852    0.9195    1.0167
+    0.9953    0.9276    1.0181
+    0.9913    0.9140    1.0195
+    0.9906    0.8964    1.0210
+    1.0128    0.9301    1.0225
+    0.9940    0.8737    1.0240
+    0.9933    0.8673    1.0254
+    0.9510    0.8055    1.0268
+    0.8999    0.7427    1.0283
+    0.9093    0.7476    1.0297
+    0.8482    0.6664    1.0310
+    0.8878    0.7250    1.0322
+    0.9288    0.7677    1.0332
+    0.9046    0.7226    1.0342
+    0.8905    0.7036    1.0352
+    0.8805    0.6931    1.0362
+    0.8778    0.6998    1.0372
+    0.9248    0.7575    1.0381
+    0.9704    0.7974    1.0391
+    0.9799    0.8076    1.0398
+    0.9725    0.8218    1.0406
+    0.9819    0.8378    1.0414
+    0.9852    0.8289    1.0422
+    1.0128    0.8758    1.0431
+    1.0215    0.8835    1.0438
+    1.0618    0.9299    1.0446
+    1.0745    0.9469    1.0454
+    1.0920    0.9601    1.0462
+    1.0887    0.9456    1.0470
+    1.0638    0.9308    1.0479
+    1.0651    0.9435    1.0488
+    1.0826    0.9619    1.0499
+    1.0672    0.9300    1.0512
+    1.0792    0.9338    1.0525
+    1.0853    0.9439    1.0540
+    1.0974    0.9583    1.0556
+    1.1229    0.9971    1.0576
+    1.1504    1.0310    1.0595
+    1.1404    1.0059    1.0616
+    1.1578    1.0271    1.0640
+    1.1437    1.0089    1.0664
+    1.1323    0.9897    1.0689
+    1.1558    1.0212    1.0715
+    1.1652    1.0226    1.0742
+    1.1833    1.0607    1.0772
+    1.1840    1.0510    1.0803
+    1.1860    1.0595    1.0834
+    1.1632    1.0419    1.0868
+    1.1907    1.0813    1.0903
+    1.1968    1.0816    1.0940
+    1.2163    1.1103    1.0979
+    1.2223    1.1133    1.1021
+    1.2243    1.1271    1.1062
+    1.2344    1.1416    1.1105
+
+</pre><p>FundMarketCash contains three time series: Fund, Market &amp; Cash. Let's take a look:</p><pre class="codeinput">plot(TestData);
+legend(Assets(:));
+</pre><img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_01.png" alt=""> <p>Let's calculate the return, average return &amp; Stdev of return of the fund:</p><pre class="codeinput">logReturns = log(TestData(2:end,:) ./ TestData(1:end - 1,:));
+<span class="comment">% This is same as Tick2ret(TestData);</span>
+
+Mu = mean(logReturns)
+Sigma = std(logReturns,1)
+T = size(logReturns,1)
+</pre><pre class="codeoutput">
+Mu =
+
+    0.0035    0.0022    0.0017
 
 
-    j  =1;
-    <span class="keyword">while</span> j&lt;=3
-</pre><p>let's see</p><pre class="codeinput">    mu = 0.05*k;
-    sigma = [0.05:0.01:0.40];
-    T = 10;
+Sigma =
 
-        i=1;
-        <span class="keyword">while</span> i&lt;=size(sigma,2)
+    0.0230    0.0392    0.0009
 
-        emdd(i) = emaxdrawdown(mu-sigma(i)^2/2, sigma(i), T);
 
-        i = i+1;
-        <span class="keyword">end</span>
+T =
 
-        plot(sigma, 1-exp(-emdd));
+    60
 
-        hold <span class="string">on</span>;
+</pre><p>maxdrawdown function provides three form of output: ..simple percentage ..geometric percentage ..absolute amount I can also ask when is the high and low time, during the maximum drawdown episode:</p><pre class="codeinput">[MaxDD MaxDDIndex] = maxdrawdown(TestData)
+</pre><pre class="codeoutput">
+MaxDD =
 
-        j= j+1;
-</pre><img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_01.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_02.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_03.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_04.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_05.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_06.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_07.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_08.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_09.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_10.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_11.png" alt=""> <img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_12.png" alt=""> <pre class="codeinput">    <span class="keyword">end</span>
-    k = k+1;
+    0.1658    0.3381         0
 
+
+MaxDDIndex =
+
+     2     2   NaN
+    18    18   NaN
+
+</pre><p>MaxDDIndex show us 2nd period is the high, and the drawdown lasted until the 18th period, for Fund &amp; Market. Cash has no drawdown. The high and low for fund was:</p><pre class="codeinput">TestData(MaxDDIndex(:,1),1)
+</pre><pre class="codeoutput">
+ans =
+
+    1.0168
+    0.8482
+
+</pre><p>similarly the high and low for the market was:</p><pre class="codeinput">TestData(MaxDDIndex(:,2),2)
+</pre><pre class="codeoutput">
+ans =
+
+    1.0067
+    0.6664
+
+</pre><p>maxdrawdown function taking no parameter simply calcuate the drawdown by:</p><pre class="codeinput">fundhigh = TestData(MaxDDIndex(1,1),1);
+fundlow = TestData(MaxDDIndex(2,1),1);
+
+(fundhigh - fundlow)/fundhigh
+</pre><pre class="codeoutput">
+ans =
+
+    0.1658
+
+</pre><p>this is same as:</p><pre class="codeinput">maxdrawdown(TestData(:,1))
+</pre><pre class="codeoutput">
+ans =
+
+    0.1658
+
+</pre><p>geometric drawdown calculate log difference of high and low, there is no '50% drop needs 100% rally to make it back' here:</p><pre class="codeinput">log(fundhigh) - log(fundlow)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1813
+
+</pre><p>which is the same as</p><pre class="codeinput">maxdrawdown(TestData(:,1),<span class="string">'geometric'</span>)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1813
+
+</pre><p>arithmetic drawdown calculate the absoluate amount of drawdown. if you invested 50 in the fund at period 0.</p><pre class="codeinput">yourmoneyhigh = 50*TestData(MaxDDIndex(1,1),1)
+yourmoneylow = 50*TestData(MaxDDIndex(2,1),1)
+</pre><pre class="codeoutput">
+yourmoneyhigh =
+
+   50.8395
+
+
+yourmoneylow =
+
+   42.4110
+
+</pre><p>your account drawdown in $ terms is:</p><pre class="codeinput">yourmoneyhigh - yourmoneylow
+</pre><pre class="codeoutput">
+ans =
+
+    8.4285
+
+</pre><p>which is the same as:</p><pre class="codeinput">maxdrawdown(50*TestData(:,1),<span class="string">'arithmetic'</span>)
+</pre><pre class="codeoutput">
+ans =
+
+    8.4285
+
+</pre><h2>Expected Maximum Drawdown<a name="14"></a></h2><p><i>emaxdrawdown</i> function calculate expected maximum drawdown for 1-d brownian motion <img src="ExpectedMaximumDrawDown_eq16101854986846335214.png" alt="$$ dX(t) = \mu{dt} +\sigma{dW(t)} $$">. Ideal price process follows a <b>geometric</b> brownian motion <img src="ExpectedMaximumDrawDown_eq16576547298486128350.png" alt="$$ dS(t) = \mu_0 S(t)dt + \sigma_0S(t)dW(t) $$"> in other word the return process is brownian motion <img src="ExpectedMaximumDrawDown_eq03064390036878773271.png" alt="$$ \frac{dS(t)}{S(t)} = \mu_0 dt + \sigma_0dW(t) $$">. By applying Ito's Lemma for <img src="ExpectedMaximumDrawDown_eq02147622882839102258.png" alt="$$ X(t) = log(S(t) $$">, we get: <img src="ExpectedMaximumDrawDown_eq00360847036254159221.png" alt="$$ \mu = \mu_0-0.5\sigma_0^2 $$">, <img src="ExpectedMaximumDrawDown_eq05193537304289282853.png" alt="$$ \sigma = \sigma_0 $$">.</p><p>For the fund, the expected maximum drawdown would be:</p><pre class="codeinput">EMaxDD_fund = emaxdrawdown(Mu(1)-0.5*Sigma(1)^2, Sigma(1), T)
+</pre><pre class="codeoutput">
+EMaxDD_fund =
+
+    0.1588
+
+</pre><p>For the market, the expected maximum drawdown would be:</p><pre class="codeinput">EMaxDD_market = emaxdrawdown(Mu(2)-0.5*Sigma(2)^2, Sigma(2), T)
+</pre><pre class="codeoutput">
+EMaxDD_market =
+
+    0.3471
+
+</pre><p>Both are reasonable wrt to the realized MaxDD during the period.</p><p>what kind of maximum drawdown should we expect when we increase the portfolio volatility?</p><pre class="codeinput">sigma = 0.05:0.05:0.5;
+mu = 0.05:0.05:0.35;
+T=10;
+
+k=1;
+<span class="keyword">while</span> k&lt;=length(mu)
+
+  i=1;
+  <span class="keyword">while</span> i&lt;=length(sigma)
+
+    emdd(i) = emaxdrawdown(mu(k)-sigma(i)^2/2, sigma(i), T);
+    i=i+1;
+  <span class="keyword">end</span>
+
+  emaxddplot = plot(sigma, 1-exp(-emdd));
+
+  <span class="comment">% add a marker to the chart</span>
+  <span class="keyword">if</span> mod(k,2) ==1
+  marker_x = round(2*length(sigma)/3);
+  x = sigma(marker_x);
+  y = 1-exp(-emdd(marker_x));
+  text(x,y,strcat(<span class="string">'\leftarrow \mu= '</span>,num2str(mu(k))));
+  <span class="keyword">end</span>
+
+  hold <span class="string">on</span>;
+
+
+k=k+1;
 <span class="keyword">end</span>
-</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+
+title(<span class="string">'Relationship Between Risk and Drawdown with T=10'</span>, <span class="string">'FontSize'</span>, 10);
+xlabel(<span class="string">'Portfolio Volatility'</span>, <span class="string">'FontSize'</span>, 10);
+ylabel(<span class="string">'Expected Maximum Drawdown in T years'</span>, <span class="string">'FontSize'</span>, 10)
+
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_02.png" alt=""> <p>as we increase the T to 25 years.</p><pre class="codeinput">sigma = 0.05:0.05:0.5;
+mu = 0.05:0.05:0.35;
+T=25;
+
+k=1;
+<span class="keyword">while</span> k&lt;=length(mu)
+
+  i=1;
+  <span class="keyword">while</span> i&lt;=length(sigma)
+
+    emdd(i) = emaxdrawdown(mu(k)-sigma(i)^2/2, sigma(i), T);
+
+    i=i+1;
+  <span class="keyword">end</span>
+
+  emaxddplot = plot(sigma, 1-exp(-emdd));
+
+  <span class="comment">% add a marker to the chart</span>
+  <span class="keyword">if</span> mod(k,2) ==1
+  marker_x = round(2*length(sigma)/3);
+  x = sigma(marker_x);
+  y = 1-exp(-emdd(marker_x));
+  text(x,y,strcat(<span class="string">'\leftarrow \mu= '</span>,num2str(mu(k))));
+  <span class="keyword">end</span>
+
+  hold <span class="string">on</span>;
+
+
+k=k+1;
+<span class="keyword">end</span>
+
+title(<span class="string">'Relationship Between Risk and Drawdown with T=25'</span>, <span class="string">'FontSize'</span>, 10);
+xlabel(<span class="string">'Portfolio Volatility'</span>, <span class="string">'FontSize'</span>, 10);
+ylabel(<span class="string">'Expected Maximum Drawdown in T years'</span>, <span class="string">'FontSize'</span>, 10)
+
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="ExpectedMaximumDrawDown_03.png" alt=""> <p>For a reasonable portfolio operating in the vacinity of sharpe ratio =1. a maximum drawdown close to 40% should be expected. In term of portfolio, no matter what is the strategy sharpe ratio, venture beyond 25% portfolio volility is dangerous (one should expect &gt; 50% maximum drawdown).</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
+%% Maximum Drawdown & Expected Maximum Drawdown
+% I want to see what matlab's emaxdrawdown & maxdrawdown function can do. 
+% Other portfolio performance metrics provided in matlab includes:
+% portalpha, sharpe, inforatio, lpm, elpm. We will explore those later. 
 
-%%Expected Maximum Drawdown 
-% In this post we explore matlab's emaxdrawdown function.
+%% Maximum Drawdown Basics
+% Let's Load some example dataset
+load FundMarketCash
+
+Assets
+TestData
+
+%%
+% FundMarketCash contains three time series: Fund, Market & Cash. Let's
+% take a look:
+
+plot(TestData); 
+legend(Assets(:));
+
+%%
+% Let's calculate the return, average return & Stdev of return of the fund:
+
+logReturns = log(TestData(2:end,:) ./ TestData(1:end - 1,:));
+% This is same as Tick2ret(TestData); 
+
+Mu = mean(logReturns)
+Sigma = std(logReturns,1)
+T = size(logReturns,1)
+
+%%
+% maxdrawdown function provides three form of output: 
+% ..simple percentage
+% ..geometric percentage
+% ..absolute amount
+% I can also ask when is the high and low time, during the maximum drawdown episode:
+
+[MaxDD MaxDDIndex] = maxdrawdown(TestData)
+
+%%
+% MaxDDIndex show us 2nd period is the high, and the drawdown lasted until
+% the 18th period, for Fund & Market. Cash has no drawdown. The high and
+% low for fund was:
+
+TestData(MaxDDIndex(:,1),1)
+
+%%
+% similarly the high and low for the market was:
+
+TestData(MaxDDIndex(:,2),2)
+
+%%
+% maxdrawdown function taking no parameter simply calcuate the drawdown by:
+
+fundhigh = TestData(MaxDDIndex(1,1),1);
+fundlow = TestData(MaxDDIndex(2,1),1);
+
+(fundhigh - fundlow)/fundhigh
+
+%%
+% this is same as:
+
+maxdrawdown(TestData(:,1))
+
+%%
+% geometric drawdown calculate log difference of high and low, there is no
+% '50% drop needs 100% rally to make it back' here:
+
+log(fundhigh) - log(fundlow)
+
+%%
+% which is the same as 
+
+maxdrawdown(TestData(:,1),'geometric')
 
 
-k = 1; 
+%%
+% arithmetic drawdown calculate the absoluate amount of drawdown. if you
+% invested 50 in the fund at period 0. 
 
-while k<=4
+yourmoneyhigh = 50*TestData(MaxDDIndex(1,1),1)
+yourmoneylow = 50*TestData(MaxDDIndex(2,1),1)
+
+%%
+% your account drawdown in $ terms is:
+
+yourmoneyhigh - yourmoneylow
+
+%%
+% which is the same as:
+
+maxdrawdown(50*TestData(:,1),'arithmetic')
+
+
+
+%% Expected Maximum Drawdown 
+% _emaxdrawdown_ function calculate expected maximum drawdown for 1-d brownian motion 
+% $$ dX(t) = \mu{dt} +\sigma{dW(t)} $$. Ideal price process follows a *geometric* brownian motion $$ dS(t) = \mu_0 S(t)dt + \sigma_0S(t)dW(t) $$
+% in other word the return process is brownian motion $$ \frac{dS(t)}{S(t)} = \mu_0 dt + \sigma_0dW(t) $$. By applying Ito's Lemma for $$ X(t) = log(S(t) $$, we get:
+% $$ \mu = \mu_0-0.5\sigma_0^2 $$, $$ \sigma = \sigma_0 $$.  
+
+
+%%
+% For the fund, the expected maximum drawdown would be:
+
+EMaxDD_fund = emaxdrawdown(Mu(1)-0.5*Sigma(1)^2, Sigma(1), T)
+
+%%
+% For the market, the expected maximum drawdown would be:
+
+EMaxDD_market = emaxdrawdown(Mu(2)-0.5*Sigma(2)^2, Sigma(2), T)
+
+%%
+% Both are reasonable wrt to the realized MaxDD during the period. 
+
+
+%%
+% what kind of maximum drawdown should we expect when we increase the portfolio volatility? 
+
+
+sigma = 0.05:0.05:0.5;
+mu = 0.05:0.05:0.35;
+T=10;
+
+k=1;
+while k<=length(mu)
+  
+  i=1;
+  while i<=length(sigma)
+
+    emdd(i) = emaxdrawdown(mu(k)-sigma(i)^2/2, sigma(i), T);
+    i=i+1;
+  end 
+  
+  emaxddplot = plot(sigma, 1-exp(-emdd));  
+  
+  % add a marker to the chart
+  if mod(k,2) ==1
+  marker_x = round(2*length(sigma)/3); 
+  x = sigma(marker_x);
+  y = 1-exp(-emdd(marker_x));
+  text(x,y,strcat('\leftarrow \mu= ',num2str(mu(k)))); 
+  end 
+  
+  hold on;
+
+  
+k=k+1; 
+end 
+
+title('Relationship Between Risk and Drawdown with T=10', 'FontSize', 10);
+xlabel('Portfolio Volatility', 'FontSize', 10); 
+ylabel('Expected Maximum Drawdown in T years', 'FontSize', 10)
+
+hold off; 
+
+%%
+% as we increase the T to 25 years. 
+
+sigma = 0.05:0.05:0.5;
+mu = 0.05:0.05:0.35;
+T=25;
+
+k=1;
+while k<=length(mu)
+  
+  i=1;
+  while i<=length(sigma)
+
+    emdd(i) = emaxdrawdown(mu(k)-sigma(i)^2/2, sigma(i), T);
+
+    i=i+1;
+  end 
+  
+  emaxddplot = plot(sigma, 1-exp(-emdd));  
+  
+  % add a marker to the chart
+  if mod(k,2) ==1
+  marker_x = round(2*length(sigma)/3); 
+  x = sigma(marker_x);
+  y = 1-exp(-emdd(marker_x));
+  text(x,y,strcat('\leftarrow \mu= ',num2str(mu(k)))); 
+  end 
+  
+  hold on;
+
+  
+k=k+1; 
+end 
+
+title('Relationship Between Risk and Drawdown with T=25', 'FontSize', 10);
+xlabel('Portfolio Volatility', 'FontSize', 10); 
+ylabel('Expected Maximum Drawdown in T years', 'FontSize', 10)
+
+hold off; 
   
 
-    j  =1; 
-    while j<=3
-    
-      %%
-      % let's see
-    
-    mu = 0.05*k; 
-    sigma = [0.05:0.01:0.40];
-    T = 10; 
-
-        i=1; 
-        while i<=size(sigma,2)
-
-        emdd(i) = emaxdrawdown(mu-sigma(i)^2/2, sigma(i), T); 
-
-        i = i+1; 
-        end 
-
-        plot(sigma, 1-exp(-emdd)); 
-
-        hold on;
-        
-        j= j+1; 
-
-    end
-    k = k+1; 
-    
-end
-
-
+%%
+% For a reasonable portfolio operating in the vacinity of sharpe ratio =1.
+% a maximum drawdown close to 40% should be expected. In term of portfolio,
+% no matter what is the strategy sharpe ratio, venture beyond 25% portfolio
+% volility is dangerous (one should expect > 50% maximum drawdown). 
 
 ##### SOURCE END #####
 --></body></html>
