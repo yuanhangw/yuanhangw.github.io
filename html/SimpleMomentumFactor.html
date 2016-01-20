@@ -1,0 +1,510 @@
+---
+layout: page
+title: Introducing Mother of all Factors - MOM
+tag: post
+date: 2016-01-21 01:26:18
+categories: matlab
+---
+
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Construct a simple momentum factor portfolio</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-21"><meta name="DC.source" content="SimpleMomentumFactor.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Construct a simple momentum factor portfolio</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Basic idea</a></li><li><a href="#8">Generate the signal</a></li><li><a href="#15">How to calculate portfolio return?</a></li></ul></div><h2>Basic idea<a name="1"></a></h2><div><ul><li>calcualte the momentum as defined by 12-1 month return.</li><li>sort the portfolio according to the rank of momentum signal.</li><li>long the top momentum stock and short buttom moment stock</li><li>repeat and observe the result. let's roll @@@@ load ...</li></ul></div><pre class="codeinput">load(<span class="string">'data_equity_list.mat'</span>);
+load(<span class="string">'data_field_list.mat'</span>);
+load(<span class="string">'data_historical_data.mat'</span>);
+</pre><p>let's update the equity list with the information from the historical data</p><pre class="codeinput">i = 1;
+
+<span class="keyword">for</span> i = 1:size(history,1)
+
+    <span class="keyword">if</span> not(isempty(history{i,3}))
+
+    equity_list(i,3) = history{i,3}.CNTRY_OF_DOMICILE;
+    equity_list(i,4) = history{i,3}.NAME;
+    equity_list(i,5) = history{i,3}.SECURITY_TYP;
+    equity_list(i,6) = history{i,3}.MARKET_STATUS;
+    equity_list(i,7) = history{i,3}.INDUSTRY_SECTOR;
+    equity_list(i,8) = history{i,3}.INDUSTRY_GROUP;
+    equity_list(i,9) = history{i,3}.INDUSTRY_SUBGROUP;
+
+    <span class="keyword">else</span>
+        disp(sprintf(<span class="string">'equity list &lt;&lt;%d&gt;&gt; is empty'</span>, i));
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">equity list &lt;&lt;529&gt;&gt; is empty
+</pre><p>now the equity list looks nice and proper. I like nice and proper...</p><pre class="codeinput">equity_list(1:10,:)
+</pre><pre class="codeoutput">
+ans = 
+
+  Columns 1 through 5
+
+    'XOM US Equity'     'US'    'US'    'EXXON MOBIL CORP'       'Common Stock'
+    'WMT US Equity'     'US'    'US'    'WAL-MART STORES INC'    'Common Stock'
+    'HNR1 GR Equity'    'GR'    'DE'    'HANNOVER RUECK SE'      'Common Stock'
+    'TWX US Equity'     'US'    'US'    'TIME WARNER INC'        'Common Stock'
+    'GE US Equity'      'US'    'US'    'GENERAL ELECTRIC CO'    'Common Stock'
+    'MSFT US Equity'    'US'    'US'    'MICROSOFT CORP'         'Common Stock'
+    'HIGT BB Equity'    'BB'    'GB'    'HILTON GROUP PLC...'    'Belgium Cert'
+    '857 HK Equity'     'HK'    'CN'    'PETROCHINA CO LTD-H'    'Common Stock'
+    '9432 JP Equity'    'JP'    'JP'    'NIPPON TELEGRAPH...'    'Common Stock'
+    'PTR US Equity'     'US'    'CN'    'PETROCHINA CO LT...'    'ADR'         
+
+  Columns 6 through 8
+
+    'ACTV'    'Energy'                'Oil&amp;Gas'            
+    'ACTV'    'Consumer, Cyclical'    'Retail'             
+    'ACTV'    'Financial'             'Insurance'          
+    'ACTV'    'Communications'        'Media'              
+    'ACTV'    'Industrial'            'Miscellaneous Ma...'
+    'ACTV'    'Technology'            'Software'           
+    'PRNA'    'Consumer, Cyclical'    'Entertainment'      
+    'ACTV'    'Energy'                'Oil&amp;Gas'            
+    'ACTV'    'Communications'        'Telecommunications' 
+    'ACTV'    'Energy'                'Oil&amp;Gas'            
+
+  Column 9
+
+    'Oil Comp-Integrated'
+    'Retail-Discount'    
+    'Reinsurance'        
+    'Multimedia'         
+    'Diversified Manu...'
+    'Applications Sof...'
+    'Gambling (Non-Ho...'
+    'Oil Comp-Integrated'
+    'Telephone-Integr...'
+    'Oil Comp-Integrated'
+
+</pre><p>our data is in the cells, this is a bit awkward.... let's start with something utterly simple. a portfolio of two equity. fts name is a bit restrictive, it cannot starts with a number, no space allowed in between. _ although admissible, will be understand as subscription by matlab plot.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=2
+
+  security{i} = fints(history{i,1}(:,1),history{i,1}(:,2),regexprep(strcat(<span class="string">'X'</span>,equity_list(i,1),equity_list(i,4)),<span class="string">'[^a-zA-Z0-9_]'</span>,<span class="string">''</span>),<span class="string">'m'</span>,<span class="string">'LAST_PRICE'</span>);
+
+i = i+1;
+
+<span class="keyword">end</span>
+</pre><p>two potential problem here: 1) some equity name may not be unique after regexprep(), we need to strcat equity name with full name to make sure the uniqueness so that when we merge those two different ts won't be mistaken as the same. 2) history contains {[]}, this need to be cleaned up.</p><p>let's combine the fts.</p><pre class="codeinput">px = merge(security{:}, <span class="string">'SortColumns'</span>, 0);
+</pre><p>let's take a look</p><pre class="codeinput">plot(px);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_01.png" alt=""> <h2>Generate the signal<a name="8"></a></h2><p>let's construct the momentum signal. we use 12-1 months returns, i.e. return start from 12 months agao to last months' close.</p><pre class="codeinput">px_mat = fts2mat(px);
+
+
+i = 1;
+mom = nan(size(px_mat,1),size(px_mat,2));
+
+<span class="keyword">while</span> i &lt;= size(px_mat,1)
+
+  <span class="keyword">if</span> i==1 || i ==2
+    mom(i,:) = nan(1,size(px_mat,2));
+  <span class="keyword">else</span>
+    mom(i,:) = (px_mat(i-1,:)-px_mat(max(1,i-12),:))./px_mat(max(1,i-12),:);
+  <span class="keyword">end</span>
+  i = i+1;
+<span class="keyword">end</span>
+</pre><p>this is clumsy piece of code. but it is correct. let's take a look at the result.</p><pre class="codeinput">figure
+
+subplot(2,1,1)
+semilogy(px_mat)
+subplot(2,1,2)
+plot(mom)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_02.png" alt=""> <p>now that we have the signal, we can backtest the portformance of a market neutral portfolio constructed using this signal. we will long 1 unit of the the security with higher momentum, and short an equal amount of the other. our initial capital is $100.</p><p>a concise way would be to use portfolio_weight*securities_return. let's take a look:</p><p>this little monster convert time series data into ranks, by normalizing ranks to [-1 +1] we get the weight.</p><pre class="codeinput">security_rank = tiedrank(mom')';
+rank_max = max(security_rank,[],2);
+score = bsxfun (@rdivide, bsxfun(@minus,security_rank,(rank_max+1)/2), ((rank_max-1)/2));
+
+portfolio_weight = score;
+</pre><p>there is a small glitch here, the tiedrank function return average rank for a tie. If the first two mom is [0 0], the total portfolio weight wont sum up to zero. I need to fill the first two mom with [nan nan] instead.</p><p>before proceed let's do a bit sanity check to make sure everything is correct...</p><pre class="codeinput">figure
+
+subplot(2,1,1)
+plot(score)
+subplot(2,1,2)
+plot(mom)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_03.png" alt=""> <h2>How to calculate portfolio return?<a name="15"></a></h2><p>it loooks sound... now we have the portfolio weight, all we need to do is weight*rt isn't it? but there are two types of rt, simple arithmetic and geometric(log), which one should we use?</p><p>if the portfolio consists of only one security, so the weight =1. simply add arithmetic return up across period won't work. suppose the price start at 100, at next period it drop to 50, then it went back to 100.</p><p>with arithmetic return:</p><pre class="codeinput">(50-100)/100 + (100-50)/50
+</pre><pre class="codeoutput">
+ans =
+
+    0.5000
+
+</pre><p>with geometric return:</p><pre class="codeinput">log(50/100) + log(100/50)
+</pre><pre class="codeoutput">
+ans =
+
+     0
+
+</pre><p>so when we add total portfolio return across different period, we need to use geometric return.</p><p>how about single period? support we have a equal weight 50/50 portfolio, and we invested $100 in the whole portfolio, so $50 each in each securities. Both security start at 100, one went up to 200 at the end, the other dropped to 50. The portfolio value at the end is $100+$25 = $125</p><p>with arithmetic return:</p><pre class="codeinput">0.5*(200-100)/100 + 0.5*(50-100)/100
+</pre><pre class="codeoutput">
+ans =
+
+    0.2500
+
+</pre><p>with geometric return:</p><pre class="codeinput">0.5*log(200/100) + 0.5*log(50/100)
+</pre><pre class="codeoutput">
+ans =
+
+     0
+
+</pre><p>so in conclusion, we need to calculate weight*rt in each period using arithmetic return. Then convert those to geometric return using log(1+r).</p><pre class="codeinput">log(2)
+log(0.5)
+</pre><pre class="codeoutput">
+ans =
+
+    0.6931
+
+
+ans =
+
+   -0.6931
+
+</pre><p>this point was not very obvious to me initially. I don't think many people really understand it very well. The old saying 'a 50% drop requires a 100% recovery to breakeven' only applies when one is talking about arithmetic return.</p><p>another point is, signal generated at one period hence the portfolio weight should multiple with securities' return at the next period. otherwise we are seeing through the futures...</p><pre class="codeinput">rt = tick2ret(px);
+</pre><p>sanity check:</p><pre class="codeinput">figure
+
+subplot(2,1,1)
+plot(px)
+subplot(2,1,2)
+plot(rt)
+
+
+(fts2mat(px(end))-fts2mat(px(end-1)))./fts2mat(px(end-1))
+
+rt(end)
+</pre><pre class="codeoutput">
+ans =
+
+   -0.0585   -0.0210
+
+ 
+ans = 
+ 
+    desc:  LAST_PRICE || LAST_PRICE
+    freq:  Monthly (3)
+
+    'dates:  (1)        '    'XXOMUSEquityEXXONMO'    'XWMTUSEquityWALMART'
+    '                   '    'BILCORP:  (1)      '    'STORESINC:  (1)    '
+    '09-Aug-2015'            [            -0.0585]    [            -0.0210]
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_04.png" alt=""> <p>gooood, return throught tick2ret ties out with arithmetic return. let's calculate the portfolio return.</p><pre class="codeinput">rt_mat = fts2mat(rt);
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+</pre><p>the two [nan nan] is nagging... let's use fillts to fix it.</p><pre class="codeinput">portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+
+rt = fillts(rt,0);
+</pre><p>Let's check out the portfolio performance.</p><pre class="codeinput">all_rt_ts = merge(portfolio_rt_ts,rt,<span class="string">'SortColumns'</span>, 0);
+
+figure
+plot(cumsum(all_rt_ts));
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_05.png" alt=""> <p>The strategy seems pretty useless, or is it? ; P</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Construct a simple momentum factor portfolio 
+
+
+%% Basic idea
+% * calcualte the momentum as defined by 12-1 month return. 
+% * sort the portfolio according to the rank of momentum signal. 
+% * long the top momentum stock and short buttom moment stock 
+% * repeat and observe the result. 
+% let's roll @@@@ load ...
+
+load('data_equity_list.mat'); 
+load('data_field_list.mat'); 
+load('data_historical_data.mat'); 
+
+%%
+% let's update the equity list with the information from
+% the historical data 
+
+i = 1;
+
+for i = 1:size(history,1)
+    
+    if not(isempty(history{i,3}))
+    
+    equity_list(i,3) = history{i,3}.CNTRY_OF_DOMICILE;
+    equity_list(i,4) = history{i,3}.NAME;
+    equity_list(i,5) = history{i,3}.SECURITY_TYP;
+    equity_list(i,6) = history{i,3}.MARKET_STATUS;
+    equity_list(i,7) = history{i,3}.INDUSTRY_SECTOR;
+    equity_list(i,8) = history{i,3}.INDUSTRY_GROUP;
+    equity_list(i,9) = history{i,3}.INDUSTRY_SUBGROUP;
+    
+    else 
+        disp(sprintf('equity list <<%d>> is empty', i)); 
+        
+    end
+end
+
+%%
+% now the equity list looks nice and proper. I like nice and proper...
+
+equity_list(1:10,:)
+
+%%
+% our data is in the cells, this is a bit awkward....
+% let's start with something utterly simple. a portfolio of two equity. 
+% fts name is a bit restrictive, it cannot starts with a number, no space
+% allowed in between. _ although admissible, will be understand as
+% subscription by matlab plot. 
+
+i=1;
+while i<=2
+  
+  security{i} = fints(history{i,1}(:,1),history{i,1}(:,2),regexprep(strcat('X',equity_list(i,1),equity_list(i,4)),'[^a-zA-Z0-9_]',''),'m','LAST_PRICE'); 
+
+i = i+1; 
+
+end 
+
+%%
+% two potential problem here: 1) some equity name may not be unique after
+% regexprep(), we need to strcat equity name with full name to make sure
+% the uniqueness so that when we merge those two different ts won't be
+% mistaken as the same. 2) history contains {[]}, this need to be cleaned
+% up.
+
+%%
+% let's combine the fts. 
+
+px = merge(security{:}, 'SortColumns', 0); 
+
+%%
+% let's take a look 
+plot(px); 
+
+%% Generate the signal
+% let's construct the momentum signal. we use 12-1 months returns, i.e.
+% return start from 12 months agao to last months' close. 
+
+px_mat = fts2mat(px); 
+
+
+i = 1; 
+mom = nan(size(px_mat,1),size(px_mat,2));
+
+while i <= size(px_mat,1)
+  
+  if i==1 || i ==2
+    mom(i,:) = nan(1,size(px_mat,2)); 
+  else
+    mom(i,:) = (px_mat(i-1,:)-px_mat(max(1,i-12),:))./px_mat(max(1,i-12),:);
+  end 
+  i = i+1; 
+end 
+
+
+%%
+% this is clumsy piece of code. but it is correct. let's take a look at the
+% result. 
+figure
+
+subplot(2,1,1)
+semilogy(px_mat)
+subplot(2,1,2)
+plot(mom)
+
+%%
+% now that we have the signal, we can backtest the portformance of a market
+% neutral portfolio constructed using this signal. we will long 1 unit of
+% the the security with higher momentum, and short an equal amount of the
+% other. our initial capital is $100. 
+
+%%
+% a concise way would be to use portfolio_weight*securities_return. let's
+% take a look:
+
+%%
+% this little monster convert time series data into ranks, by normalizing
+% ranks to [-1 +1] we get the weight. 
+security_rank = tiedrank(mom')';
+rank_max = max(security_rank,[],2);
+score = bsxfun (@rdivide, bsxfun(@minus,security_rank,(rank_max+1)/2), ((rank_max-1)/2));
+                    
+portfolio_weight = score; 
+
+%%
+% there is a small glitch here, the tiedrank function return average rank
+% for a tie. If the first two mom is [0 0], the total portfolio weight wont
+% sum up to zero. I need to fill the first two mom with [nan nan] instead.
+
+
+%%
+% before proceed let's do a bit sanity check to make sure everything is
+% correct...
+figure
+
+subplot(2,1,1)
+plot(score)
+subplot(2,1,2)
+plot(mom)
+
+%% How to calculate portfolio return?
+% it loooks sound... now we have the portfolio weight, all we need to do is
+% weight*rt isn't it? but there are two types of rt, simple arithmetic and
+% geometric(log), which one should we use?  
+
+%%
+% if the portfolio consists of only one security, so the weight =1. simply
+% add arithmetic return up across period won't work. suppose the price
+% start at 100, at next period it drop to 50, then it went back to 100. 
+
+%%
+% with arithmetic return:
+
+(50-100)/100 + (100-50)/50 
+
+%%
+% with geometric return:
+log(50/100) + log(100/50)
+
+%%
+% so when we add total portfolio return across different period, we need to
+% use geometric return. 
+
+%%
+% how about single period? support we have a equal weight 50/50 portfolio,
+% and we invested $100 in the whole portfolio, so $50 each in each
+% securities. Both security start at 100, one went up to 200 at the end,
+% the other dropped to 50. The portfolio value at the end is $100+$25 = $125
+
+%%
+% with arithmetic return:
+
+0.5*(200-100)/100 + 0.5*(50-100)/100
+
+%%
+% with geometric return:
+
+0.5*log(200/100) + 0.5*log(50/100)
+
+%%
+% so in conclusion, we need to calculate weight*rt in each period using
+% arithmetic return. Then convert those to geometric return using
+% log(1+r). 
+
+log(2)
+log(0.5)
+
+%%
+% this point was not very obvious to me initially. I don't think many
+% people really understand it very well. The old saying 'a 50% drop
+% requires a 100% recovery to breakeven' only applies when one is talking
+% about arithmetic return. 
+
+%%
+% another point is, signal generated at one period hence the portfolio
+% weight should multiple with securities' return at the next period.
+% otherwise we are seeing through the futures...
+
+rt = tick2ret(px); 
+
+%% 
+% sanity check:
+figure
+
+subplot(2,1,1)
+plot(px)
+subplot(2,1,2)
+plot(rt)
+
+
+(fts2mat(px(end))-fts2mat(px(end-1)))./fts2mat(px(end-1))
+
+rt(end)
+
+%%
+% gooood, return throught tick2ret ties out with arithmetic return. 
+% let's calculate the portfolio return. 
+
+rt_mat = fts2mat(rt); 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+%%
+% the two [nan nan] is nagging... let's use fillts to fix it. 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+
+rt = fillts(rt,0);
+
+%%
+% Let's check out the portfolio performance. 
+
+all_rt_ts = merge(portfolio_rt_ts,rt,'SortColumns', 0); 
+
+figure 
+plot(cumsum(all_rt_ts));
+
+%%
+% The strategy seems pretty useless, or is it? ; P
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
