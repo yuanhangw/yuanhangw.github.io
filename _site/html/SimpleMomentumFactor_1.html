@@ -1,0 +1,494 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Day 2, Let's focus on this simple Momentum Factor Portfolio</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-21"><meta name="DC.source" content="SimpleMomentumFactor_1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Day 2, Let's focus on this simple Momentum Factor Portfolio</h1><!--introduction--><p>In this post I want to try an alternative way to reconstruct MOM factor, which provides us more tansparancy, and generates an trade list that we can act upon. I will also exam the effect of periodical rebalancing. and compare the result with buy and hold portfolio.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Review</a></li><li><a href="#4">Preparation</a></li><li><a href="#6">Alternative way to backtest</a></li><li><a href="#9">Gist of walkforward function.</a></li><li><a href="#11">Rebalancing, no rebalancing?</a></li></ul></div><h2>Review<a name="1"></a></h2><p>In the first attempt on MOM, we have achieved the following:</p><div><ul><li>Construct the momentum signal</li><li>Construct portfolio weight</li><li>Calculate the portfolio performance using weight*return</li></ul></div><p>This is the pattern of development we will use as we expand gradually to other factors. simple-&gt;iterate-&gt;finish</p><h2>Preparation<a name="4"></a></h2><p>Let's roll....@@@ load.</p><pre class="codeinput">load(<span class="string">'data_equity_list.mat'</span>);
+load(<span class="string">'data_field_list.mat'</span>);
+load(<span class="string">'data_historical_data.mat'</span>);
+
+
+<span class="comment">% update the equity list</span>
+i = 1;
+
+<span class="keyword">for</span> i = 1:size(history,1)
+
+    <span class="keyword">if</span> not(isempty(history{i,3}))
+
+    equity_list(i,3) = history{i,3}.CNTRY_OF_DOMICILE;
+    equity_list(i,4) = history{i,3}.NAME;
+    equity_list(i,5) = history{i,3}.SECURITY_TYP;
+    equity_list(i,6) = history{i,3}.MARKET_STATUS;
+    equity_list(i,7) = history{i,3}.INDUSTRY_SECTOR;
+    equity_list(i,8) = history{i,3}.INDUSTRY_GROUP;
+    equity_list(i,9) = history{i,3}.INDUSTRY_SUBGROUP;
+
+    <span class="keyword">else</span>
+        disp(sprintf(<span class="string">'equity list &lt;&lt;%d&gt;&gt; is empty'</span>, i));
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">% extract securities of interest</span>
+i=1;
+
+<span class="keyword">while</span> i&lt;=2
+
+  security{i} = fints(history{i,1}(:,1),history{i,1}(:,2),regexprep(strcat(<span class="string">'X'</span>,equity_list(i,1),equity_list(i,4)),<span class="string">'[^a-zA-Z0-9_]'</span>,<span class="string">''</span>),<span class="string">'m'</span>,<span class="string">'LAST_PRICE'</span>);
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+
+px = merge(security{:}, <span class="string">'SortColumns'</span>, 0);
+
+
+
+<span class="comment">% generate the signal</span>
+
+px_mat = fts2mat(px);
+mom = nan(size(px_mat,1),size(px_mat,2));
+
+i = 1;
+
+<span class="keyword">while</span> i &lt;= size(px_mat,1)
+
+  <span class="keyword">if</span> i==1 || i ==2
+    mom(i,:) = nan(1,size(px_mat,2));
+  <span class="keyword">else</span>
+    mom(i,:) = (px_mat(i-1,:)-px_mat(max(1,i-12),:))./px_mat(max(1,i-12),:);
+  <span class="keyword">end</span>
+  i = i+1;
+<span class="keyword">end</span>
+
+
+<span class="comment">% generate the portfolio weight</span>
+
+security_rank = tiedrank(mom')';
+rank_max = max(security_rank,[],2);
+score = bsxfun (@rdivide, bsxfun(@minus,security_rank,(rank_max+1)/2), ((rank_max-1)/2));
+
+portfolio_weight = score;
+
+
+portfolio_weight_name = fieldnames(px);
+portfolio_weight_ts = fints(px.dates,portfolio_weight,portfolio_weight_name(4:end),<span class="string">'m'</span>,<span class="string">'PortfolioWeight'</span>);
+
+
+<span class="comment">% calculate the portfolio returns</span>
+rt = tick2ret(px);
+rt_mat = fts2mat(rt);
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+rt = fillts(rt,0);
+
+<span class="comment">% rush to finish!</span>
+all_rt_ts = merge(portfolio_rt_ts,rt,<span class="string">'SortColumns'</span>, 0);
+
+figure
+subplot(2,1,1)
+plot(cumsum(all_rt_ts));
+title(<span class="string">'Portfolio Performance'</span>)
+subplot(2,1,2)
+plot(portfolio_weight);
+title(<span class="string">'Portfolio Weight'</span>)
+</pre><pre class="codeoutput">equity list &lt;&lt;529&gt;&gt; is empty
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_1_01.png" alt=""> <p>this is all fast forwarding from the previous post.</p><h2>Alternative way to backtest<a name="6"></a></h2><p>reconstructing the full portfolio history through one single line weight*return is neat. Alternatively, I can reconstruct the portfolio sequentially step-by-step.</p><pre class="codeinput">initial_capital = 100;
+history_dates = px.dates;
+
+<span class="comment">% what I will do is: at end of each month. I take a look at my capital,</span>
+<span class="comment">% and rebalance the portfolio according to the portfolio weight at that time.</span>
+
+
+i=1;
+current_capital = initial_capital;
+portfolio_capital(1) = initial_capital;
+
+<span class="keyword">while</span> i &lt;= size(history_dates,1)-1
+
+  <span class="comment">% on this day</span>
+  datestr(history_dates(i));
+
+  current_date = datestr(history_dates(i));
+  current_px = fts2mat(px(current_date));
+  current_pw = fts2mat(portfolio_weight_ts(current_date));
+
+  <span class="comment">% this is the position I take</span>
+  current_position = current_capital*current_pw./current_px;
+
+  <span class="comment">% time goes on till the next month end.</span>
+  <span class="comment">% what's my pnl?</span>
+  next_date = datestr(history_dates(i+1));
+  next_px = fts2mat(px(next_date));
+
+  pnl = sum(current_position.*(next_px-current_px));
+
+  <span class="keyword">if</span> isnan(pnl)
+    pnl = 0;
+  <span class="keyword">end</span>
+
+  current_capital = current_capital + pnl;
+
+  <span class="comment">% turn the page</span>
+  i = i+1;
+
+  <span class="comment">% keep a record</span>
+  portfolio_capital(i) = current_capital;
+
+<span class="keyword">end</span>
+
+  portfolio_capital_ts = fints(px.dates,portfolio_capital',<span class="string">'PortfolioCapitalWalkforward'</span>);
+</pre><p>compare this result to the portfolio performance obtained by weight*return</p><pre class="codeinput">figure
+plot(portfolio_capital_ts);
+snapnow;
+hold <span class="string">on</span>;
+plot(100*exp(cumsum(portfolio_rt_ts)));
+snapnow;
+hold <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_1_02.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_1_03.png" alt=""> <p>compare to the equity return, it seems quite pointless to go longshort.</p><pre class="codeinput">plot(100*exp(cumsum(rt)));
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_1_04.png" alt=""> <h2>Gist of walkforward function.<a name="9"></a></h2><p>it's important to keep things simple and limit your options when you do iterations. Otherwise, your code might develop into some little monster like the gist below, This is what happens when you try to accomodate too many things at one shot:</p><p>
+<script src="https://gist.github.com/yuanhangw/576863ae87c9e70338b1.js"></script>
+</p><h2>Rebalancing, no rebalancing?<a name="11"></a></h2><p>Let'sconstruct an equal weight portfolio.</p><pre class="codeinput">porfolio_weight_equal = 0.5*ones(size(portfolio_weight));
+</pre><p>Be mindful that this way to generate weight portfolio is not realiable when apply to larger dataset with a lot NANs. I will deal with that problem later.</p><pre class="codeinput">portfolio_rt_arithmetic = nansum((rt_mat.*porfolio_weight_equal(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+rt = fillts(rt,0);
+
+
+all_rt_ts = merge(portfolio_rt_ts,rt,<span class="string">'SortColumns'</span>, 0);
+
+figure
+subplot(2,1,1)
+plot(cumsum(all_rt_ts));
+title(<span class="string">'Portfolio Performance'</span>)
+subplot(2,1,2)
+plot(porfolio_weight_equal);
+title(<span class="string">'Portfolio Weight'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_1_05.png" alt=""> <p>with only two security, we already start to see some sharpe improvement.</p><pre class="codeinput">sharpe(fts2mat(all_rt_ts),0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.2132    0.1689    0.1890
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Day 2, Let's focus on this simple Momentum Factor Portfolio
+% In this post I want to try an alternative way to reconstruct MOM factor,
+% which provides us more tansparancy, and generates an trade list that we
+% can act upon. 
+% I will also exam the effect of periodical rebalancing. and compare the
+% result with buy and hold portfolio. 
+
+
+%% Review
+% In the first attempt on MOM, we have achieved the following:
+%%
+% * Construct the momentum signal 
+% * Construct portfolio weight 
+% * Calculate the portfolio performance using weight*return
+
+%%
+% This is the pattern of development we will use as we expand gradually to
+% other factors. simple->iterate->finish
+
+%% Preparation 
+% Let's roll....@@@ load.
+
+
+load('data_equity_list.mat'); 
+load('data_field_list.mat'); 
+load('data_historical_data.mat'); 
+
+
+% update the equity list 
+i = 1;
+
+for i = 1:size(history,1)
+    
+    if not(isempty(history{i,3}))
+    
+    equity_list(i,3) = history{i,3}.CNTRY_OF_DOMICILE;
+    equity_list(i,4) = history{i,3}.NAME;
+    equity_list(i,5) = history{i,3}.SECURITY_TYP;
+    equity_list(i,6) = history{i,3}.MARKET_STATUS;
+    equity_list(i,7) = history{i,3}.INDUSTRY_SECTOR;
+    equity_list(i,8) = history{i,3}.INDUSTRY_GROUP;
+    equity_list(i,9) = history{i,3}.INDUSTRY_SUBGROUP;
+    
+    else 
+        disp(sprintf('equity list <<%d>> is empty', i)); 
+        
+    end
+end
+
+
+% extract securities of interest
+i=1;
+
+while i<=2
+  
+  security{i} = fints(history{i,1}(:,1),history{i,1}(:,2),regexprep(strcat('X',equity_list(i,1),equity_list(i,4)),'[^a-zA-Z0-9_]',''),'m','LAST_PRICE'); 
+
+i = i+1; 
+
+end 
+
+
+px = merge(security{:}, 'SortColumns', 0); 
+
+
+
+% generate the signal 
+
+px_mat = fts2mat(px); 
+mom = nan(size(px_mat,1),size(px_mat,2));
+
+i = 1; 
+
+while i <= size(px_mat,1)
+  
+  if i==1 || i ==2
+    mom(i,:) = nan(1,size(px_mat,2)); 
+  else
+    mom(i,:) = (px_mat(i-1,:)-px_mat(max(1,i-12),:))./px_mat(max(1,i-12),:);
+  end 
+  i = i+1; 
+end 
+
+
+% generate the portfolio weight 
+
+security_rank = tiedrank(mom')';
+rank_max = max(security_rank,[],2);
+score = bsxfun (@rdivide, bsxfun(@minus,security_rank,(rank_max+1)/2), ((rank_max-1)/2));
+                    
+portfolio_weight = score; 
+
+
+portfolio_weight_name = fieldnames(px); 
+portfolio_weight_ts = fints(px.dates,portfolio_weight,portfolio_weight_name(4:end),'m','PortfolioWeight');
+
+
+% calculate the portfolio returns
+rt = tick2ret(px);
+rt_mat = fts2mat(rt); 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+rt = fillts(rt,0);
+
+% rush to finish!
+all_rt_ts = merge(portfolio_rt_ts,rt,'SortColumns', 0); 
+
+figure
+subplot(2,1,1)
+plot(cumsum(all_rt_ts));
+title('Portfolio Performance')
+subplot(2,1,2)
+plot(portfolio_weight);
+title('Portfolio Weight')
+
+
+%%
+% this is all fast forwarding from the previous post. 
+
+
+
+%% Alternative way to backtest 
+% reconstructing the full portfolio history through one single line
+% weight*return is neat. Alternatively, I can reconstruct the portfolio
+% sequentially step-by-step. 
+
+
+initial_capital = 100; 
+history_dates = px.dates; 
+
+% what I will do is: at end of each month. I take a look at my capital, 
+% and rebalance the portfolio according to the portfolio weight at that time. 
+
+
+i=1; 
+current_capital = initial_capital; 
+portfolio_capital(1) = initial_capital;
+
+while i <= size(history_dates,1)-1
+  
+  % on this day
+  datestr(history_dates(i));
+  
+  current_date = datestr(history_dates(i));
+  current_px = fts2mat(px(current_date));
+  current_pw = fts2mat(portfolio_weight_ts(current_date));
+  
+  % this is the position I take 
+  current_position = current_capital*current_pw./current_px;
+  
+  % time goes on till the next month end. 
+  % what's my pnl?
+  next_date = datestr(history_dates(i+1));
+  next_px = fts2mat(px(next_date)); 
+  
+  pnl = sum(current_position.*(next_px-current_px)); 
+  
+  if isnan(pnl)
+    pnl = 0; 
+  end 
+  
+  current_capital = current_capital + pnl;
+  
+  % turn the page
+  i = i+1; 
+  
+  % keep a record
+  portfolio_capital(i) = current_capital; 
+  
+end 
+
+  portfolio_capital_ts = fints(px.dates,portfolio_capital','PortfolioCapitalWalkforward');
+
+  
+%%
+% compare this result to the portfolio performance obtained by
+% weight*return
+figure
+plot(portfolio_capital_ts); 
+snapnow;
+hold on;
+plot(100*exp(cumsum(portfolio_rt_ts)));
+snapnow; 
+hold on; 
+
+%%
+% compare to the equity return, it seems quite pointless to go longshort. 
+
+plot(100*exp(cumsum(rt))); 
+snapnow; 
+
+
+%% Gist of walkforward function. 
+% it's important to keep things simple and limit your options when you do
+% iterations. Otherwise, your code might develop into some little monster
+% like the gist below, This is what happens when you try to accomodate too many things at one
+% shot: 
+
+%%
+%
+% <html>
+% <script src="https://gist.github.com/yuanhangw/576863ae87c9e70338b1.js"></script>
+% </html>
+%
+
+
+%% Rebalancing, no rebalancing?
+% Let'sconstruct an equal weight portfolio. 
+
+porfolio_weight_equal = 0.5*ones(size(portfolio_weight)); 
+
+%%
+% Be mindful that this way to generate weight portfolio is not realiable when apply
+% to larger dataset with a lot NANs. I will deal with that problem later. 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*porfolio_weight_equal(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+portfolio_rt_ts = fillts(portfolio_rt_ts,0);
+rt = fillts(rt,0);
+
+
+all_rt_ts = merge(portfolio_rt_ts,rt,'SortColumns', 0); 
+
+figure
+subplot(2,1,1)
+plot(cumsum(all_rt_ts));
+title('Portfolio Performance')
+subplot(2,1,2)
+plot(porfolio_weight_equal);
+title('Portfolio Weight')
+
+
+%%
+% with only two security, we already start to see some sharpe improvement.
+
+sharpe(fts2mat(all_rt_ts),0)
+##### SOURCE END #####
+--></body></html>
