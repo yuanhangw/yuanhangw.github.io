@@ -1,0 +1,971 @@
+---
+layout: page
+title: MOM too good to be true? 
+tag: post
+date: 2016-01-22 17:38:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>More than 2, Cap weight v.s. Equal weight</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-22"><meta name="DC.source" content="SimpleMomentumFactor_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>More than 2, Cap weight v.s. Equal weight</h1><!--introduction--><p>I have been using two securities to construct a moment factor portolio. Here we want to see what happens when we extend the candidate list to more than 2 securities. The goal is to construct a proper momentum factor for U.S. equity market, analyze the performance, and be ready to implement in real world.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Equal weight monthly rebalancing</a></li><li><a href="#16">Too Good to be True!</a></li><li><a href="#21">Capweight portfolio</a></li><li><a href="#25">Let's try once more with Equal Weight portfolio, ignore the very small cap.</a></li><li><a href="#28">Deeper dive.</a></li><li><a href="#37">Is it really too good to be true?</a></li></ul></div><p>I load the U.S. data set.</p><pre class="codeinput">load(<span class="string">'data_equity_list_us.mat'</span>);
+load(<span class="string">'data_field_list.mat'</span>);
+load(<span class="string">'data_historical_data_us.mat'</span>);
+</pre><h2>Equal weight monthly rebalancing<a name="2"></a></h2><p>I have been extracting the first two securities before, EXXON and WALMART. They are too perfect, let's extract 1000.</p><pre class="codeinput">i=1;
+
+<span class="keyword">while</span> i&lt;=1000
+
+
+  index = i;
+  security{i} = fints(history_us{index,1}(:,1),history_us{index,1}(:,2),regexprep(strcat(<span class="string">'X'</span>,equity_list_us(index,1),equity_list_us(index,4)),<span class="string">'[^a-zA-Z0-9_]'</span>,<span class="string">''</span>),<span class="string">'m'</span>,<span class="string">'LAST_PRICE'</span>);
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+
+px = merge(security{:}, <span class="string">'SortColumns'</span>, 0);
+</pre><p>generate portolio weight for equal weight portfolio is easy. At each date I assign 1 to the score, then I normalize it so the weight always sum up to 1.</p><pre class="codeinput">score = fts2mat(px);
+score(not(isnan(score)))=1;
+norm= nansum(score')';
+</pre><p>let's take a look at this norm.</p><pre class="codeinput">plot(px.dates, norm);
+datetick(<span class="string">'x'</span>)
+title(<span class="string">'Number of Alive Companies'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_01.png" alt=""> <p>This show how many alive company in my data at a given time. A great many of them came online during 80s and 90s.</p><p>we normalize the score by this number at each period, so the portfolio weight sum up to one.</p><pre class="codeinput">score_norm = bsxfun(@rdivide, score, norm);
+</pre><p>voila the portfolio weight equal weight portfolio.</p><pre class="codeinput">portfolio_weight = score_norm;
+</pre><p>Let's calculate the portfolio return</p><pre class="codeinput">rt = tick2ret(px);
+rt_mat = fts2mat(rt);
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+</pre><p>let's take a look at the performance</p><pre class="codeinput">plot(cumsum(portfolio_rt_ts))
+snapnow;
+plot(exp(cumsum(portfolio_rt_ts)))
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_02.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_03.png" alt=""> <p>the annual return of the portfolio and the sharpe ratio is</p><pre class="codeinput">sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.2058
+
+
+ans =
+
+    0.1545
+
+
+ans =
+
+    0.7518
+
+</pre><p>this is too good to be true, even with the monthly rebalancing.</p><p>In fact I have benchmark index data that I can compare to.</p><pre class="codeinput">load(<span class="string">'data_benchmark.mat'</span>,<span class="string">'storage'</span>)
+
+spx = fints(storage{1}{1}(:,1),storage{1}{1}(:,2),<span class="string">'SPX'</span>,<span class="string">'d'</span>,<span class="string">'S&amp;P Monthly Data'</span>);
+spx = tomonthly(spx);
+
+spx_rt = fts2mat(tick2ret(spx));
+</pre><p>SPX's return and sharpe ratio:</p><pre class="codeinput">sqrt(12)*std(spx_rt)
+12*mean(spx_rt)
+sqrt(12)*sharpe(spx_rt,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1513
+
+
+ans =
+
+    0.0896
+
+
+ans =
+
+    0.5930
+
+</pre><p>U.S. equity long term return is around 7%.</p><p>plot the two togather:</p><pre class="codeinput">plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_geometric-0.07/12));
+
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolio'</span>,<span class="string">'EqWeightPortfolio-7%'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_04.png" alt=""> <h2>Too Good to be True!<a name="16"></a></h2><p>Just by maintaining a equal weighted portfolio, we gained 5% extra annual return above cap weighted benchmark index? This is too good to be true. First let's see what happens if we ignore all price data that's below $1 mark.</p><pre class="codeinput">score = fts2mat(px);
+score(score&lt;1) = nan;
+score(not(isnan(score)))=1;
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_geometric-0.05/12));
+
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolio'</span>,<span class="string">'EqWeightPortfolio-7%'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_05.png" alt=""> <pre>volatility return and sharpe:</pre><pre class="codeinput">sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1911
+
+
+ans =
+
+    0.1281
+
+
+ans =
+
+    0.6711
+
+</pre><p>this bring the portfolio return down about 2%, by taking out a few 0.1-&gt;1 scenarios.</p><p>now let's see if we turn the rebalancing from monthly to annually, if the non sense stops.</p><pre class="codeinput">px_annual = toannual(px);
+
+score_annual = fts2mat(px_annual);
+score_annual(score_annual&lt;1)=nan;
+score_annual(not(isnan(score_annual)))=1;
+norm= nansum(score_annual')';
+
+score_norm = bsxfun(@rdivide, score_annual, norm);
+portfolio_weight = score_norm;
+
+rt_annual = tick2ret(px_annual);
+rt_annual_mat = fts2mat(rt_annual);
+
+portfolio_rt_arithmetic = nansum((rt_annual_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt_annual.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+
+spx_annual = toannual(spx);
+spx_rt_annual = fts2mat(tick2ret(spx_annual));
+
+
+plot(cumsum(spx_rt_annual));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+hold <span class="string">off</span>
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolio'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_06.png" alt=""> <p>Apparently, rebalance frequency has little to do with this non sense.</p><h2>Capweight portfolio<a name="21"></a></h2><p>S&amp;P500, besides being rebalanced annually, is a cap-weighted index. Is this discrepancy we observe due to our bias toward smaller cap stock? Let's check it out.</p><p>let's load up the corresponding market cap data.</p><pre class="codeinput">i=1;
+
+<span class="keyword">while</span> i&lt;=1000
+
+
+  index = i;
+  security{i} = fints(history_us{index,1}(:,1),history_us{index,1}(:,3),regexprep(strcat(<span class="string">'X'</span>,equity_list_us(index,1),equity_list_us(index,4)),<span class="string">'[^a-zA-Z0-9_]'</span>,<span class="string">''</span>),<span class="string">'m'</span>,<span class="string">'LAST_PRICE'</span>);
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+
+cap = merge(security{:}, <span class="string">'SortColumns'</span>, 0);
+</pre><p>let's generate portfolio weight according to their market capitalization</p><pre class="codeinput">score = fts2mat(cap);
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'CapWeightPortfolio'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_07.png" alt=""> <p>It tied up very nicely ...</p><h2>Let's try once more with Equal Weight portfolio, ignore the very small cap.<a name="25"></a></h2><p>what if we use market cap as an extra filter? say if market cap is under a certain cutoff, we doesn't take the securites in question into consideration, but still use equal weight, how would that portfolio performed? Let's see.</p><pre class="codeinput">cap_mat = fts2mat(cap);
+cap_mat(bsxfun(@lt,cap_mat, prctile(cap_mat',2)'))=nan;
+
+px_mat = fts2mat(px);
+
+score = px_mat;
+score(score&lt;1)=nan;
+score(not(isnan(score)))=1;
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan;
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolio_cap_filter'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_08.png" alt=""> <pre>volatility return and sharpe:</pre><pre class="codeinput">sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1843
+
+
+ans =
+
+    0.1174
+
+
+ans =
+
+    0.6381
+
+</pre><p>well it doesn really help much.</p><h2>Deeper dive.<a name="28"></a></h2><p>let's take a look at returns.</p><pre class="codeinput">plot(rt_mat);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_09.png" alt=""> <p>let's take a look at the extreme value</p><pre class="codeinput">index  = find((max(rt_mat)&gt;2));
+
+i = 1;
+<span class="keyword">while</span> i&lt; size(index,2)
+
+
+  subplot(2,1,1)
+  plot(rt_mat(:,index(i)));
+  subplot(2,1,2)
+  semilogy(px_mat(:,index(i)));
+  title(equity_list_us(index(i),1));
+  snapnow;
+  i=i+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_10.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_11.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_12.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_13.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_14.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_15.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_16.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_17.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_18.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_19.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_20.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_21.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_22.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_23.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_24.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_25.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_26.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_27.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_28.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_29.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_30.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_31.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_32.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_33.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_34.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_35.png" alt=""> <p>extreme value is just part of the story, if we take out company in the list with extreme arithmetic return history.</p><p>we take those with 1 month return over 100% out of the picture. that's about 10% of the 1000 securities in questionm.</p><pre class="codeinput">score = px_mat;
+score(score&lt;1)=nan;
+score(not(isnan(score)))=1;
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan;
+score(:,(max(rt_mat)&gt;1))=nan;
+
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+figure
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolioMildly1'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_36.png" alt=""> <pre>volatility return and sharpe:</pre><pre class="codeinput">sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1731
+
+
+ans =
+
+    0.1182
+
+
+ans =
+
+    0.6840
+
+</pre><p>We can 'mild' it down further</p><pre class="codeinput">score = px_mat;
+score(score&lt;1)=nan;
+score(not(isnan(score)))=1;
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan;
+score(:,(max(rt_mat)&gt;0.15))=nan;
+
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,<span class="string">'PortfolioReturn'</span>);
+
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolioMildly1'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_37.png" alt=""> <pre>volatility return and sharpe:</pre><pre class="codeinput">sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.1240
+
+
+ans =
+
+    0.0824
+
+
+ans =
+
+    0.6651
+
+</pre><p>The Sharpe is not changing much, even though the return is now lowerrrr....</p><p>Those are the securities being used.</p><pre class="codeinput">index  = find((max(rt_mat)&lt;0.15));
+
+i = 1;
+<span class="keyword">while</span> i&lt; size(index,2)
+
+
+  subplot(2,1,1)
+  plot(rt_mat(:,index(i)));
+  subplot(2,1,2)
+  semilogy(px_mat(:,index(i)));
+  title(equity_list_us(index(i),1));
+  snapnow;
+  i=i+1;
+<span class="keyword">end</span>
+
+
+figure
+plot(log(px_mat(:,max(rt_mat)&lt;0.15)))
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_38.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_39.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_40.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_41.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_42.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_43.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_44.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_45.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_46.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_47.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_48.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_49.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_50.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_51.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_52.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_53.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_54.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_55.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_56.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_57.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_58.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_59.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_60.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_61.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_2_62.png" alt=""> <h2>Is it really too good to be true?<a name="37"></a></h2><p>Let's take a moment before we cast double on the result.</p><p>I know that abnormal data point do exist, and those 0.1-&gt;1 dollar in one month point contributes to error. But once I correct those data points, the resulting equal weight portfolio's sharpe is not very far from the S&amp;P. equal weight portfolio has 3~5% higher annual return simply because, by loading up small caps, it assumed more risk than cap weighted benchmark. In fact:</p><pre class="codeinput">cap_median = nanmedian(cap_mat);
+vol = sqrt(12)*nanstd(rt_mat);
+vol(vol&gt;0.75)=nan;
+
+scatter(vol, log(cap_median));
+
+xlabel(<span class="string">'vol'</span>);
+ylabel(<span class="string">'log market cap'</span>);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_63.png" alt=""> <p>The very large cap tend to be less volatile.</p><p>Let's bring equal weight to the equal footing as SPX in terms of risk.</p><pre class="codeinput">score = fts2mat(px);
+score(score&lt;1) = nan;
+score(not(isnan(score)))=1;
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm;
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')';
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic);
+
+deleverage = std(spx_rt)/std(portfolio_rt_geometric);
+
+portfolio_rt_adjusted = deleverage*portfolio_rt_geometric;
+
+
+plot(cumsum(spx_rt));
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_adjusted));
+
+hold <span class="string">off</span>;
+
+legend(<span class="string">'SPX'</span>,<span class="string">'EqWeightPortfolio'</span>,<span class="string">'EqWeightPortfolioAdj'</span>,<span class="string">'location'</span>,<span class="string">'northwest'</span>)
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_2_64.png" alt=""> <p>portfolio volatility, return &amp; sharpe.</p><pre class="codeinput">disp([sqrt(12)*std(spx_rt) sqrt(12)*std(portfolio_rt_geometric) sqrt(12)*std(portfolio_rt_adjusted)])
+disp([12*mean(spx_rt) 12*mean(portfolio_rt_geometric) 12*mean(portfolio_rt_adjusted)])
+disp([sqrt(12)*sharpe(spx_rt,0) sqrt(12)*sharpe(portfolio_rt_geometric,0) sqrt(12)*sharpe(portfolio_rt_adjusted,0)])
+</pre><pre class="codeoutput">    0.1513    0.1911    0.1513
+
+    0.0896    0.1281    0.1014
+
+    0.5930    0.6711    0.6711
+
+</pre><p>The post is long winded, but we are now more comfortable with the data set. With that, we can now move on to construct the MOM.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% More than 2, Cap weight v.s. Equal weight
+% I have been using two securities to construct a moment factor portolio.
+% Here we want to see what happens when we extend the candidate list to
+% more than 2 securities. 
+% The goal is to construct a proper momentum factor for U.S. equity market,
+% analyze the performance, and be ready to implement in real world.  
+
+
+%%
+% I load the U.S. data set.
+
+load('data_equity_list_us.mat'); 
+load('data_field_list.mat'); 
+load('data_historical_data_us.mat'); 
+
+
+
+%% Equal weight monthly rebalancing 
+% I have been extracting the first two securities before, EXXON and
+% WALMART. They are too perfect, let's extract 1000. 
+
+i=1;
+
+while i<=1000
+  
+  
+  index = i; 
+  security{i} = fints(history_us{index,1}(:,1),history_us{index,1}(:,2),regexprep(strcat('X',equity_list_us(index,1),equity_list_us(index,4)),'[^a-zA-Z0-9_]',''),'m','LAST_PRICE'); 
+
+i = i+1; 
+
+end 
+
+
+px = merge(security{:}, 'SortColumns', 0); 
+
+
+
+%%
+% generate portolio weight for equal weight portfolio is easy. At each date
+% I assign 1 to the score, then I normalize it so the weight always sum up
+% to 1. 
+
+score = fts2mat(px); 
+score(not(isnan(score)))=1; 
+norm= nansum(score')';
+
+%%
+% let's take a look at this norm. 
+
+plot(px.dates, norm);
+datetick('x')
+title('Number of Alive Companies')
+
+%%
+% This show how many alive company in my data at a given time. A great many
+% of them came online during 80s and 90s. 
+
+%%
+% we normalize the score by this number at each period, so the portfolio
+% weight sum up to one. 
+
+
+
+score_norm = bsxfun(@rdivide, score, norm);
+
+%%
+% voila the portfolio weight equal weight portfolio. 
+
+portfolio_weight = score_norm; 
+
+
+%%
+% Let's calculate the portfolio return 
+
+rt = tick2ret(px);
+rt_mat = fts2mat(rt); 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+%%
+% let's take a look at the performance 
+
+plot(cumsum(portfolio_rt_ts))
+snapnow; 
+plot(exp(cumsum(portfolio_rt_ts)))
+%%
+% the annual return of the portfolio and the sharpe ratio is 
+sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+
+%%
+% this is too good to be true, even with the monthly rebalancing. 
+
+%% 
+% In fact I have benchmark index data that I can compare to. 
+load('data_benchmark.mat','storage')
+
+spx = fints(storage{1}{1}(:,1),storage{1}{1}(:,2),'SPX','d','S&P Monthly Data');
+spx = tomonthly(spx); 
+
+spx_rt = fts2mat(tick2ret(spx)); 
+
+
+%%
+% SPX's return and sharpe ratio:
+sqrt(12)*std(spx_rt)
+12*mean(spx_rt)
+sqrt(12)*sharpe(spx_rt,0)
+
+%%
+% U.S. equity long term return is around 7%. 
+
+%%
+% plot the two togather: 
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_geometric-0.07/12));
+
+hold off; 
+
+legend('SPX','EqWeightPortfolio','EqWeightPortfolio-7%','location','northwest')
+
+%% Too Good to be True!
+% Just by maintaining a equal weighted portfolio, we gained 5% extra annual return above cap weighted benchmark index?
+% This is too good to be true. First let's see what happens if we ignore all price data that's below $1
+% mark. 
+
+
+score = fts2mat(px); 
+score(score<1) = nan; 
+score(not(isnan(score)))=1; 
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_geometric-0.05/12));
+
+hold off; 
+
+legend('SPX','EqWeightPortfolio','EqWeightPortfolio-7%','location','northwest')
+
+%%
+%  volatility return and sharpe:
+
+sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+
+
+
+%%
+% this bring the portfolio return down about 2%, by taking out a few 0.1->1
+% scenarios. 
+
+%%
+% now let's see if we turn the rebalancing from monthly to annually, if the
+% non sense stops.
+
+px_annual = toannual(px);
+
+score_annual = fts2mat(px_annual); 
+score_annual(score_annual<1)=nan; 
+score_annual(not(isnan(score_annual)))=1; 
+norm= nansum(score_annual')';
+
+score_norm = bsxfun(@rdivide, score_annual, norm);
+portfolio_weight = score_norm; 
+
+rt_annual = tick2ret(px_annual);
+rt_annual_mat = fts2mat(rt_annual); 
+
+portfolio_rt_arithmetic = nansum((rt_annual_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt_annual.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+spx_annual = toannual(spx); 
+spx_rt_annual = fts2mat(tick2ret(spx_annual)); 
+
+
+plot(cumsum(spx_rt_annual));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+hold off 
+
+legend('SPX','EqWeightPortfolio','location','northwest')
+
+
+%%
+% Apparently, rebalance frequency has little to do with this non sense. 
+
+
+%% Capweight portfolio 
+% S&P500, besides being rebalanced annually, is a cap-weighted index. Is this
+% discrepancy we observe due to our bias toward smaller cap stock? Let's
+% check it out. 
+
+
+%%
+% let's load up the corresponding market cap data. 
+i=1;
+
+while i<=1000
+  
+  
+  index = i; 
+  security{i} = fints(history_us{index,1}(:,1),history_us{index,1}(:,3),regexprep(strcat('X',equity_list_us(index,1),equity_list_us(index,4)),'[^a-zA-Z0-9_]',''),'m','LAST_PRICE'); 
+
+i = i+1; 
+
+end 
+
+
+cap = merge(security{:}, 'SortColumns', 0); 
+
+%%
+% let's generate portfolio weight according to their market capitalization
+
+
+score = fts2mat(cap); 
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+
+hold off; 
+
+legend('SPX','CapWeightPortfolio','location','northwest')
+
+%%
+% It tied up very nicely ... 
+
+%% Let's try once more with Equal Weight portfolio, ignore the very small cap. 
+% what if we use market cap as an extra filter? say if market cap is under
+% a certain cutoff, we doesn't take the securites in question into
+% consideration, but still use equal weight, how would that portfolio
+% performed? Let's see. 
+
+
+cap_mat = fts2mat(cap); 
+cap_mat(bsxfun(@lt,cap_mat, prctile(cap_mat',2)'))=nan;
+
+px_mat = fts2mat(px);
+
+score = px_mat; 
+score(score<1)=nan; 
+score(not(isnan(score)))=1; 
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan; 
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+hold off; 
+
+legend('SPX','EqWeightPortfolio_cap_filter','location','northwest')
+
+%%
+%  volatility return and sharpe:
+
+sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+
+%%
+% well it doesn really help much. 
+
+%% Deeper dive. 
+% let's take a look at returns. 
+
+plot(rt_mat); 
+
+%%
+% let's take a look at the extreme value 
+
+index  = find((max(rt_mat)>2));
+
+i = 1; 
+while i< size(index,2)
+  
+  
+  subplot(2,1,1)
+  plot(rt_mat(:,index(i)));
+  subplot(2,1,2)
+  semilogy(px_mat(:,index(i)));
+  title(equity_list_us(index(i),1));
+  snapnow; 
+  i=i+1; 
+end
+
+
+%%
+% extreme value is just part of the story, if we take out company in the
+% list with extreme arithmetic return history.
+
+%%
+% we take those with 1 month return over 100% out of the picture. that's
+% about 10% of the 1000 securities in questionm. 
+
+score = px_mat; 
+score(score<1)=nan; 
+score(not(isnan(score)))=1; 
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan; 
+score(:,(max(rt_mat)>1))=nan; 
+
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+figure
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+
+
+legend('SPX','EqWeightPortfolioMildly1','location','northwest')
+
+%%
+%  volatility return and sharpe:
+
+sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+
+
+%%
+% We can 'mild' it down further
+
+score = px_mat; 
+score(score<1)=nan; 
+score(not(isnan(score)))=1; 
+score(bsxfun(@lt,cap_mat, prctile(cap_mat',10)'))=nan; 
+score(:,(max(rt_mat)>0.15))=nan; 
+
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+portfolio_rt_ts = fints(rt.dates,portfolio_rt_geometric,'PortfolioReturn');
+
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+hold off; 
+
+legend('SPX','EqWeightPortfolioMildly1','location','northwest')
+
+%%
+%  volatility return and sharpe:
+
+sqrt(12)*std(portfolio_rt_geometric)
+12*mean(portfolio_rt_geometric)
+sqrt(12)*sharpe(portfolio_rt_geometric,0)
+
+%%
+% The Sharpe is not changing much, even though the return is now
+% lowerrrr.... 
+
+%%
+% Those are the securities being used. 
+index  = find((max(rt_mat)<0.15));
+
+i = 1; 
+while i< size(index,2)
+  
+  
+  subplot(2,1,1)
+  plot(rt_mat(:,index(i)));
+  subplot(2,1,2)
+  semilogy(px_mat(:,index(i)));
+  title(equity_list_us(index(i),1));
+  snapnow; 
+  i=i+1; 
+end
+
+
+figure
+plot(log(px_mat(:,max(rt_mat)<0.15)))
+snapnow; 
+
+%% Is it really too good to be true?
+% Let's take a moment before we cast double on the result.
+
+
+%%
+% I know that abnormal data point do exist, and those 0.1->1 dollar in one
+% month point contributes to error. But once I correct those data points,
+% the resulting equal weight portfolio's sharpe is not very far from the
+% S&P. equal weight portfolio has 3~5% higher annual return simply because,
+% by loading up small caps, it assumed more risk than cap weighted
+% benchmark. In fact:
+
+cap_median = nanmedian(cap_mat);
+vol = sqrt(12)*nanstd(rt_mat); 
+vol(vol>0.75)=nan; 
+
+scatter(vol, log(cap_median)); 
+
+xlabel('vol');
+ylabel('log market cap');
+
+%%
+% The very large cap tend to be less volatile. 
+
+%%
+% Let's bring equal weight to the equal footing as SPX in terms of risk.
+
+
+score = fts2mat(px); 
+score(score<1) = nan; 
+score(not(isnan(score)))=1; 
+norm= nansum(score')';
+
+score_norm = bsxfun(@rdivide, score, norm);
+portfolio_weight = score_norm; 
+
+portfolio_rt_arithmetic = nansum((rt_mat.*portfolio_weight(1:end-1,:))')'; 
+portfolio_rt_geometric = log(1+portfolio_rt_arithmetic); 
+
+deleverage = std(spx_rt)/std(portfolio_rt_geometric); 
+
+portfolio_rt_adjusted = deleverage*portfolio_rt_geometric;
+
+
+plot(cumsum(spx_rt));
+hold on; 
+plot(cumsum(portfolio_rt_geometric));
+plot(cumsum(portfolio_rt_adjusted));
+
+hold off; 
+
+legend('SPX','EqWeightPortfolio','EqWeightPortfolioAdj','location','northwest')
+
+%%
+% portfolio volatility, return & sharpe. 
+
+
+disp([sqrt(12)*std(spx_rt) sqrt(12)*std(portfolio_rt_geometric) sqrt(12)*std(portfolio_rt_adjusted)])
+disp([12*mean(spx_rt) 12*mean(portfolio_rt_geometric) 12*mean(portfolio_rt_adjusted)])
+disp([sqrt(12)*sharpe(spx_rt,0) sqrt(12)*sharpe(portfolio_rt_geometric,0) sqrt(12)*sharpe(portfolio_rt_adjusted,0)])
+
+
+%%
+% The post is long winded, but we are now more comfortable with the data
+% set. With that, we can now move on to construct the MOM. 
+##### SOURCE END #####
+--></body></html>
