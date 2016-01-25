@@ -1,0 +1,435 @@
+---
+layout: page
+title: MOM alternative MOM
+tag: post
+date: 2016-01-25 23:11:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Mom Practical 4</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-25"><meta name="DC.source" content="SimpleMomentumFactor_7.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Mom Practical 4</h1><!--introduction--><p>This is the last of Simple Momentum Factor series. It will deal the practical issues.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Alternative MOM signal</a></li><li><a href="#14">Conclusion</a></li></ul></div><h2>Alternative MOM signal<a name="1"></a></h2><p>I have been using 12-1 month arithmetic return as MOM signal. Here I want to exam another two type of MOM.</p><div><ol><li>MOM using 12 month return instead of 12-1 month return</li><li>MOM using 12-1 month return normalized using 12-1 month volatility</li></ol></div><p>load the data</p><pre class="codeinput">load(<span class="string">'data_equity_list_us.mat'</span>);
+load(<span class="string">'data_field_list.mat'</span>);
+load(<span class="string">'data_historical_data_us.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>generate the observation</p><pre class="codeinput">mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+mom_12_ts = fun_calculate_mom_alt(px,<span class="string">'12m'</span>);
+mom_6_ts = fun_calculate_mom_alt(px,<span class="string">'6m'</span>);
+mom_24_ts = fun_calculate_mom_alt(px,<span class="string">'24m'</span>);
+mom_normalized_ts = fun_calculate_mom_alt(px,<span class="string">'normalized'</span>);
+mom_1_ts = fun_calculate_mom_alt(px,<span class="string">'1m'</span>);
+</pre><p>generate scores</p><pre class="codeinput">score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+score_12_ts = fun_calculate_score(mom_12_ts,list,<span class="string">'fullsort'</span>);
+score_6_ts = fun_calculate_score(mom_6_ts,list,<span class="string">'fullsort'</span>);
+score_24_ts = fun_calculate_score(mom_24_ts,list,<span class="string">'fullsort'</span>);
+score_normalized_ts = fun_calculate_score(mom_normalized_ts,list,<span class="string">'fullsort'</span>);
+score_1_ts = fun_calculate_score(mom_1_ts,list,<span class="string">'fullsort'</span>);
+</pre><p>calculate portfolio weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.1);
+portfolio_weight_12_ts = fun_portfolio_weight_sector_neutral(score_12_ts,<span class="string">'topm'</span>,0.1);
+portfolio_weight_6_ts = fun_portfolio_weight_sector_neutral(score_6_ts,<span class="string">'topm'</span>,0.1);
+portfolio_weight_24_ts = fun_portfolio_weight_sector_neutral(score_24_ts,<span class="string">'topm'</span>,0.1);
+portfolio_weight_normalized_ts = fun_portfolio_weight_sector_neutral(score_normalized_ts,<span class="string">'topm'</span>,0.1);
+portfolio_weight_1_ts = fun_portfolio_weight_sector_neutral(score_1_ts,<span class="string">'topm'</span>,0.1);
+</pre><p>calculate portfolio return</p><pre class="codeinput">portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_12_ts = fun_portfolio_return(px, portfolio_weight_12_ts);
+portfolio_rt_6_ts = fun_portfolio_return(px, portfolio_weight_6_ts);
+portfolio_rt_24_ts = fun_portfolio_return(px, portfolio_weight_24_ts);
+portfolio_rt_normalized_ts = fun_portfolio_return(px, portfolio_weight_normalized_ts);
+portfolio_rt_1_ts = fun_portfolio_return(px, portfolio_weight_1_ts);
+</pre><p>plot the result</p><pre class="codeinput">plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+plot(cumsum(portfolio_rt_12_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_12_ts),0)
+
+
+plot(cumsum(portfolio_rt_6_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_6_ts),0)
+
+plot(cumsum(portfolio_rt_24_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_24_ts),0)
+
+plot(cumsum(portfolio_rt_normalized_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_normalized_ts),0)
+
+
+plot(cumsum(portfolio_rt_1_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_1_ts),0)
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_01.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.5352
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_02.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.4238
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_03.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.2680
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_04.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.1922
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_05.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.3044
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_06.png" alt=""> <pre class="codeoutput">
+ans =
+
+   -0.1391
+
+</pre><p>normalized is an interesting case, let's take a look at the long only top 100 portfolio.</p><p>calculate portfolio weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topmlongonly'</span>,0.1);
+portfolio_weight_12_ts = fun_portfolio_weight_sector_neutral(score_12_ts,<span class="string">'topmlongonly'</span>,0.1);
+portfolio_weight_6_ts = fun_portfolio_weight_sector_neutral(score_6_ts,<span class="string">'topmlongonly'</span>,0.1);
+portfolio_weight_24_ts = fun_portfolio_weight_sector_neutral(score_24_ts,<span class="string">'topmlongonly'</span>,0.1);
+portfolio_weight_normalized_ts = fun_portfolio_weight_sector_neutral(score_normalized_ts,<span class="string">'topmlongonly'</span>,0.1);
+portfolio_weight_1_ts = fun_portfolio_weight_sector_neutral(score_1_ts,<span class="string">'topmlongonly'</span>,0.1);
+</pre><p>calculate portfolio return</p><pre class="codeinput">portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_12_ts = fun_portfolio_return(px, portfolio_weight_12_ts);
+portfolio_rt_6_ts = fun_portfolio_return(px, portfolio_weight_6_ts);
+portfolio_rt_24_ts = fun_portfolio_return(px, portfolio_weight_24_ts);
+portfolio_rt_normalized_ts = fun_portfolio_return(px, portfolio_weight_normalized_ts);
+portfolio_rt_1_ts = fun_portfolio_return(px, portfolio_weight_1_ts);
+</pre><p>plot the result</p><pre class="codeinput">plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+plot(cumsum(portfolio_rt_12_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_12_ts),0)
+
+
+plot(cumsum(portfolio_rt_6_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_6_ts),0)
+
+plot(cumsum(portfolio_rt_24_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_24_ts),0)
+
+plot(cumsum(portfolio_rt_normalized_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_normalized_ts),0)
+
+
+plot(cumsum(portfolio_rt_1_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+sqrt(12)*sharpe(fts2mat(portfolio_rt_1_ts),0)
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_07.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.8371
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_08.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.7846
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_09.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.6865
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_10.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.5863
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_11.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.8184
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_7_12.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.3710
+
+</pre><h2>Conclusion<a name="14"></a></h2><div><ol><li>normalization worked.</li><li>short term (1m) reversal exists.</li><li>dotcom bubble means, momtum signal presents in all period. a very abnormal period where 1m and 24m MOM all moved up.</li><li>24m MOM up is a good indication that market is going to correct soon.</li><li>12-1m v.s. 12m the difference is in 1m reversal.</li><li>apparently I can dive deeper into this topic, but let's leave it for another day.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Mom Practical 4
+% This is the last of Simple Momentum Factor series. It will deal the
+% practical issues. 
+
+%% Alternative MOM signal 
+% I have been using 12-1 month arithmetic return as MOM signal. Here I want
+% to exam another two type of MOM. 
+
+%%
+% # MOM using 12 month return instead of 12-1 month return
+% # MOM using 12-1 month return normalized using 12-1 month volatility
+
+
+
+%%
+% load the data
+
+load('data_equity_list_us.mat'); 
+load('data_field_list.mat'); 
+load('data_historical_data_us.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+
+%%
+% generate the observation
+
+mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+mom_12_ts = fun_calculate_mom_alt(px,'12m');
+mom_6_ts = fun_calculate_mom_alt(px,'6m');
+mom_24_ts = fun_calculate_mom_alt(px,'24m');
+mom_normalized_ts = fun_calculate_mom_alt(px,'normalized');
+mom_1_ts = fun_calculate_mom_alt(px,'1m');
+
+
+%%
+% generate scores
+
+score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+score_12_ts = fun_calculate_score(mom_12_ts,list,'fullsort'); 
+score_6_ts = fun_calculate_score(mom_6_ts,list,'fullsort'); 
+score_24_ts = fun_calculate_score(mom_24_ts,list,'fullsort'); 
+score_normalized_ts = fun_calculate_score(mom_normalized_ts,list,'fullsort'); 
+score_1_ts = fun_calculate_score(mom_1_ts,list,'fullsort'); 
+
+
+
+%%
+% calculate portfolio weight
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.1); 
+portfolio_weight_12_ts = fun_portfolio_weight_sector_neutral(score_12_ts,'topm',0.1); 
+portfolio_weight_6_ts = fun_portfolio_weight_sector_neutral(score_6_ts,'topm',0.1); 
+portfolio_weight_24_ts = fun_portfolio_weight_sector_neutral(score_24_ts,'topm',0.1); 
+portfolio_weight_normalized_ts = fun_portfolio_weight_sector_neutral(score_normalized_ts,'topm',0.1); 
+portfolio_weight_1_ts = fun_portfolio_weight_sector_neutral(score_1_ts,'topm',0.1); 
+
+
+%%
+% calculate portfolio return
+
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_12_ts = fun_portfolio_return(px, portfolio_weight_12_ts); 
+portfolio_rt_6_ts = fun_portfolio_return(px, portfolio_weight_6_ts); 
+portfolio_rt_24_ts = fun_portfolio_return(px, portfolio_weight_24_ts); 
+portfolio_rt_normalized_ts = fun_portfolio_return(px, portfolio_weight_normalized_ts); 
+portfolio_rt_1_ts = fun_portfolio_return(px, portfolio_weight_1_ts); 
+
+%%
+% plot the result 
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off'); 
+hold on; 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+plot(cumsum(portfolio_rt_12_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_12_ts),0)
+
+
+plot(cumsum(portfolio_rt_6_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_6_ts),0)
+
+plot(cumsum(portfolio_rt_24_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_24_ts),0)
+
+plot(cumsum(portfolio_rt_normalized_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_normalized_ts),0)
+
+
+plot(cumsum(portfolio_rt_1_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_1_ts),0)
+hold off; 
+
+%%
+% normalized is an interesting case, let's take a look at the long only top
+% 100 portfolio. 
+
+
+%%
+% calculate portfolio weight
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topmlongonly',0.1); 
+portfolio_weight_12_ts = fun_portfolio_weight_sector_neutral(score_12_ts,'topmlongonly',0.1); 
+portfolio_weight_6_ts = fun_portfolio_weight_sector_neutral(score_6_ts,'topmlongonly',0.1); 
+portfolio_weight_24_ts = fun_portfolio_weight_sector_neutral(score_24_ts,'topmlongonly',0.1); 
+portfolio_weight_normalized_ts = fun_portfolio_weight_sector_neutral(score_normalized_ts,'topmlongonly',0.1); 
+portfolio_weight_1_ts = fun_portfolio_weight_sector_neutral(score_1_ts,'topmlongonly',0.1); 
+
+
+%%
+% calculate portfolio return
+
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_12_ts = fun_portfolio_return(px, portfolio_weight_12_ts); 
+portfolio_rt_6_ts = fun_portfolio_return(px, portfolio_weight_6_ts); 
+portfolio_rt_24_ts = fun_portfolio_return(px, portfolio_weight_24_ts); 
+portfolio_rt_normalized_ts = fun_portfolio_return(px, portfolio_weight_normalized_ts); 
+portfolio_rt_1_ts = fun_portfolio_return(px, portfolio_weight_1_ts); 
+
+%%
+% plot the result 
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off'); 
+hold on; 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+plot(cumsum(portfolio_rt_12_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_12_ts),0)
+
+
+plot(cumsum(portfolio_rt_6_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_6_ts),0)
+
+plot(cumsum(portfolio_rt_24_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_24_ts),0)
+
+plot(cumsum(portfolio_rt_normalized_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_normalized_ts),0)
+
+
+plot(cumsum(portfolio_rt_1_ts)); 
+legend('off'); 
+snapnow; 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_1_ts),0)
+hold off; 
+
+
+%% Conclusion
+%% 
+% # normalization worked.
+% # short term (1m) reversal exists. 
+% # dotcom bubble means, momtum signal presents in all period. a very
+% abnormal period where 1m and 24m MOM all moved up. 
+% # 24m MOM up is a good indication that market is going to correct soon. 
+% # 12-1m v.s. 12m the difference is in 1m reversal. 
+% # apparently I can dive deeper into this topic, but let's leave it for
+% another day. 
+##### SOURCE END #####
+--></body></html>
