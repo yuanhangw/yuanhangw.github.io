@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>MOM 2->N Noise->Signal</title>
+    <title>MOM 2->N</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
@@ -56,7 +56,7 @@
           
         
           
-          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N Noise->Signal</a>
+          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N</a>
           
         
           
@@ -129,7 +129,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">MOM 2->N Noise->Signal</h1>
+    <h1 class="post-title">MOM 2->N</h1>
   </header>
 
   <article class="post-content">
@@ -140,7 +140,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Mom proper.</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-24"><meta name="DC.source" content="SimpleMomentumFactor_3.m"><style type="text/css">
+      --><title>Mom proper.</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-25"><meta name="DC.source" content="SimpleMomentumFactor_3.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -200,7 +200,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Mom proper.</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">ToDos</a></li><li><a href="#4">MOM for 2.</a></li><li><a href="#7">Data Integrity</a></li><li><a href="#17">2-&gt;N</a></li><li><a href="#19">Long only</a></li><li><a href="#20">Short equal weight index</a></li></ul></div><h2>ToDos<a name="1"></a></h2><div><ul><li>put a few repeated scripts into functions, i.e. generator portfolio weight so that the published html looks more concise.  (x)</li><li>understand MOM with two random securities, and note down the exception.(x)</li><li>study MOM as we increase the securities. understand the relationship between N, drift, and noise. (x)</li><li>study two weighting schemes: equal weight, weighting according to score, and the effect of reducing N. (x)</li><li>study ideal MOM with respect to equal weight short MOM &amp; cap weight short MOM.(cap weight next post)</li><li>study MOM with limited amount of long securities and cap weight benchmark short. This is most practical case. (next post)</li><li>walk forward MOM, address the practical issues (next post)</li></ul></div><p>As usual, my plan get out of control again!</p><h2>MOM for 2.<a name="4"></a></h2><pre class="codeinput">load(<span class="string">'data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Mom proper.</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">ToDos</a></li><li><a href="#4">MOM for 2.</a></li><li><a href="#7">Data Integrity</a></li><li><a href="#17">2-&gt;N</a></li><li><a href="#19">Long only</a></li><li><a href="#20">Short equal weight index</a></li><li><a href="#26">Equal weight long, short equal weight index.</a></li><li><a href="#43">Relationship between N, volatility and sharpe ratio.</a></li><li><a href="#54">Take aways</a></li></ul></div><h2>ToDos<a name="1"></a></h2><div><ul><li>put a few repeated scripts into functions, i.e. generator portfolio weight so that the published html looks more concise.  (x)</li><li>understand MOM with two random securities, and note down the exception.(x)</li><li>study MOM as we increase the securities. understand the relationship between N, drift, and noise. (x)</li><li>study two weighting schemes: equal weight, weighting according to score, and the effect of reducing N. (x)</li><li>study ideal MOM with respect to equal weight short MOM &amp; cap weight short MOM.(cap weight not done yet)</li><li>study MOM with limited amount of long securities and cap weight benchmark short. This is most practical case. (next post)</li><li>walk forward MOM, address the practical issues (next post)</li></ul></div><p>As usual, my plan get out of control again!</p><h2>MOM for 2.<a name="4"></a></h2><pre class="codeinput">load(<span class="string">'data_equity_list_us.mat'</span>);
 load(<span class="string">'data_field_list.mat'</span>);
 load(<span class="string">'data_historical_data_us.mat'</span>);
 
@@ -375,61 +375,61 @@ hold <span class="string">off</span>;
 
 ans =
 
-    0.2216    0.6511
+    0.1868    0.3089
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_31.png" alt=""> <pre class="codeoutput">with 4 securities
 
 ans =
 
-    0.2350    0.5916
+    0.4893    0.5051
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_32.png" alt=""> <pre class="codeoutput">with 8 securities
 
 ans =
 
-    0.2791    0.1012
+    0.1879    0.0790
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_33.png" alt=""> <pre class="codeoutput">with 16 securities
 
 ans =
 
-    0.5795    0.5908
+    0.3352    0.4617
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_34.png" alt=""> <pre class="codeoutput">with 32 securities
 
 ans =
 
-    0.6200    0.5919
+    0.5221    0.5048
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_35.png" alt=""> <pre class="codeoutput">with 64 securities
 
 ans =
 
-    0.6137    0.5429
+    0.6866    0.5805
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_36.png" alt=""> <pre class="codeoutput">with 128 securities
 
 ans =
 
-    0.6351    0.5571
+    0.7035    0.5515
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_37.png" alt=""> <pre class="codeoutput">with 256 securities
 
 ans =
 
-    0.7917    0.6369
+    0.6597    0.5884
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_38.png" alt=""> <pre class="codeoutput">with 512 securities
 
 ans =
 
-    0.7483    0.6014
+    0.8183    0.6446
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_39.png" alt=""> <pre class="codeoutput">with 1024 securities
 
 ans =
 
-    0.7801    0.6104
+    0.7873    0.6176
 
 </pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_40.png" alt=""> <h2>Short equal weight index<a name="20"></a></h2><p>our naive longshort strategy is.. naive. let's see what happens if we change our short side to equal weight index instead. which is more close to what we can do in reality.</p><pre class="codeinput">i =1;
 <span class="keyword">while</span> i&lt;= 10
@@ -476,23 +476,446 @@ hold <span class="string">off</span>;
 </pre><pre class="codeoutput">
 ans =
 
-    0.5199    0.3027
+    0.5059    0.3032
 
 </pre><p>correlation with market</p><pre class="codeinput">corrcoef(portfolio_rt_ts,portfolio_rt_eq_ts)
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000   -0.3449
-   -0.3449    1.0000
+    1.0000   -0.3166
+   -0.3166    1.0000
 
 </pre><p>correlation with market without momentum crash</p><pre class="codeinput">corrcoef(portfolio_rt_ts(1:(end-100)),portfolio_rt_eq_ts(1:(end-100)))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000   -0.0984
-   -0.0984    1.0000
+    1.0000   -0.0817
+   -0.0817    1.0000
 
-</pre><p>Very little indeed.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><p>Very little indeed.</p><h2>Equal weight long, short equal weight index.<a name="26"></a></h2><p>What happens if instead of using score generated from momentum rank as portfolio weight, I simply choose the top M% securities and construct an equal weight portfolio? let's exam.</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+mom_ts = fun_calculate_mom(px);
+</pre><p>first let's compare score weight with equal weight for 1000 securities. apparently score weight put much more emphasis on higher signal securities therefore higher sharpe should be expected. equal weight is a watered down version of it.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'longshorteq'</span>);
+portfolio_weight_top_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,1);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_top_ts = fun_portfolio_return(px, portfolio_weight_top_ts);
+
+
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+plot(cumsum(portfolio_rt_top_ts));
+legend(<span class="string">'off'</span>)
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_52.png" alt=""> <p>compare their sharpe</p><pre class="codeinput">[sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0) sqrt(12)*sharpe(fts2mat(portfolio_rt_top_ts),0) ]
+</pre><pre class="codeoutput">
+ans =
+
+    0.3320    0.1984
+
+</pre><p>let's see how the portfolio evolve as we increase N.</p><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_top_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,0.1*i);
+  portfolio_rt_top_ts = fun_portfolio_return(px, portfolio_weight_top_ts);
+
+  plot(cumsum(portfolio_rt_top_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+<span class="comment">%   plot(cumsum(portfolio_rt_ts));</span>
+<span class="comment">%   legend('off');</span>
+<span class="comment">%   hold on;</span>
+
+  sharpe_top(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_ts),0);
+
+  i = i+1;
+<span class="keyword">end</span>
+
+snapnow;
+hold <span class="string">off</span>;
+plot(sharpe_top);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_53.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_54.png" alt=""> <p>let's see each 10% percentile.</p><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.1*i,0.1*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+  plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0);
+
+  i = i+1;
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_55.png" alt=""> <p>it seemss the signal is from the top few hundreds securities.</p><pre class="codeinput">plot(sharpe_top);
+hold <span class="string">on</span>;
+plot(sharpe_top_percentile);
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_56.png" alt=""> <p>let's zoom into those, top 400, 10 by 10.</p><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.01*i,0.01*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+  sharpe_top_percentile_zoom(i) = sharpe(exp(fts2mat(portfolio_rt_top_percentile_ts))-1,0);
+
+  portplot.Color(4) = 1 - 0.025*i;
+
+  i = i+1;
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sqrt(12)*sharpe_top_percentile_zoom)
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_57.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_58.png" alt=""> <p>the good new is, the signal is there, especially in the first 100. the bad news is it tails off really fast.</p><p>let's look at the period after momentum crash.</p><pre class="codeinput">mom_ts_short = mom_ts(end-70:end);
+px_short = px(end-70:end);
+
+
+i = 1;
+<span class="keyword">while</span> i&lt;=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts_short,<span class="string">'topm'</span>,0.01*i);
+  portfolio_rt_top_ts = fun_portfolio_return(px_short, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  sharpe_top_percentile_post_crash(i) = sharpe(exp(fts2mat(portfolio_rt_top_ts))-1,0);
+  portplot.Color(4) = 1 - 0.025*i;
+
+  i = i+1;
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sqrt(12)*sharpe_top_percentile_post_crash);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_59.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_60.png" alt=""> <p>by percentile</p><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts_short,<span class="string">'topmn'</span>,0.01*i,0.01*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px_short, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  sharpe_top_percentile_post_crash_pct(i) = sharpe(exp(fts2mat(portfolio_rt_top_percentile_ts))-1,0);
+  portplot.Color(4) = 1 - 0.025*i;
+
+  i = i+1;
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sqrt(12)*sharpe_top_percentile_post_crash_pct);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_61.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_62.png" alt=""> <p>generally positive!</p><p>let's compare the original score weight portfolio with 1) top 100 equal weight portolio 2) top 100 equal weight portfolio without the very top 10 securities in the list.</p><p>original score weight:</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'longshorteq'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+port_sharpe(1) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_63.png" alt=""> <p>equal weight long:</p><pre class="codeinput">portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,1);
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+port_sharpe(2) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_64.png" alt=""> <p>top 10%, 100 securities:</p><pre class="codeinput">portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.1,0.0);
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+port_sharpe(3) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_65.png" alt=""> <p>top 10%, 100 securities without the top 5:</p><pre class="codeinput">portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.1,0.005);
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+
+port_sharpe(4) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0);
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_66.png" alt=""> <p>sharpes</p><pre class="codeinput">port_sharpe
+</pre><pre class="codeoutput">
+port_sharpe =
+
+    0.3320    0.1984    0.5168    0.4500
+
+</pre><h2>Relationship between N, volatility and sharpe ratio.<a name="43"></a></h2><p>First, let's compare equal weight with long high momentum equal weight for different N.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,2^i,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'equalweight'</span>);
+  portfolio_rt_equalweight_ts = fun_portfolio_return(px, portfolio_weight_ts);
+  plot(cumsum(portfolio_rt_equalweight_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'longonlyeq'</span>);
+  portfolio_rt_longonlyeq_ts = fun_portfolio_return(px, portfolio_weight_ts);
+  plot(cumsum(portfolio_rt_longonlyeq_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">off</span>;
+
+  disp(sprintf(<span class="string">'number of securities %d'</span>, 2^i));
+  disp([sqrt(12)*sharpe(fts2mat(portfolio_rt_equalweight_ts),0) sqrt(12)*sharpe(fts2mat(portfolio_rt_longonlyeq_ts),0)]);
+  snapnow;
+
+  i=i+1;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">number of securities 2
+    0.5490   -0.1455
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_67.png" alt=""> <pre class="codeoutput">number of securities 4
+    0.4664    0.2363
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_68.png" alt=""> <pre class="codeoutput">number of securities 8
+    0.5414    0.3576
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_69.png" alt=""> <pre class="codeoutput">number of securities 16
+    0.4786    0.5596
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_70.png" alt=""> <pre class="codeoutput">number of securities 32
+    0.6213    0.6448
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_71.png" alt=""> <pre class="codeoutput">number of securities 64
+    0.6112    0.7961
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_72.png" alt=""> <pre class="codeoutput">number of securities 128
+    0.5336    0.6462
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_73.png" alt=""> <pre class="codeoutput">number of securities 256
+    0.5912    0.7467
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_74.png" alt=""> <pre class="codeoutput">number of securities 512
+    0.5837    0.7323
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_75.png" alt=""> <pre class="codeoutput">number of securities 1024
+    0.5950    0.7477
+
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_76.png" alt=""> <p>now let's exam relationship between N, vol and sharpe. I take 10 data samples.</p><p>portfolio consists of top N securities</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,0.02*j);
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_sharpe_1(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_vol_1(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_rt_1(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(port_sharpe_1');
+snapnow;
+plot(port_vol_1');
+snapnow;
+plot(port_rt_1');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_77.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_78.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_79.png" alt=""> <p>breakdown into each percentile, 10 securities at each step</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.01*j,0.01*(j-1));
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_pct_sharpe_2(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_pct_vol_2(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_pct_rt_2(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(port_pct_sharpe_2');
+snapnow;
+plot(port_pct_vol_2');
+snapnow;
+plot(port_pct_rt_2');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_80.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_81.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_82.png" alt=""> <p>Does increase the securities universe help?</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,100*i,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,0.02*j);
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_sharpe_3(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_vol_3(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_rt_3(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i=i+1;
+
+<span class="keyword">end</span>
+
+plot(port_sharpe_3');
+snapnow;
+plot(port_vol_3');
+snapnow;
+plot(port_rt_3');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_83.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_84.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_85.png" alt=""> <p>it does has some effect, but converge to the stable curve very quickly once we pass 400.</p><p>let's take a look at the period post momentum crash</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  mom_ts = mom_ts(end-70:end);
+  px = px(end-70:end);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.01*j,0.01*(j-1));
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_sharpe_4(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_vol_4(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_rt_4(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i = i+1;
+<span class="keyword">end</span>
+
+plot(port_sharpe_4');
+snapnow;
+plot(port_vol_4');
+snapnow;
+plot(port_rt_4');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_86.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_87.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_88.png" alt=""> <p>some pretty odd pattern here.</p><p>let's take a look at the top M instead of top percentile.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  mom_ts = mom_ts(end-70:end);
+  px = px(end-70:end);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,0.01*j);
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_sharpe_5(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_vol_5(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_rt_5(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i = i+1;
+<span class="keyword">end</span>
+
+plot(port_sharpe_5');
+snapnow;
+plot(port_vol_5');
+snapnow;
+plot(port_rt_5');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_89.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_90.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_91.png" alt=""> <p>let's take a look at the period before moment crash</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px);
+  mom_ts = fun_calculate_mom(px);
+
+  mom_ts = mom_ts(1:end-100);
+  px = px(1:end-100);
+
+  j = 1;
+
+  <span class="keyword">while</span> j&lt;=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'topmn'</span>,0.01*j,0.01*(j-1));
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+    port_sharpe_6(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0);
+    port_vol_6(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts));
+    port_rt_6(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts));
+
+    j = j+1;
+
+  <span class="keyword">end</span>
+
+  i = i+1;
+<span class="keyword">end</span>
+
+plot(port_sharpe_6');
+snapnow;
+plot(port_vol_6');
+snapnow;
+plot(port_rt_6');
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_3_92.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_93.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_3_94.png" alt=""> <h2>Take aways<a name="54"></a></h2><p>This post is rather long. In the spirit of 'keep it simple, finish it off and iterate', I will condense the result into a few points.</p><div><ul><li>I can use longonly v.s equal weight to check the existance of signal, by using sharpe plot, I can tell how much signal exists, and estimate a rough upper bound.</li><li>by take multiple data sampling, I can get a fuller picture regarding the portfolio signal and volatility profile. In this example to 10~15% seems to be the sweet spot(balance signal robustness and strength)</li><li>porfolio vol has a monotonous relationship wrt N, 10~15% corresponding to 7% for quiet period and 12% for long term.</li><li>I can breakdown the data into percentiles and check from exactly where the signal presents. From long term data, I can conclude that signal mainly contained in the top 15%. This procedure help me to determine a cutoff.</li><li>increase the size of equity universe improve the robustness of the signal</li><li>most momentum crash data contains a strange pattern. I don't know the cause yet, but it suggests that the very top of the momentum rank doesn't corresponds to higher signal due to the disproportionally high noise presented there. Between 15~25% percentile, there actually exists a valley of signal. Despite all these, 10~15% remains the sweet spot.</li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Mom proper. 
 %%
@@ -509,7 +932,7 @@ ans =
 % * study two weighting schemes: equal weight, weighting according to
 % score, and the effect of reducing N. (x)
 % * study ideal MOM with respect to equal weight short MOM & cap weight
-% short MOM.(cap weight next post)
+% short MOM.(cap weight not done yet)
 % * study MOM with limited amount of long securities and cap weight
 % benchmark short. This is most practical case. (next post)
 % * walk forward MOM, address the practical issues (next post)
@@ -817,9 +1240,539 @@ corrcoef(portfolio_rt_ts(1:(end-100)),portfolio_rt_eq_ts(1:(end-100)))
 %%
 % Very little indeed. 
 
+%% Equal weight long, short equal weight index. 
+% What happens if instead of using score generated from momentum rank as
+% portfolio weight, I simply choose the top M% securities and construct an
+% equal weight portfolio? let's exam. 
 
 
 
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+mom_ts = fun_calculate_mom(px); 
+
+%%
+% first let's compare score weight with equal weight for 1000 securities.
+% apparently score weight put much more emphasis on higher signal
+% securities therefore higher sharpe should be expected. equal weight is a
+% watered down version of it. 
+
+
+portfolio_weight_ts = fun_portfolio_weight(mom_ts,'longshorteq'); 
+portfolio_weight_top_ts = fun_portfolio_weight(mom_ts,'topm',1); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_top_ts = fun_portfolio_return(px, portfolio_weight_top_ts);
+ 
+ 
+plot(cumsum(portfolio_rt_ts)); 
+legend('off'); 
+hold on; 
+
+plot(cumsum(portfolio_rt_top_ts)); 
+legend('off')
+hold off; 
+snapnow; 
+
+%%
+% compare their sharpe
+
+[sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0) sqrt(12)*sharpe(fts2mat(portfolio_rt_top_ts),0) ]
+
+%% 
+% let's see how the portfolio evolve as we increase N. 
+
+i = 1; 
+while i<=10
+
+  portfolio_weight_top_ts = fun_portfolio_weight(mom_ts,'topm',0.1*i); 
+  portfolio_rt_top_ts = fun_portfolio_return(px, portfolio_weight_top_ts);
+
+  plot(cumsum(portfolio_rt_top_ts)); 
+  legend('off'); 
+  hold on; 
+  
+%   plot(cumsum(portfolio_rt_ts));
+%   legend('off'); 
+%   hold on; 
+  
+  sharpe_top(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_ts),0); 
+  
+  i = i+1; 
+end 
+
+snapnow; 
+hold off; 
+plot(sharpe_top); 
+snapnow; 
+
+%%
+% let's see each 10% percentile. 
+
+
+i = 1; 
+while i<=10
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,'topmn',0.1*i,0.1*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+  plot(cumsum(portfolio_rt_top_percentile_ts)); 
+  legend('off'); 
+  hold on; 
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0); 
+  
+  i = i+1; 
+end 
+
+hold off; 
+
+%%
+% it seemss the signal is from the top few hundreds securities. 
+
+plot(sharpe_top); 
+hold on; 
+plot(sharpe_top_percentile); 
+hold off; 
+
+%%
+% let's zoom into those, top 400, 10 by 10. 
+
+
+i = 1; 
+while i<=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,'topmn',0.01*i,0.01*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts)); 
+  legend('off'); 
+  hold on; 
+  sharpe_top_percentile_zoom(i) = sharpe(exp(fts2mat(portfolio_rt_top_percentile_ts))-1,0); 
+  
+  portplot.Color(4) = 1 - 0.025*i; 
+  
+  i = i+1; 
+end 
+
+hold off; 
+snapnow; 
+
+plot(sqrt(12)*sharpe_top_percentile_zoom)
+snapnow; 
+%%
+% the good new is, the signal is there, especially in the first 100. the bad news is it tails off really
+% fast. 
+
+%%
+% let's look at the period after momentum crash. 
+
+mom_ts_short = mom_ts(end-70:end); 
+px_short = px(end-70:end); 
+
+
+i = 1; 
+while i<=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts_short,'topm',0.01*i); 
+  portfolio_rt_top_ts = fun_portfolio_return(px_short, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_ts)); 
+  legend('off'); 
+  hold on; 
+  
+  sharpe_top_percentile_post_crash(i) = sharpe(exp(fts2mat(portfolio_rt_top_ts))-1,0); 
+  portplot.Color(4) = 1 - 0.025*i; 
+  
+  i = i+1; 
+end 
+
+hold off; 
+snapnow;
+
+plot(sqrt(12)*sharpe_top_percentile_post_crash); 
+snapnow; 
+
+%%
+% by percentile
+
+i = 1; 
+while i<=40
+
+  portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts_short,'topmn',0.01*i,0.01*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px_short, portfolio_weight_top_percentile_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts)); 
+  legend('off'); 
+  hold on; 
+  
+  sharpe_top_percentile_post_crash_pct(i) = sharpe(exp(fts2mat(portfolio_rt_top_percentile_ts))-1,0); 
+  portplot.Color(4) = 1 - 0.025*i; 
+  
+  i = i+1; 
+end 
+
+hold off; 
+snapnow;
+
+plot(sqrt(12)*sharpe_top_percentile_post_crash_pct); 
+snapnow; 
+
+%%
+% generally positive! 
+
+
+%%
+% let's compare the original score weight portfolio with 1) top 100 equal weight portolio 2) top 100 equal weight portfolio without the very top 10 securities in the list. 
+
+%%
+% original score weight: 
+
+portfolio_weight_ts = fun_portfolio_weight(mom_ts,'longshorteq'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off'); 
+hold on; 
+
+port_sharpe(1) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+
+%%
+% equal weight long:
+
+portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,'topm',1); 
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts)); 
+legend('off'); 
+hold on; 
+
+port_sharpe(2) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0); 
+
+%%
+% top 10%, 100 securities:
+
+portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,'topmn',0.1,0.0); 
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts)); 
+legend('off'); 
+hold on; 
+
+port_sharpe(3) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0); 
+
+%%
+% top 10%, 100 securities without the top 5: 
+
+portfolio_weight_top_percentile_ts = fun_portfolio_weight(mom_ts,'topmn',0.1,0.005); 
+portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_top_percentile_ts);
+
+plot(cumsum(portfolio_rt_top_percentile_ts)); 
+legend('off'); 
+hold off; 
+
+port_sharpe(4) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts),0); 
+
+%%
+% sharpes
+
+port_sharpe
+
+%% Relationship between N, volatility and sharpe ratio. 
+
+%% 
+% First, let's compare equal weight with long high momentum equal weight for different N. 
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,2^i,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  portfolio_weight_ts = fun_portfolio_weight(mom_ts,'equalweight'); 
+  portfolio_rt_equalweight_ts = fun_portfolio_return(px, portfolio_weight_ts);
+  plot(cumsum(portfolio_rt_equalweight_ts));
+  legend('off'); 
+  hold on; 
+
+  portfolio_weight_ts = fun_portfolio_weight(mom_ts,'longonlyeq'); 
+  portfolio_rt_longonlyeq_ts = fun_portfolio_return(px, portfolio_weight_ts);
+  plot(cumsum(portfolio_rt_longonlyeq_ts));
+  legend('off'); 
+  hold off; 
+
+  disp(sprintf('number of securities %d', 2^i)); 
+  disp([sqrt(12)*sharpe(fts2mat(portfolio_rt_equalweight_ts),0) sqrt(12)*sharpe(fts2mat(portfolio_rt_longonlyeq_ts),0)]);
+  snapnow; 
+  
+  i=i+1; 
+end 
+
+%%
+% now let's exam relationship between N, vol and sharpe. I take 10 data
+% samples. 
+
+%% 
+% portfolio consists of top N securities
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,1000,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topm',0.02*j); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_sharpe_1(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_vol_1(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_rt_1(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i=i+1;
+end 
+
+plot(port_sharpe_1');
+snapnow; 
+plot(port_vol_1');
+snapnow; 
+plot(port_rt_1');
+snapnow; 
+
+%%
+% breakdown into each percentile, 10 securities at each step 
+
+
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,1000,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topmn',0.01*j,0.01*(j-1)); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_pct_sharpe_2(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_pct_vol_2(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_pct_rt_2(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i=i+1;
+end 
+
+plot(port_pct_sharpe_2');
+snapnow; 
+plot(port_pct_vol_2');
+snapnow; 
+plot(port_pct_rt_2');
+snapnow; 
+
+%%
+% Does increase the securities universe help?
+
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,100*i,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topm',0.02*j); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_sharpe_3(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_vol_3(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_rt_3(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i=i+1;
+  
+end 
+
+plot(port_sharpe_3');
+snapnow; 
+plot(port_vol_3');
+snapnow; 
+plot(port_rt_3');
+snapnow; 
+
+%%
+% it does has some effect, but converge to the stable curve very quickly
+% once we pass 400. 
+
+
+
+%%
+% let's take a look at the period post momentum crash 
+
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,1000,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  mom_ts = mom_ts(end-70:end); 
+  px = px(end-70:end); 
+  
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topmn',0.01*j,0.01*(j-1)); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_sharpe_4(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_vol_4(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_rt_4(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i = i+1;
+end 
+
+plot(port_sharpe_4');
+snapnow; 
+plot(port_vol_4');
+snapnow; 
+plot(port_rt_4');
+snapnow; 
+
+%%
+% some pretty odd pattern here. 
+
+%%
+% let's take a look at the top M instead of top percentile. 
+
+
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,1000,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  mom_ts = mom_ts(end-70:end); 
+  px = px(end-70:end); 
+  
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topm',0.01*j); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_sharpe_5(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_vol_5(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_rt_5(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i = i+1;
+end 
+
+plot(port_sharpe_5');
+snapnow; 
+plot(port_vol_5');
+snapnow; 
+plot(port_rt_5');
+snapnow; 
+
+%%
+% let's take a look at the period before moment crash
+
+
+i=1; 
+while i<=10
+
+  index = datasample(1:1300,1000,'Replace',false); 
+  px = fun_load_price(history_us, equity_list_us, index);
+  px = fun_clean_data(px); 
+  mom_ts = fun_calculate_mom(px); 
+
+  mom_ts = mom_ts(1:end-100); 
+  px = px(1:end-100); 
+  
+  j = 1;
+  
+  while j<=50
+    portfolio_weight_ts = fun_portfolio_weight(mom_ts,'topmn',0.01*j,0.01*(j-1)); 
+    portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+    
+    port_sharpe_6(i,j) = sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0); 
+    port_vol_6(i,j) = sqrt(12)*nanstd(fts2mat(portfolio_rt_ts)); 
+    port_rt_6(i,j) = 12*nanmean(fts2mat(portfolio_rt_ts)); 
+        
+    j = j+1;
+
+  end 
+  
+  i = i+1;
+end 
+
+plot(port_sharpe_6');
+snapnow; 
+plot(port_vol_6');
+snapnow; 
+plot(port_rt_6');
+snapnow; 
+
+%% Take aways
+% This post is rather long. In the spirit of 'keep it simple, finish it off
+% and iterate', I will condense the result into a few points. 
+
+%%
+% * I can use longonly v.s equal weight to check the existance of signal,
+% by using sharpe plot, I can tell how much signal exists, and estimate a
+% rough upper bound. 
+% * by take multiple data sampling, I can get a fuller picture regarding
+% the portfolio signal and volatility profile. In this example to 10~15%
+% seems to be the sweet spot(balance signal robustness and strength)
+% * porfolio vol has a monotonous relationship wrt N, 10~15% corresponding
+% to 7% for quiet period and 12% for long term. 
+% * I can breakdown the data into percentiles and check from exactly where
+% the signal presents. From long term data, I can conclude that signal
+% mainly contained in the top 15%. This procedure help me to determine a
+% cutoff. 
+% * increase the size of equity universe improve the robustness of the
+% signal 
+% * most momentum crash data contains a strange pattern. I don't know the
+% cause yet, but it suggests that the very top of the momentum rank doesn't
+% corresponds to higher signal due to the disproportionally high noise
+% presented there. Between 15~25% percentile, there actually exists a
+% valley of signal. Despite all these, 10~15% remains the sweet spot. 
 
 ##### SOURCE END #####
 --></body></html>
