@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Retrieve data from FRED database</title>
+    <title>MOM short Cap weighted index?</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://yourdomain.com/html/FREDData.html">
+    <link rel="canonical" href="http://yourdomain.com/html/SimpleMomentumFactor_4.html">
 </head>
 
 
@@ -135,7 +135,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Retrieve data from FRED database</h1>
+    <h1 class="post-title">MOM short Cap weighted index?</h1>
   </header>
 
   <article class="post-content">
@@ -146,7 +146,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Data from FRED (St Louis Federal Reserve Data Base)</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-19"><meta name="DC.source" content="FREDData.m"><style type="text/css">
+      --><title>Mom Practical 1</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-25"><meta name="DC.source" content="SimpleMomentumFactor_4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -206,157 +206,134 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Data from FRED (St Louis Federal Reserve Data Base)</h1><!--introduction--><p>We will retrieve data from FRED and present it nicely.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Retrieve data from FRED</a></li><li><a href="#5">Plot the data properly</a></li><li><a href="#11">Log scale v.s. Normal scale</a></li></ul></div><h2>Retrieve data from FRED<a name="1"></a></h2><p>First, let's establish the connection. Note that you should use 'https://' instead of 'http://', FRED no longer accept unsecured connections.</p><pre class="codeinput">    c = fred(<span class="string">'https://research.stlouisfed.org/fred2/'</span>) ;
-</pre><p>We try to retrieve CPATAX: corporate profit before tax. Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP</p><pre class="codeinput">    data = fetch(c, <span class="string">'CPATAX'</span>);
-    <span class="comment">% alternatively data = fetch(c, 'GDP');</span>
-</pre><p>Now let's display the time series properly, the data struct contains 11 field. the main data series content is in 'Data'. We want to display the time series in semilog scales. let's take a look at the data content first:</p><pre class="codeinput">    disp(data);
-</pre><pre class="codeoutput">                 Title: ' Corporate Profits After Tax with Inventory Valua...'
-              SeriesID: ' CPATAX'
-                Source: ' US. Bureau of Economic Analysis'
-               Release: ' Gross Domestic Product'
-    SeasonalAdjustment: ' Seasonally Adjusted Annual Rate'
-             Frequency: ' Quarterly'
-                 Units: ' Billions of Dollars'
-             DateRange: ' 1947-01-01 to 2015-07-01'
-           LastUpdated: ' 2015-12-22 7:51 AM CST'
-                 Notes: ' BEA Account Code: A551RC1  A Guide to the Nation...'
-                  Data: [275x2 double]
-
-</pre><p>Now Let's get the date &amp; data out of STRUCT Data:</p><pre class="codeinput">    content = data.Data;
-    dt = content(:,1);
-    dd = content(:,2);
-</pre><h2>Plot the data properly<a name="5"></a></h2><p>Plot the semilogy plot</p><pre class="codeinput">    fredplot = semilogy(dt, dd);
-</pre><img vspace="5" hspace="5" src="FREDData_01.png" alt=""> <p>Let's set the numerical mark straight</p><pre class="codeinput">    set(gca,<span class="string">'YTick'</span>,[10 50 100 500 1000 5000],<span class="keyword">...</span>
-      <span class="string">'YTickLabel'</span>,{<span class="string">'10'</span>,<span class="string">'50'</span>, <span class="string">'100'</span>,<span class="string">'500'</span>, <span class="string">'1,000'</span>,<span class="string">'5,000'</span>});
-    datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
-
-    xlim <span class="string">auto</span>;
-    <span class="comment">%for finer control, do something like this:</span>
-    <span class="comment">%ylim([5 3000]);</span>
-</pre><img vspace="5" hspace="5" src="FREDData_02.png" alt=""> <p>Let's add title &amp; labels, by pulling from the STRUCT fields</p><pre class="codeinput">    title(data.Title(1:40), <span class="string">'FontSize'</span>, 10);
-    ylabel(data.Units, <span class="string">'FontSize'</span>, 10);
-    xlabel(<span class="string">'Year'</span>, <span class="string">'FontSize'</span>, 10);
-</pre><img vspace="5" hspace="5" src="FREDData_03.png" alt=""> <p>Let's set fontsize of Xtick Ytick label to 10.</p><pre class="codeinput">    xlhand = get(gca,<span class="string">'XTickLabel'</span>);
-    ylhand = get(gca,<span class="string">'YTickLabel'</span>);
-
-    set(gca,<span class="string">'XTickLabel'</span>,xlhand,<span class="string">'fontsize'</span>,8)
-    set(gca,<span class="string">'YTickLabel'</span>,ylhand,<span class="string">'fontsize'</span>,8)
-</pre><img vspace="5" hspace="5" src="FREDData_04.png" alt=""> <p>Let's set the linewidth to 1.5, and make the line half transparent</p><pre class="codeinput">    set(fredplot,<span class="string">'linewidth'</span>,1.5);
-    fredplot.Color(4) = 0.5;  <span class="comment">% 50% transparent</span>
-</pre><img vspace="5" hspace="5" src="FREDData_05.png" alt=""> <p>Voila! In the long run, it has been a pretty straight line : ).</p><h2>Log scale v.s. Normal scale<a name="11"></a></h2><p>In normal scale, this time series looks much more volatile.</p><pre class="codeinput">    fredplotnormal = plot(dt, dd);
-    datetick(<span class="string">'x'</span>,<span class="string">'yyyy'</span>);
+  </style></head><body><div class="content"><h1>Mom Practical 1</h1><!--introduction--><p>This is the last of Simple Momentum Factor series. It will deal the practical issues.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Cap weight. Being right for the wrong reason.</a></li></ul></div><h2>Cap weight. Being right for the wrong reason.<a name="1"></a></h2><p>S&amp;P futures is still the most low cost way to maintain market neutral. However it is terribly biased towards the large cap. In fact the top 10 securities probably accounted for 50% of the portfolio weight. By using S&amp;P futures, I'm exposed to the large-small cap factor inadvertently.</p><p>My current portfolio weight function fun_portfolio_weight does not take in market cap data necessary to calculate a cap weighted short MOM, let's write a separate function to address that.</p><pre class="codeinput">load(<span class="string">'data_equity_list_us.mat'</span>);
+load(<span class="string">'data_field_list.mat'</span>);
+load(<span class="string">'data_historical_data_us.mat'</span>);
 
 
-    title(data.Title(1:40), <span class="string">'FontSize'</span>, 10);
-    ylabel(data.Units, <span class="string">'FontSize'</span>, 10);
-    xlabel(<span class="string">'Year'</span>, <span class="string">'FontSize'</span>, 10);
+index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
 
-    xlhand = get(gca,<span class="string">'XTickLabel'</span>);
-    ylhand = get(gca,<span class="string">'YTickLabel'</span>);
+px = fun_load_price(history_us, equity_list_us, index);
+cap_ts = fun_load_cap(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+</pre><p>trim the data, for there was no cap data at the first couple of year.</p><pre class="codeinput">px = px(50:end);
+cap_ts = cap_ts(50:end);
+</pre><p>let's compare cap weight short with equal weight short.</p><pre class="codeinput">mom_ts = fun_calculate_mom(px);
 
-    set(gca,<span class="string">'XTickLabel'</span>,xlhand,<span class="string">'fontsize'</span>,8)
-    set(gca,<span class="string">'YTickLabel'</span>,ylhand,<span class="string">'fontsize'</span>,8)
+portfolio_weight_cap_weight_short_ts = fun_portfolio_weight_with_cap(mom_ts,cap_ts,<span class="string">'topmshortcap'</span>,0.1);
+portfolio_weight_eq_weight_short_ts = fun_portfolio_weight(mom_ts,<span class="string">'topm'</span>,0.1);
 
-    set(fredplotnormal,<span class="string">'linewidth'</span>,1.5);
-    fredplotnormal.Color(4) = 0.5;
-</pre><img vspace="5" hspace="5" src="FREDData_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+portfolio_rt_cap_ts = fun_portfolio_return(px, portfolio_weight_cap_weight_short_ts);
+portfolio_rt_eq_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_short_ts);
+
+plot(cumsum(portfolio_rt_cap_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_eq_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_4_01.png" alt=""> <p>since equal weight outperformed cap weight, I get better result by short the equal weight index instead. Being right for the wrong reason.</p><p>another consideration is?since equal weight index is more volatile than cap weight index, by shorting the cap weight index, we inadvertently introduced a market component into our MOM factor portfolio.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight(mom_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+corrcoef(portfolio_rt_cap_ts,portfolio_rt_ts)
+corrcoef(portfolio_rt_eq_ts,portfolio_rt_ts)
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.2228
+    0.2228    1.0000
+
+
+ans =
+
+    1.0000   -0.1183
+   -0.1183    1.0000
+
+</pre><p>we have much higher correlation with equal weighted market index by shorting cap weighted index instead.</p><p>In fact, in long term, the problem with risk (i.e. volatility of cap weight index) is smaller than that of the equal weight index) is more important than the problem of exposing to small-large cap factor.</p><p>When doing evaluation and deciding the proper risk allocation to various factors, it make more sense to use equal weight short, since this is much close to being market neutral and reflect the true signal of that factor. Once I have a good assessment of each factors and it characteristics, I will combine them togather, and them deal with the hedging problem all togather at once. With this in mind, let's move on.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Data from FRED (St Louis Federal Reserve Data Base)
-% We will retrieve data from FRED and present it nicely. 
+%% Mom Practical 1
+% This is the last of Simple Momentum Factor series. It will deal the
+% practical issues. 
 
-%% Retrieve data from FRED
-% First, let's establish the connection. Note that you should use
-% 'https://' instead of 'http://', FRED no longer accept unsecured connections. 
 
-  
-    c = fred('https://research.stlouisfed.org/fred2/') ; 
-  
-  
-%%
-% We try to retrieve CPATAX: corporate profit before tax.
-% Alternatively we can retrieve U.S. GDP data by replacing CPATAX with GDP
-
-    data = fetch(c, 'CPATAX'); 
-    % alternatively data = fetch(c, 'GDP'); 
+%% Cap weight. Being right for the wrong reason.
+% S&P futures is still the most low cost way to maintain market neutral.
+% However it is terribly biased towards the large cap. In fact the top 10
+% securities probably accounted for 50% of the portfolio weight. By using
+% S&P futures, I'm exposed to the large-small cap factor inadvertently. 
 
 %%
-% Now let's display the time series properly, the data struct
-% contains 11 field. the main data series content is in 'Data'. We want to
-% display the time series in semilog scales. 
-% let's take a look at the data content first:
+% My current portfolio weight function fun_portfolio_weight does not take
+% in market cap data necessary to calculate a cap weighted short MOM, let's
+% write a separate function to address that. 
 
-    disp(data);
-    
-%%
-% Now Let's get the date & data out of STRUCT Data:
+load('data_equity_list_us.mat'); 
+load('data_field_list.mat'); 
+load('data_historical_data_us.mat'); 
 
 
-    content = data.Data;
-    dt = content(:,1);
-    dd = content(:,2);
+index = datasample(1:1300,1000,'Replace',false); 
 
-%% Plot the data properly   
-% Plot the semilogy plot
-
-    fredplot = semilogy(dt, dd); 
-    
-%%    
-% Let's set the numerical mark straight
-
-    set(gca,'YTick',[10 50 100 500 1000 5000],...
-      'YTickLabel',{'10','50', '100','500', '1,000','5,000'});
-    datetick('x','yyyy');
-    
-    xlim auto;
-    %for finer control, do something like this:
-    %ylim([5 3000]);
-%%
-% Let's add title & labels, by pulling from the STRUCT fields  
-
-    title(data.Title(1:40), 'FontSize', 10);
-    ylabel(data.Units, 'FontSize', 10);
-    xlabel('Year', 'FontSize', 10);
+px = fun_load_price(history_us, equity_list_us, index);
+cap_ts = fun_load_cap(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
 
 %%
-% Let's set fontsize of Xtick Ytick label to 10. 
+% trim the data, for there was no cap data at the first couple of year.
+px = px(50:end); 
+cap_ts = cap_ts(50:end); 
 
-    xlhand = get(gca,'XTickLabel');
-    ylhand = get(gca,'YTickLabel');
+%%
+% let's compare cap weight short with equal weight short. 
 
-    set(gca,'XTickLabel',xlhand,'fontsize',8)
-    set(gca,'YTickLabel',ylhand,'fontsize',8)
-%%  
-% Let's set the linewidth to 1.5, and make the line half transparent
+mom_ts = fun_calculate_mom(px); 
 
-    set(fredplot,'linewidth',1.5);
-    fredplot.Color(4) = 0.5;  % 50% transparent
+portfolio_weight_cap_weight_short_ts = fun_portfolio_weight_with_cap(mom_ts,cap_ts,'topmshortcap',0.1); 
+portfolio_weight_eq_weight_short_ts = fun_portfolio_weight(mom_ts,'topm',0.1); 
 
+portfolio_rt_cap_ts = fun_portfolio_return(px, portfolio_weight_cap_weight_short_ts); 
+portfolio_rt_eq_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_short_ts); 
+
+plot(cumsum(portfolio_rt_cap_ts)); 
+legend('off');
+hold on; 
+plot(cumsum(portfolio_rt_eq_ts)); 
+legend('off');
+snapnow; 
+%%
+% since equal weight outperformed cap weight, I get better result by short
+% the equal weight index instead. Being right for the wrong reason. 
+
+%%
+% another consideration is?since equal weight index is more volatile than
+% cap weight index, by shorting the cap weight index, we inadvertently
+% introduced a market component into our MOM factor portfolio. 
+
+portfolio_weight_ts = fun_portfolio_weight(mom_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+corrcoef(portfolio_rt_cap_ts,portfolio_rt_ts)
+corrcoef(portfolio_rt_eq_ts,portfolio_rt_ts)
+
+%%
+% we have much higher correlation with equal weighted market index by shorting cap
+% weighted index instead. 
 
 %% 
-% Voila! 
-% In the long run, it has been a pretty straight line : ). 
+% In fact, in long term, the problem with risk (i.e. volatility of cap
+% weight index) is smaller than that of the equal weight index) is more
+% important than the problem of exposing to small-large cap factor. 
 
-%% Log scale v.s. Normal scale
-% In normal scale, this time series looks much more volatile. 
+%%
+% When doing evaluation and deciding the proper risk allocation to various
+% factors, it make more sense to use equal weight short, since this is much
+% close to being market neutral and reflect the true signal of that factor.
+% Once I have a good assessment of each factors and it characteristics, I
+% will combine them togather, and them deal with the hedging problem all
+% togather at once. With this in mind, let's move on. 
 
-    fredplotnormal = plot(dt, dd); 
-    datetick('x','yyyy');
 
 
-    title(data.Title(1:40), 'FontSize', 10);
-    ylabel(data.Units, 'FontSize', 10);
-    xlabel('Year', 'FontSize', 10);
-
-    xlhand = get(gca,'XTickLabel');
-    ylhand = get(gca,'YTickLabel');
-
-    set(gca,'XTickLabel',xlhand,'fontsize',8)
-    set(gca,'YTickLabel',ylhand,'fontsize',8)
-
-    set(fredplotnormal,'linewidth',1.5);
-    fredplotnormal.Color(4) = 0.5; 
-    
-    
 
 ##### SOURCE END #####
 --></body></html>
