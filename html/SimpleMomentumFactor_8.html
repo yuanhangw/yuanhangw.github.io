@@ -1,0 +1,677 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Mom Practical 5</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-26"><meta name="DC.source" content="SimpleMomentumFactor_8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Mom Practical 5</h1><!--introduction--><p>This is the last of Simple Momentum Factor series. It will deal the practical issues.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Full dataset</a></li><li><a href="#7">Dive deeper</a></li><li><a href="#16">mirco cap water down the signal strength</a></li></ul></div><h2>Full dataset<a name="1"></a></h2><p>I have been using U.S. Equity universe consists of 1300 securities. Does the performance improve when I include more securites?</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
+load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
+
+equity_list = equity_list(1:size(storage0,1),:);
+
+equity_list_us_large = equity_list(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+history_us_large = storage0(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+
+clear <span class="string">storage0</span>;
+clear <span class="string">equity_list</span>;
+
+equity_list_us_large = equity_list_us_large(not(cellfun(@isempty,history_us_large(:,1))),:);
+history_us_large = history_us_large(not(cellfun(@isempty,history_us_large(:,1))),:);
+
+
+load(<span class="string">'data_equity_list_us.mat'</span>);
+load(<span class="string">'data_historical_data_us.mat'</span>);
+</pre><p>compare the result</p><p>out of 1300</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+
+mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+
+score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.1);
+
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+</pre><p>out of 8900, here I need to amend fun_load_price() to improve merge() efficiency for large fints datasets.</p><pre class="codeinput">index = datasample(1:8900,8900,<span class="string">'Replace'</span>,false);
+px = fun_load_price_large(history_us_large, equity_list_us_large, index);
+px = fun_clean_data(px);
+px = px(62:end);
+
+list = equity_list_us_large(index,:);
+
+mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+
+score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.011);
+
+portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts);
+</pre><p>compare the result</p><pre class="codeinput">plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_large_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_01.png" alt=""> <p>this result is surprising, once we use the larger dataset, the top 100 actually containes no signal at all.</p><h2>Dive deeper<a name="7"></a></h2><p>percentile analysis.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topmn'</span>,0.1*i,0.1*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+
+
+  portplot.Color(4) = 1 - 0.1*i;
+
+  i=i+1;
+
+<span class="keyword">end</span>
+
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_02.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_03.png" alt=""> <p>as with smaller dataset, the signal concentrated in the first 40th percentiles. no surprise here.</p><p>let's zoom into the first 20th percentile.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=20
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topmn'</span>,0.01*i,0.01*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+  sharpe_top_percentile_zoom(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+
+
+  portplot.Color(4) = 1 - 0.05*i;
+
+  i=i+1;
+
+<span class="keyword">end</span>
+
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile_zoom);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_04.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_05.png" alt=""> <p>the top hundreds securities has no signal.</p><p>let's zomo in further.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=40
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topmn'</span>,0.0012*i,0.0012*(i-1));
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+  sharpe_top_percentile_zoom(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+
+
+  portplot.Color(4) = 1 - 0.025*i;
+
+  i=i+1;
+
+<span class="keyword">end</span>
+
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile_zoom);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_06.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_07.png" alt=""> <p>problem is worst for the top 70 securities. only fully recover to normal level at 200. I should at least shave the first 1% off if the database is big.</p><p>let's select the top 300~200 securites</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topmn'</span>,0.03,0.02);
+
+portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts);
+</pre><p>compare the result</p><pre class="codeinput">plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+plot(cumsum(portfolio_rt_large_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_08.png" alt=""> <p>selecting this way we get more volatile performance, even with same number of securities.</p><h2>mirco cap water down the signal strength<a name="16"></a></h2><p>what happens if I select 1000 from 8900 securities instead of out of 1300? My 1000 now would include more microcap companies, let's check this out.</p><pre class="codeinput">portplot = plot(cumsum(portfolio_rt_ts));
+set(portplot,<span class="string">'linewidth'</span>,3);
+
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+i = 1;
+<span class="keyword">while</span> i&lt;=30
+
+  index = datasample(1:8900,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px);
+  px = px(62:end);
+
+  list = equity_list_us_large(index,:);
+
+  mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+
+  score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.1);
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+
+  plot(cumsum(portfolio_rt_large_ts));
+  legend(<span class="string">'off'</span>);
+
+  sharpe_top_percentile_zoom_3(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile_zoom_3);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_09.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_10.png" alt=""> <p>those 30 datasamples rarely exceed the upperbound set by using the the top 1300 securities in terms of market capitalization</p><p>let's run it according to market cap again.</p><pre class="codeinput">portplot = plot(cumsum(portfolio_rt_ts));
+set(portplot,<span class="string">'linewidth'</span>,3);
+
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+i = 1;
+<span class="keyword">while</span> i&lt;=17
+
+  index = datasample(1+500*(i-1):500*i,500,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px);
+  px = px(62:end);
+
+  list = equity_list_us_large(index,:);
+
+  mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+
+  score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.1);
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+
+  portplot = plot(cumsum(portfolio_rt_large_ts));
+  legend(<span class="string">'off'</span>);
+
+  sharpe_top_percentile_zoom_4(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+  portplot.Color(4) = 1 - 0.058*i;
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile_zoom_4);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_11.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_12.png" alt=""> <p>let's take a look at the post momentum crash period</p><pre class="codeinput">portplot = plot(cumsum(portfolio_rt_ts((end-75):end)));
+set(portplot,<span class="string">'linewidth'</span>,3);
+
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+i = 1;
+<span class="keyword">while</span> i&lt;=8
+
+  index = datasample(1+1000*(i-1):1000*i,1000,<span class="string">'Replace'</span>,false);
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px);
+  px = px((end-80):end);
+
+  list = equity_list_us_large(index,:);
+
+  mom_ts = fun_calculate_mom_alt(px,<span class="string">'12-1m'</span>);
+
+  score_ts = fun_calculate_score(mom_ts,list,<span class="string">'fullsort'</span>);
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,<span class="string">'topm'</span>,0.1);
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+
+  portplot = plot(cumsum(portfolio_rt_large_ts));
+  legend(<span class="string">'off'</span>);
+
+  sharpe_top_percentile_zoom_5(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+  portplot.Color(4) = 1 - 0.12*i;
+
+i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top_percentile_zoom_5);
+snapnow;
+</pre><img vspace="5" hspace="5" src="SimpleMomentumFactor_8_13.png" alt=""> <img vspace="5" hspace="5" src="SimpleMomentumFactor_8_14.png" alt=""> <p>the signal presents in the largest 3000 securites. if you think by casting a larger net you can catch more fish, YOU ARE KIDDING YOURSELF.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Mom Practical 5
+% This is the last of Simple Momentum Factor series. It will deal the
+% practical issues. 
+
+%% Full dataset
+% I have been using U.S. Equity universe consists of 1300 securities. Does
+% the performance improve when I include more securites?
+
+
+load('../Big Data/data_equity_list.mat'); 
+load('../Big Data/data_historical_data_jan16.mat'); 
+
+equity_list = equity_list(1:size(storage0,1),:); 
+
+equity_list_us_large = equity_list(strcmp(equity_list(:,2),'US'),:); 
+history_us_large = storage0(strcmp(equity_list(:,2),'US'),:); 
+
+clear storage0; 
+clear equity_list; 
+
+equity_list_us_large = equity_list_us_large(not(cellfun(@isempty,history_us_large(:,1))),:); 
+history_us_large = history_us_large(not(cellfun(@isempty,history_us_large(:,1))),:); 
+
+
+load('data_equity_list_us.mat'); 
+load('data_historical_data_us.mat');
+
+%%
+% compare the result
+
+
+%%
+% out of 1300
+
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+
+score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.1); 
+
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+
+%%
+% out of 8900, here I need to amend fun_load_price() to improve merge()
+% efficiency for large fints datasets. 
+
+index = datasample(1:8900,8900,'Replace',false); 
+px = fun_load_price_large(history_us_large, equity_list_us_large, index);
+px = fun_clean_data(px); 
+px = px(62:end); 
+
+list = equity_list_us_large(index,:); 
+
+mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+
+score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.011); 
+
+portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+%%
+% compare the result
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off');
+hold on;
+plot(cumsum(portfolio_rt_large_ts)); 
+legend('off');
+hold off; 
+snapnow; 
+
+
+%%
+% this result is surprising, once we use the larger dataset, the top 100
+% actually containes no signal at all. 
+
+%% Dive deeper
+% percentile analysis. 
+
+i=1; 
+while i<=10
+  
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topmn',0.1*i,0.1*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend('off');
+  hold on;
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+  
+  
+  portplot.Color(4) = 1 - 0.1*i;
+
+  i=i+1; 
+  
+end 
+
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile); 
+snapnow; 
+
+%%
+% as with smaller dataset, the signal concentrated in the first 40th
+% percentiles. no surprise here. 
+
+%%
+% let's zoom into the first 20th percentile. 
+
+
+i=1; 
+while i<=20
+  
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topmn',0.01*i,0.01*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend('off');
+  hold on;
+  sharpe_top_percentile_zoom(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+  
+  
+  portplot.Color(4) = 1 - 0.05*i;
+
+  i=i+1; 
+  
+end 
+
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile_zoom); 
+snapnow; 
+
+%%
+% the top hundreds securities has no signal. 
+
+%%
+% let's zomo in further. 
+
+
+i=1; 
+while i<=40
+  
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topmn',0.0012*i,0.0012*(i-1)); 
+  portfolio_rt_top_percentile_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+  portplot = plot(cumsum(portfolio_rt_top_percentile_ts));
+  legend('off');
+  hold on;
+  sharpe_top_percentile_zoom(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_top_percentile_ts(62:end)),0);
+  
+  
+  portplot.Color(4) = 1 - 0.025*i;
+
+  i=i+1; 
+  
+end 
+
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile_zoom); 
+snapnow; 
+
+%%
+% problem is worst for the top 70 securities. 
+% only fully recover to normal level at 200. I should at least shave the
+% first 1% off if the database is big. 
+
+%%
+% let's select the top 300~200 securites 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topmn',0.03,0.02); 
+
+portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+%%
+% compare the result
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off');
+hold on;
+plot(cumsum(portfolio_rt_large_ts)); 
+legend('off');
+hold off; 
+snapnow; 
+
+%%
+% selecting this way we get more volatile performance, even with same
+% number of securities. 
+
+%% mirco cap water down the signal strength
+
+%% 
+% what happens if I select 1000 from 8900 securities instead of out of
+% 1300? My 1000 now would include more microcap companies, let's check this
+% out.
+
+
+portplot = plot(cumsum(portfolio_rt_ts)); 
+set(portplot,'linewidth',3);
+
+legend('off');
+hold on;
+
+i = 1; 
+while i<=30
+
+  index = datasample(1:8900,1000,'Replace',false); 
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px); 
+  px = px(62:end); 
+
+  list = equity_list_us_large(index,:); 
+
+  mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+
+  score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.1); 
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+
+  plot(cumsum(portfolio_rt_large_ts)); 
+  legend('off');
+
+  sharpe_top_percentile_zoom_3(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+  
+i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile_zoom_3); 
+snapnow; 
+
+%%
+% those 30 datasamples rarely exceed the upperbound set by using the the
+% top 1300 securities in terms of market capitalization 
+
+%%
+% let's run it according to market cap again. 
+
+
+
+
+portplot = plot(cumsum(portfolio_rt_ts)); 
+set(portplot,'linewidth',3);
+
+legend('off');
+hold on;
+
+i = 1; 
+while i<=17
+
+  index = datasample(1+500*(i-1):500*i,500,'Replace',false); 
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px); 
+  px = px(62:end); 
+
+  list = equity_list_us_large(index,:); 
+
+  mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+
+  score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.1); 
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+
+  portplot = plot(cumsum(portfolio_rt_large_ts)); 
+  legend('off');
+
+  sharpe_top_percentile_zoom_4(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+  portplot.Color(4) = 1 - 0.058*i;
+
+i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile_zoom_4); 
+snapnow; 
+
+
+%%
+% let's take a look at the post momentum crash period
+
+
+
+portplot = plot(cumsum(portfolio_rt_ts((end-75):end))); 
+set(portplot,'linewidth',3);
+
+legend('off');
+hold on;
+
+i = 1; 
+while i<=8
+
+  index = datasample(1+1000*(i-1):1000*i,1000,'Replace',false); 
+  px = fun_load_price(history_us_large, equity_list_us_large, index);
+  px = fun_clean_data(px); 
+  px = px((end-80):end); 
+
+  list = equity_list_us_large(index,:); 
+
+  mom_ts = fun_calculate_mom_alt(px,'12-1m'); 
+
+  score_ts = fun_calculate_score(mom_ts,list,'fullsort'); 
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts,'topm',0.1); 
+
+  portfolio_rt_large_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+
+  portplot = plot(cumsum(portfolio_rt_large_ts)); 
+  legend('off');
+
+  sharpe_top_percentile_zoom_5(i) = sqrt(12)*sharpe(fts2mat(portfolio_rt_large_ts),0);
+  portplot.Color(4) = 1 - 0.12*i;
+
+i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top_percentile_zoom_5); 
+snapnow; 
+
+
+%%
+% the signal presents in the largest 3000 securites. if you think by
+% casting a larger net you can catch more fish, YOU ARE KIDDING YOURSELF. 
+
+##### SOURCE END #####
+--></body></html>
