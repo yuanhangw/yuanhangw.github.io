@@ -242,7 +242,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Multiple Factors - HML</h1><!--introduction--><p>HML is one of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#9">Check signal.</a></li><li><a href="#21">Percentile analysis</a></li><li><a href="#25">Large dataset test</a></li><li><a href="#36">Conclusion</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Multiple Factors - HML</h1><!--introduction--><p>HML is one of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#9">Check signal.</a></li><li><a href="#22">Percentile analysis</a></li><li><a href="#26">Large dataset test</a></li><li><a href="#37">Conclusion</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
 load(<span class="string">'../data_historical_data_us.mat'</span>);
 </pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
@@ -285,7 +285,7 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_04.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.5638    0.6492
+    0.5219    0.6198
 
 </pre><p>doesn't seems to be very promising.</p><p>let's take a look at the sector sorted portfolio</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>);
 
@@ -311,7 +311,7 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_05.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.6064    0.6432
+    0.6261    0.6592
 
 </pre><p>sector weight give me a more balance portfolio and improved the sharpe by 5 basis points. most of the outperformance came in after dotcom bubble.</p><p>HML is very different from MOM. even though the long only portfolio outperformed equal weighted portfolio, in terms of sharpe it is worse. The outperformance is gained by assuming more 'risk'.</p><p>There is a slightly tricky question here. what extra 'risk' is it? if it is market risk, then HML is useless. but if it is another type of risk different from market risk, then it might be useful from diversification point of view.</p><p>with this question in mind, let's check pure long short factor portfolio against equal weighted market portfolio.</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>);
 
@@ -336,14 +336,14 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_06.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.3228    0.6432
+    0.3243    0.6592
 
 </pre><p>if additional risk is mainly market risk, then long short portfolio should be highly correlated with equal weighted benchmark. let's check out the correlation:</p><pre class="codeinput">corrcoef(fts2mat(portfolio_longshort_rt_ts(1:end)), fts2mat(portfolio_equalweight_rt_ts(1:end)))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000    0.5795
-    0.5795    1.0000
+    1.0000    0.6169
+    0.6169    1.0000
 
 </pre><p>the correlation is quite high... this is not what I expected, but let's accept the facts.</p><p>let's see how the top percentile securities do</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topm'</span>,0.2);
 portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
@@ -366,26 +366,37 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_07.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.4081    0.3228
+    0.3826    0.3243
 
 
 ans =
 
-    0.5987    0.6432
+    0.5873    0.6592
 
 </pre><p>the drawdown is huge for top 20%, 63%(!) in 2008. 10% more than equal weighted index...</p><pre class="codeinput">maxdrawdown(exp(fts2mat(cumsum(portfolio_topmlongonly_rt_ts))))
 maxdrawdown(exp(fts2mat(cumsum(portfolio_equalweight_rt_ts))))
 </pre><pre class="codeoutput">
 ans =
 
-    0.6381
+    0.6490
 
 
 ans =
 
-    0.5235
+    0.5438
 
-</pre><h2>Percentile analysis<a name="21"></a></h2><p>let's take a look at the relationship with N</p><pre class="codeinput">i=1;
+</pre><p>I can check my historical portfolio pb and compare that to the market median.</p><pre class="codeinput">score_mat = fts2mat(score_pb_ts);
+pb_mat = fts2mat(pb_ts);
+pb_selected = pb_mat;
+pb_selected(score_mat&lt;0.2)=nan;
+
+plot(pb_ts.dates,nanmedian(pb_mat,2));
+hold <span class="string">on</span>;
+plot(pb_ts.dates,nanmedian(pb_selected,2));
+hold <span class="string">off</span>;
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_08.png" alt=""> <h2>Percentile analysis<a name="22"></a></h2><p>let's take a look at the relationship with N</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topm'</span>,0.1*i);
@@ -403,7 +414,7 @@ ans =
 
 hold <span class="string">off</span>;
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_08.png" alt=""> <p>let's take a look at each percentile</p><pre class="codeinput">i=1;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_09.png" alt=""> <p>let's take a look at each percentile</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topmn'</span>,0.1*i,0.1*(i-1));
@@ -421,7 +432,7 @@ snapnow;
 
 hold <span class="string">off</span>;
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_09.png" alt=""> <p>zoom in</p><pre class="codeinput">i=1;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_10.png" alt=""> <p>zoom in</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topmn'</span>,0.01*i,0.01*(i-1));
@@ -439,11 +450,11 @@ snapnow;
 
 hold <span class="string">off</span>;
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_10.png" alt=""> <p>signal strength</p><pre class="codeinput">plot(sharpe_top);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_11.png" alt=""> <p>signal strength</p><pre class="codeinput">plot(sharpe_top);
 hold <span class="string">on</span>;
 plot(sharpe_top_percentile);
 plot(sharpe_top_percentile_zoom);
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_11.png" alt=""> <h2>Large dataset test<a name="25"></a></h2><p>load the big dataset</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_12.png" alt=""> <h2>Large dataset test<a name="26"></a></h2><p>load the big dataset</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
 load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
 
 equity_list = equity_list(1:size(storage0,1),:);
@@ -476,12 +487,18 @@ plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
 
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_12.png" alt=""> <p>pure top 10%</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topm'</span>,0.1);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_13.png" alt=""> <p>pure top 10%</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topm'</span>,0.1);
 portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts);
 
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
 hold <span class="string">on</span>;
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topmn'</span>,0.1,0.02);
+portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts);
+
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>)
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topm'</span>,0.1);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
@@ -490,7 +507,7 @@ plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
 
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_13.png" alt=""> <p>each percentile</p><pre class="codeinput">i=1;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_14.png" alt=""> <p>each percentile</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topmn'</span>,0.1*i,0.1*(i-1));
@@ -511,7 +528,7 @@ snapnow;
 
 plot(sharpe_top_percentile_large);
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_14.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_15.png" alt=""> <p>zoom into first 800</p><pre class="codeinput">i=1;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_15.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_16.png" alt=""> <p>zoom into first 800</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topmn'</span>,0.01*i,0.01*(i-1));
@@ -532,7 +549,7 @@ snapnow;
 
 plot(sharpe_top_percentile_large_zoom);
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_16.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_17.png" alt=""> <p>similar to MOM, larger dataset doesn't really improve the factor performance in any obvious way. Besides, when I use 8900 securites, the very top 200 security has negative signals.</p><h2>Conclusion<a name="36"></a></h2><div><ol><li>HML is highly correlated with market, but it is not all about correlations</li><li>Sector sort works!</li><li>HML is a 'pain now for reward later' factor.</li><li>Larger dataset doesn't really improve performance, and beaware of the top 1% if you use large dataset.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_18.png" alt=""> <p>similar to MOM, larger dataset doesn't really improve the factor performance in any obvious way. Besides, when I use 8900 securites, the very top 200 security has negative signals.</p><h2>Conclusion<a name="37"></a></h2><div><ol><li>HML is highly correlated with market, but it is not all about correlations</li><li>Sector sort works!</li><li>HML is a 'pain now for reward later' factor.</li><li>Larger dataset doesn't really improve performance, and beaware of the top 1% if you use large dataset.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Multiple Factors - HML
 % HML is one of the simplest factors. Let's take a look. 
@@ -731,6 +748,22 @@ snapnow;
 maxdrawdown(exp(fts2mat(cumsum(portfolio_topmlongonly_rt_ts))))
 maxdrawdown(exp(fts2mat(cumsum(portfolio_equalweight_rt_ts))))
 
+%%
+% I can check my historical portfolio pb and compare that to the market
+% median. 
+
+score_mat = fts2mat(score_pb_ts);
+pb_mat = fts2mat(pb_ts); 
+pb_selected = pb_mat;
+pb_selected(score_mat<0.2)=nan; 
+
+plot(pb_ts.dates,nanmedian(pb_mat,2)); 
+hold on; 
+plot(pb_ts.dates,nanmedian(pb_selected,2)); 
+hold off; 
+datetick('x'); 
+snapnow; 
+
 %% Percentile analysis 
 % let's take a look at the relationship with N
 
@@ -805,6 +838,8 @@ hold on;
 plot(sharpe_top_percentile);
 plot(sharpe_top_percentile_zoom); 
 
+
+
 %% Large dataset test
 
 %%
@@ -873,6 +908,12 @@ portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts);
 plot(cumsum(portfolio_rt_ts)); 
 legend('off')
 hold on; 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,'topmn',0.1,0.02); 
+portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts); 
+
+plot(cumsum(portfolio_rt_ts)); 
+legend('off')
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,'topm',0.1); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
