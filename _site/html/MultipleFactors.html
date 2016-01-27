@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Multiple Factor - Load Data</title>
+    <meta name="description" content="keep it simple :: finish it off :: iterate
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yourdomain.com/html/MultipleFactors.html">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">OOOnion</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      
+      <!--
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
+          
+        
+          
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors.html">Multiple Factor - Load Data</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor.html">Introducing Mother of all Factors - MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_1.html">MOM factor walkforward</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_2.html">MOM too good to be true?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_4.html">MOM short Cap weighted index?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_5.html">MOM walkforward with N securities</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_6.html">MOM sector neutral</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_7.html">MOM alternative MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_8.html">MOM the bigger the better?</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyDataSet.html">What's in my dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyEquityList.html">Equity List and Field List</a>
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      -->
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Multiple Factor - Load Data</h1>
+  </header>
+
+  <article class="post-content">
+    <!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Multiple Factors - Load Data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-27"><meta name="DC.source" content="MultipleFactors.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Multiple Factors - Load Data</h1><!--introduction--><p>with what I build for simple MOM factor, I will now move on to other famous factors. I repeat the same procedure and then investigate the combined factor.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Procedures.</a></li><li><a href="#5">Load Data</a></li><li><a href="#18">Generate scores</a></li></ul></div><div><ol><li>MOM           (12-1 month return)</li><li>HML           (PB)</li><li>BAB           (Beta)</li><li>LMS           (Market Capitalization)</li><li>QUAL         ?Leverage(D/E), Gross Margin, Turnover, Roa)</li><li>Alternatives  (Low vol, Leverage(A/E),PE, Profit Margin, Roe, etc., etc. )</li></ol></div><h2>Procedures.<a name="2"></a></h2><p>I will repeat what I went through for MOM, and focus on 1300 US dataset.</p><div><ol><li>Check data quality, and clean it up.</li><li>Construct factor portfolio, and check the performance wrt to equal weighted benchmark, with respect to N.</li><li>Perform the Percentile analysis and identify where signal presents.</li><li>Perform the walkforward test</li><li>Perform sector neutral analysis</li><li>Perform large dataset analysis</li></ol></div><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+</pre><h2>Load Data<a name="5"></a></h2><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load/generate the observation</p><pre class="codeinput">pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>let's take a look at some of the data</p><p>PB ratio</p><pre class="codeinput">plot(pb_ts.dates,nanmedian(fts2mat(pb_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_01.png" alt=""> <p>risk is high in current market...</p><p>Beta</p><pre class="codeinput">plot(beta_ts.dates,nanmedian(fts2mat(beta_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_02.png" alt=""> <p>Gross Margin</p><pre class="codeinput">plot(grossmargin_ts.dates,nanmedian(fts2mat(grossmargin_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_03.png" alt=""> <p>there is some seasonality here, I can see the economic cycle as well.</p><p>Turnover</p><pre class="codeinput">plot(turnover_ts.dates,nanmedian(fts2mat(turnover_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_04.png" alt=""> <p>ROA is strongly affected by economic cycles.</p><pre class="codeinput">plot(roa_ts.dates,nanmedian(fts2mat(roa_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_05.png" alt=""> <p>Leverage</p><pre class="codeinput">plot(leverage_ts.dates,nanmedian(fts2mat(leverage_ts),2));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_06.png" alt=""> <p>I loaded the correct time series. ; P</p><h2>Generate scores<a name="18"></a></h2><p>Notice the sign I put before score_leverage_ts.</p><pre class="codeinput">score_leverage_ts = -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>);
+score_roa_ts = fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>);
+score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>);
+score_turnover_ts = fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>);
+
+score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+
+plot(fts2mat(score_quality_ts));
+snapnow;
+
+score_quality_ts = fun_combine_score(score_quality_ts);
+
+plot(fts2mat(score_quality_ts));
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_07.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_08.png" alt=""> <p>in this way, score_quality_ts is only not NAN when all constituent score are available. Alternatively, I can also fillts first, then combine the scores.</p><p>score_leverage_ts = fillts(score_leverage_ts,0); score_roa_ts = fillts(score_roa_ts,0); score_grossmargin_ts = fillts(score_grossmargin_ts,0); score_turnover_ts = fillts(score_turnover_ts,0);</p><p>score_quality_ts = -score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts; score_quality_ts = fun_combine_score(score_quality_ts);</p><p>Let's take a first peak at the result. calculate portfolio weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'longshort'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+snapnow;
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topm'</span>,0.4);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+snapnow;
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topmlongonly'</span>,0.4);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+plot(cumsum(portfolio_rt_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
+</pre><img vspace="5" hspace="5" src="MultipleFactors_09.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_10.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_11.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.6520
+
+</pre><img vspace="5" hspace="5" src="MultipleFactors_12.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.8802
+
+</pre><p>Quality behaved as expected, i.e. when crisis hits, high quality securities outperformed low quality security. But overall the drift has been close to zero for the whole 25 years period, maybe because I'm using the large cap securities (1300 largest) where quality isn't a differentiating factor?</p><p>zero drift doesn't mean quality is useless, by including quality factor into consideration, I can expect to reduce overall portfolio risk.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Multiple Factors - Load Data
+% with what I build for simple MOM factor, I will now move on to other famous
+% factors. I repeat the same procedure and then investigate the combined
+% factor. 
+
+%%
+% # MOM           (12-1 month return)
+% # HML           (PB)
+% # BAB           (Beta)
+% # LMS           (Market Capitalization)
+% # QUAL         ?Leverage(D/E), Gross Margin, Turnover, Roa)
+% # Alternatives  (Low vol, Leverage(A/E),PE, Profit Margin, Roe, etc., etc. )
+
+
+%% Procedures. 
+% I will repeat what I went through for MOM, and focus on 1300 US dataset. 
+
+%%
+% # Check data quality, and clean it up. 
+% # Construct factor portfolio, and check the performance wrt to equal
+% weighted benchmark, with respect to N. 
+% # Perform the Percentile analysis and identify where signal presents. 
+% # Perform the walkforward test
+% # Perform sector neutral analysis
+% # Perform large dataset analysis
+
+
+
+%%
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+
+
+
+
+%% Load Data
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load/generate the observation
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm'); 
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover'); 
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa'); 
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage'); 
+
+%%
+% let's take a look at some of the data
+
+%%
+% PB ratio 
+plot(pb_ts.dates,nanmedian(fts2mat(pb_ts),2));
+datetick('x'); 
+snapnow; 
+%%
+% risk is high in current market...
+
+%%
+% Beta 
+
+plot(beta_ts.dates,nanmedian(fts2mat(beta_ts),2));
+datetick('x'); 
+snapnow; 
+
+%%
+% Gross Margin
+
+plot(grossmargin_ts.dates,nanmedian(fts2mat(grossmargin_ts),2));
+datetick('x'); 
+snapnow; 
+
+%%
+% there is some seasonality here, I can see the economic cycle as well. 
+
+%%
+% Turnover
+
+plot(turnover_ts.dates,nanmedian(fts2mat(turnover_ts),2));
+datetick('x'); 
+snapnow; 
+
+%%
+% ROA is strongly affected by economic cycles. 
+
+plot(roa_ts.dates,nanmedian(fts2mat(roa_ts),2));
+datetick('x'); 
+snapnow; 
+
+%%
+% Leverage
+plot(leverage_ts.dates,nanmedian(fts2mat(leverage_ts),2));
+datetick('x');
+snapnow; 
+
+%%
+% I loaded the correct time series. ; P
+
+%% Generate scores
+% Notice the sign I put before score_leverage_ts. 
+
+score_leverage_ts = -fun_calculate_score(leverage_ts,list,'sectorsort'); 
+score_roa_ts = fun_calculate_score(roa_ts,list,'sectorsort'); 
+score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,'sectorsort'); 
+score_turnover_ts = fun_calculate_score(turnover_ts,list,'sectorsort'); 
+
+score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+
+plot(fts2mat(score_quality_ts)); 
+snapnow; 
+
+score_quality_ts = fun_combine_score(score_quality_ts); 
+
+plot(fts2mat(score_quality_ts)); 
+snapnow; 
+
+%%
+% in this way, score_quality_ts is only not NAN when all constituent score
+% are available. Alternatively, I can also fillts first, then combine the scores. 
+
+%% 
+% score_leverage_ts = fillts(score_leverage_ts,0); 
+% score_roa_ts = fillts(score_roa_ts,0); 
+% score_grossmargin_ts = fillts(score_grossmargin_ts,0); 
+% score_turnover_ts = fillts(score_turnover_ts,0); 
+% 
+% score_quality_ts = -score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+% score_quality_ts = fun_combine_score(score_quality_ts); 
+% 
+
+%%
+% Let's take a first peak at the result. 
+% calculate portfolio weight
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'longshort'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+plot(cumsum(portfolio_rt_ts));
+legend('off'); 
+hold on; 
+snapnow; 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topm',0.4); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+plot(cumsum(portfolio_rt_ts));
+legend('off'); 
+hold on; 
+snapnow; 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+plot(cumsum(portfolio_rt_ts));
+legend('off'); 
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topmlongonly',0.4); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+plot(cumsum(portfolio_rt_ts));
+legend('off'); 
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
+
+
+
+%%
+% Quality behaved as expected, i.e. when crisis hits, high quality
+% securities outperformed low quality security. But overall the drift has
+% been close to zero for the whole 25 years period, maybe because I'm using
+% the large cap securities (1300 largest) where quality isn't a
+% differentiating factor? 
+
+%%
+% zero drift doesn't mean quality is useless, by including quality factor
+% into consideration, I can expect to reduce overall portfolio risk. 
+
+
+##### SOURCE END #####
+--></body></html>
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">OOOnion</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>OOOnion</li>
+          <li><a href="mailto:iam@here.now">iam@here.now</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/yuanhangw">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">yuanhangw</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/large">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">large</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">keep it simple :: finish it off :: iterate
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
