@@ -182,7 +182,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Multiple Factors - Load Data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-27"><meta name="DC.source" content="MultipleFactors.m"><style type="text/css">
+      --><title>Multiple Factors - Load Data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-28"><meta name="DC.source" content="MultipleFactors.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -274,10 +274,10 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_05.png" alt=""> <p>Leverage</p><pre class="codeinput">plot(leverage_ts.dates,nanmedian(fts2mat(leverage_ts),2));
 datetick(<span class="string">'x'</span>);
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_06.png" alt=""> <p>I loaded the correct time series. ; P</p><h2>Generate scores<a name="18"></a></h2><p>Notice the sign I put before score_leverage_ts.</p><pre class="codeinput">score_leverage_ts = -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>);
-score_roa_ts = fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>);
-score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>);
-score_turnover_ts = fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_06.png" alt=""> <p>I loaded the correct time series. ; P</p><h2>Generate scores<a name="18"></a></h2><p>Notice the sign I put before score_leverage_ts.</p><pre class="codeinput">score_leverage_ts = -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts = fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts = fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
 
 score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
 
@@ -290,6 +290,7 @@ plot(fts2mat(score_quality_ts));
 snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_07.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_08.png" alt=""> <p>in this way, score_quality_ts is only not NAN when all constituent score are available. Alternatively, I can also fillts first, then combine the scores.</p><p>score_leverage_ts = fillts(score_leverage_ts,0); score_roa_ts = fillts(score_roa_ts,0); score_grossmargin_ts = fillts(score_grossmargin_ts,0); score_turnover_ts = fillts(score_turnover_ts,0);</p><p>score_quality_ts = -score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts; score_quality_ts = fun_combine_score(score_quality_ts);</p><p>Let's take a first peak at the result. calculate portfolio weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'longshort'</span>);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_ts = portfolio_rt_ts(70:end);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 hold <span class="string">on</span>;
@@ -297,6 +298,7 @@ snapnow;
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topm'</span>,0.4);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_ts = portfolio_rt_ts(70:end);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 hold <span class="string">on</span>;
@@ -304,6 +306,7 @@ snapnow;
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'equalweight'</span>);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_ts = portfolio_rt_ts(70:end);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 snapnow;
@@ -312,6 +315,7 @@ sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topmlongonly'</span>,0.4);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+portfolio_rt_ts = portfolio_rt_ts(70:end);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 snapnow;
@@ -320,12 +324,12 @@ sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
 </pre><img vspace="5" hspace="5" src="MultipleFactors_09.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_10.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_11.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.6520
+    0.5750
 
 </pre><img vspace="5" hspace="5" src="MultipleFactors_12.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.8802
+    0.6974
 
 </pre><p>Quality behaved as expected, i.e. when crisis hits, high quality securities outperformed low quality security. But overall the drift has been close to zero for the whole 25 years period, maybe because I'm using the large cap securities (1300 largest) where quality isn't a differentiating factor?</p><p>zero drift doesn't mean quality is useless, by including quality factor into consideration, I can expect to reduce overall portfolio risk.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -440,10 +444,10 @@ snapnow;
 %% Generate scores
 % Notice the sign I put before score_leverage_ts. 
 
-score_leverage_ts = -fun_calculate_score(leverage_ts,list,'sectorsort'); 
-score_roa_ts = fun_calculate_score(roa_ts,list,'sectorsort'); 
-score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,'sectorsort'); 
-score_turnover_ts = fun_calculate_score(turnover_ts,list,'sectorsort'); 
+score_leverage_ts = -fun_calculate_score(leverage_ts,list,'sectorsort',px); 
+score_roa_ts = fun_calculate_score(roa_ts,list,'sectorsort',px); 
+score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,'sectorsort',px); 
+score_turnover_ts = fun_calculate_score(turnover_ts,list,'sectorsort',px); 
 
 score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
 
@@ -455,11 +459,11 @@ score_quality_ts = fun_combine_score(score_quality_ts);
 plot(fts2mat(score_quality_ts)); 
 snapnow; 
 
-%%
-% in this way, score_quality_ts is only not NAN when all constituent score
-% are available. Alternatively, I can also fillts first, then combine the scores. 
-
 %% 
+% in this way, score_quality_ts is only not NAN when all constituent score are available. Alternatively, I can also fillts first, then combine the scores.  
+
+%%
+%
 % score_leverage_ts = fillts(score_leverage_ts,0); 
 % score_roa_ts = fillts(score_roa_ts,0); 
 % score_grossmargin_ts = fillts(score_grossmargin_ts,0); 
@@ -475,6 +479,7 @@ snapnow;
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'longshort'); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_ts = portfolio_rt_ts(70:end); 
 plot(cumsum(portfolio_rt_ts));
 legend('off'); 
 hold on; 
@@ -482,6 +487,7 @@ snapnow;
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topm',0.4); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_ts = portfolio_rt_ts(70:end); 
 plot(cumsum(portfolio_rt_ts));
 legend('off'); 
 hold on; 
@@ -489,6 +495,7 @@ snapnow;
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'equalweight'); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_ts = portfolio_rt_ts(70:end); 
 plot(cumsum(portfolio_rt_ts));
 legend('off'); 
 snapnow;
@@ -497,6 +504,7 @@ sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topmlongonly',0.4); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+portfolio_rt_ts = portfolio_rt_ts(70:end); 
 plot(cumsum(portfolio_rt_ts));
 legend('off'); 
 snapnow;

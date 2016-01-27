@@ -2,7 +2,7 @@
 layout: page
 title: Multiple Factor - HML
 tag: post
-date: 2016-01-27 17:23:18
+date: 2016-01-28 00:47:18
 categories: matlab
 ---
 
@@ -13,7 +13,7 @@ categories: matlab
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Multiple Factors - HML</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-27"><meta name="DC.source" content="MultipleFactors_1.m"><style type="text/css">
+      --><title>Multiple Factors - HML</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-28"><meta name="DC.source" content="MultipleFactors_1.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,7 +73,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Multiple Factors - HML</h1><!--introduction--><p>HML is one of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#9">Check signal.</a></li><li><a href="#22">Percentile analysis</a></li><li><a href="#26">Large dataset test</a></li><li><a href="#37">Conclusion</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Multiple Factors - HML</h1><!--introduction--><p>HML is one of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#9">Check signal.</a></li><li><a href="#22">Percentile analysis</a></li><li><a href="#26">Large dataset test</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
 load(<span class="string">'../data_historical_data_us.mat'</span>);
 </pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
@@ -94,7 +94,7 @@ pb_mat(isnan(px_mat))=nan;
 
 plot(pb_ts.dates,pb_mat);
 datetick(<span class="string">'x'</span>);
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_03.png" alt=""> <p>much better.</p><h2>Check signal.<a name="9"></a></h2><p>Does low valuation securites out perform on risk adjust basis? Let's compare portfolio constructed using only low pb stocks v.s. is equal weighted conterpart.</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'fullsort'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_03.png" alt=""> <p>much better.</p><h2>Check signal.<a name="9"></a></h2><p>Does low valuation securites out perform on risk adjust basis? Let's compare portfolio constructed using only low pb stocks v.s. is equal weighted conterpart.</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'fullsort'</span>,px);
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'longonly'</span>);
@@ -116,9 +116,9 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_04.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.5219    0.6198
+    0.4937    0.6192
 
-</pre><p>doesn't seems to be very promising.</p><p>let's take a look at the sector sorted portfolio</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>);
+</pre><p>doesn't seems to be very promising.</p><p>let's take a look at the sector sorted portfolio</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'longonly'</span>);
@@ -142,9 +142,9 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_05.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.6261    0.6592
+    0.5310    0.6287
 
-</pre><p>sector weight give me a more balance portfolio and improved the sharpe by 5 basis points. most of the outperformance came in after dotcom bubble.</p><p>HML is very different from MOM. even though the long only portfolio outperformed equal weighted portfolio, in terms of sharpe it is worse. The outperformance is gained by assuming more 'risk'.</p><p>There is a slightly tricky question here. what extra 'risk' is it? if it is market risk, then HML is useless. but if it is another type of risk different from market risk, then it might be useful from diversification point of view.</p><p>with this question in mind, let's check pure long short factor portfolio against equal weighted market portfolio.</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>);
+</pre><p>sector weight give me a more balance portfolio and improved the sharpe by 5 basis points. most of the outperformance came in after dotcom bubble.</p><p>HML is very different from MOM. even though the long only portfolio outperformed equal weighted portfolio, in terms of sharpe it is worse. The outperformance is gained by assuming more 'risk'.</p><p>There is a slightly tricky question here. what extra 'risk' is it? if it is market risk, then HML is useless. but if it is another type of risk different from market risk, then it might be useful from diversification point of view.</p><p>with this question in mind, let's check pure long short factor portfolio against equal weighted market portfolio.</p><pre class="codeinput">score_pb_ts = -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'longshort'</span>);
@@ -167,14 +167,14 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_06.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.3243    0.6592
+    0.0950    0.6287
 
 </pre><p>if additional risk is mainly market risk, then long short portfolio should be highly correlated with equal weighted benchmark. let's check out the correlation:</p><pre class="codeinput">corrcoef(fts2mat(portfolio_longshort_rt_ts(1:end)), fts2mat(portfolio_equalweight_rt_ts(1:end)))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000    0.6169
-    0.6169    1.0000
+    1.0000    0.5609
+    0.5609    1.0000
 
 </pre><p>the correlation is quite high... this is not what I expected, but let's accept the facts.</p><p>let's see how the top percentile securities do</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topm'</span>,0.2);
 portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
@@ -197,24 +197,24 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_07.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.3826    0.3243
+    0.2410    0.0950
 
 
 ans =
 
-    0.5873    0.6592
+    0.4826    0.6287
 
 </pre><p>the drawdown is huge for top 20%, 63%(!) in 2008. 10% more than equal weighted index...</p><pre class="codeinput">maxdrawdown(exp(fts2mat(cumsum(portfolio_topmlongonly_rt_ts))))
 maxdrawdown(exp(fts2mat(cumsum(portfolio_equalweight_rt_ts))))
 </pre><pre class="codeoutput">
 ans =
 
-    0.6490
+    0.7390
 
 
 ans =
 
-    0.5438
+    0.6052
 
 </pre><p>I can check my historical portfolio pb and compare that to the market median.</p><pre class="codeinput">score_mat = fts2mat(score_pb_ts);
 pb_mat = fts2mat(pb_ts);
@@ -285,6 +285,7 @@ snapnow;
 hold <span class="string">on</span>;
 plot(sharpe_top_percentile);
 plot(sharpe_top_percentile_zoom);
+hold <span class="string">off</span>;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_12.png" alt=""> <h2>Large dataset test<a name="26"></a></h2><p>load the big dataset</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
 load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
 
@@ -303,7 +304,7 @@ px_large = fun_load_price_large(history_us_large, equity_list_us_large, index_la
 px_large = fun_clean_data(px_large);
 list_large = equity_list_us_large(index_large,:);
 </pre><p>load the PB ratios</p><pre class="codeinput">pb_ts_large = fun_load_observations_large(history_us_large, equity_list_us_large, index_large,<span class="string">'pb'</span>);
-</pre><p>calculate score</p><pre class="codeinput">score_pb_ts_large = -fun_calculate_score(pb_ts_large,list_large,<span class="string">'sectorsort'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_pb_ts_large = -fun_calculate_score(pb_ts_large,list_large,<span class="string">'sectorsort'</span>,px_large);
 </pre><p>compare the result:</p><p>pure long short</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'longshort'</span>);
 portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts);
 
@@ -325,11 +326,16 @@ plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
 hold <span class="string">on</span>;
 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,<span class="string">'topmn'</span>,0.1,0.02);
 portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts);
 
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,<span class="string">'topm'</span>,0.1);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
@@ -338,6 +344,23 @@ plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>)
 
 hold <span class="string">off</span>;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.4873
+
+
+ans =
+
+    0.5255
+
+
+ans =
+
+    0.3159
+
 </pre><img vspace="5" hspace="5" src="MultipleFactors_1_14.png" alt=""> <p>each percentile</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
@@ -380,7 +403,7 @@ snapnow;
 
 plot(sharpe_top_percentile_large_zoom);
 snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_1_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_18.png" alt=""> <p>similar to MOM, larger dataset doesn't really improve the factor performance in any obvious way. Besides, when I use 8900 securites, the very top 200 security has negative signals.</p><h2>Conclusion<a name="37"></a></h2><div><ol><li>HML is highly correlated with market, but it is not all about correlations</li><li>Sector sort works!</li><li>HML is a 'pain now for reward later' factor.</li><li>Larger dataset doesn't really improve performance, and beaware of the top 1% if you use large dataset.</li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="MultipleFactors_1_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_1_18.png" alt=""> <p>&gt;&gt;&gt;&gt;similar to MOM, larger dataset doesn't really improve the factor&lt;&lt;&lt;&lt;&lt; This is wrong due to a mistake in generating scores.. larger dataset helps!!</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Multiple Factors - HML
 % HML is one of the simplest factors. Let's take a look. 
@@ -444,7 +467,7 @@ datetick('x');
 % compare portfolio constructed using only low pb stocks v.s. is equal
 % weighted conterpart. 
 
-score_pb_ts = -fun_calculate_score(pb_ts,list,'fullsort'); 
+score_pb_ts = -fun_calculate_score(pb_ts,list,'fullsort',px); 
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,'longonly'); 
@@ -474,7 +497,7 @@ snapnow;
 %%
 % let's take a look at the sector sorted portfolio
 
-score_pb_ts = -fun_calculate_score(pb_ts,list,'sectorsort'); 
+score_pb_ts = -fun_calculate_score(pb_ts,list,'sectorsort',px); 
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,'longonly'); 
@@ -516,7 +539,7 @@ snapnow;
 % weighted market portfolio. 
 
 
-score_pb_ts = -fun_calculate_score(pb_ts,list,'sectorsort'); 
+score_pb_ts = -fun_calculate_score(pb_ts,list,'sectorsort',px); 
 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,'longshort'); 
@@ -668,7 +691,7 @@ plot(sharpe_top);
 hold on; 
 plot(sharpe_top_percentile);
 plot(sharpe_top_percentile_zoom); 
-
+hold off; 
 
 
 %% Large dataset test
@@ -707,7 +730,7 @@ pb_ts_large = fun_load_observations_large(history_us_large, equity_list_us_large
 %%
 % calculate score
 
-score_pb_ts_large = -fun_calculate_score(pb_ts_large,list_large,'sectorsort'); 
+score_pb_ts_large = -fun_calculate_score(pb_ts_large,list_large,'sectorsort',px_large); 
 
 %%
 % compare the result:
@@ -740,11 +763,16 @@ plot(cumsum(portfolio_rt_ts));
 legend('off')
 hold on; 
 
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
+
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts_large,'topmn',0.1,0.02); 
 portfolio_rt_ts = fun_portfolio_return(px_large, portfolio_weight_ts); 
 
 plot(cumsum(portfolio_rt_ts)); 
 legend('off')
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_pb_ts,'topm',0.1); 
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
@@ -753,6 +781,9 @@ plot(cumsum(portfolio_rt_ts));
 legend('off')
 
 hold off; 
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+
 
 %%
 % each percentile 
@@ -806,18 +837,10 @@ plot(sharpe_top_percentile_large_zoom);
 snapnow; 
 
 %%
-% similar to MOM, larger dataset doesn't really improve the factor
-% performance in any obvious way. Besides, when I use 8900 securites, the
-% very top 200 security has negative signals. 
+% >>>>similar to MOM, larger dataset doesn't really improve the factor<<<<<
+% This is wrong due to a mistake in generating scores.. larger dataset
+% helps!! 
 
 
-%% Conclusion
-
-%%
-% # HML is highly correlated with market, but it is not all about
-% correlations
-% # Sector sort works! 
-% # HML is a 'pain now for reward later' factor. 
-% # Larger dataset doesn't really improve performance, and beaware of the top 1% if you use large dataset. 
 ##### SOURCE END #####
 --></body></html>
