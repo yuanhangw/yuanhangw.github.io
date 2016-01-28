@@ -248,7 +248,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Multiple Factors - SML - Too good to be true?</h1><!--introduction--><p>SML is the second of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#8">Check signal.</a></li><li><a href="#17">'Errh.. Husdon we have a problem here..'</a></li><li><a href="#29">Adjust for risk</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Multiple Factors - SML - Too good to be true?</h1><!--introduction--><p>SML is the second of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#8">Check signal.</a></li><li><a href="#17">'Errh.. Huston we have a problem here..'</a></li><li><a href="#29">Adjust for risk</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
 load(<span class="string">'../data_historical_data_us.mat'</span>);
 </pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
@@ -293,12 +293,12 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_04.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.2251    0.1968
+    0.2246    0.1958
 
 
 ans =
 
-    0.6709    0.5568
+    0.6482    0.5569
 
 </pre><p>There are 10 bps improvement in sharpe.. reasonable i guess? small cap biased equal weight portfolio assumed higher risk as well, 18.5% v.s. 16%. on equal risk footing, small cap equal weighted index improve the return by 1.6% per annual.</p><p>let's take a look at the sector sorted portfolio</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
 
@@ -324,7 +324,7 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_05.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.6760    0.5580
+    0.6569    0.5577
 
 </pre><p>sector neutral improved nothing, unlike pb, market cap doesn't have a strong sector bias I guess.</p><p>Let's check pure long short factor portfolio against equal weighted market portfolio. Notice that it is not market neutral.</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
 
@@ -349,14 +349,14 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_06.png" alt=""> <pre class="codeoutput">
 ans =
 
-    1.0615    0.5580
+    1.0493    0.5577
 
 </pre><p>let's check the correlation.</p><pre class="codeinput">corrcoef(fts2mat(portfolio_longshort_rt_ts(1:end)), fts2mat(portfolio_equalweight_rt_ts(1:end)))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000    0.5827
-    0.5827    1.0000
+    1.0000    0.5636
+    0.5636    1.0000
 
 </pre><p>THIS IS TOO GOOD TO BE TRUE!!!? The sharpe is way to high to make sense. this is also the source of equal weight outperformance. I shall investigate this case separately.</p><p>let's see how the top percentile securities do</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topm'</span>,0.2);
 portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
@@ -380,14 +380,14 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_07.png" alt=""> <pre class="codeoutput">
 ans =
 
-    0.9141    1.0615
+    0.9279    1.0493
 
 
 ans =
 
-    0.7340    0.5580
+    0.7408    0.5577
 
-</pre><h2>'Errh.. Husdon we have a problem here..'<a name="17"></a></h2><p>The long short factor portfolio's sharpe is very high (~0.9), the topm version of it, even though lower, is still high (0.6).</p><p>let's see if walkford test shed some light on this puzzle.</p><pre class="codeinput"><span class="comment">% first construct a equalweighted index</span>
+</pre><h2>'Errh.. Huston we have a problem here..'<a name="17"></a></h2><p>The long short factor portfolio's sharpe is very high (~0.9), the topm version of it, even though lower, is still high (0.6).</p><p>let's see if walkford test shed some light on this puzzle.</p><pre class="codeinput"><span class="comment">% first construct a equalweighted index</span>
 portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'equalweight'</span>);
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
 benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
@@ -467,17 +467,17 @@ hedgeratio = std(fts2mat(tick2ret(portfolio_cap_ts(50:end))))/std(fts2mat(tick2r
 </pre><pre class="codeoutput">
 ans =
 
-    0.7762    0.6549
+    0.7558    0.6548
 
 
 ans =
 
-    0.2031    0.1294
+    0.1982    0.1287
 
 
 ans =
 
-    0.2621    0.1978
+    0.2627    0.1969
 
 </pre><p>factor portfolio</p><pre class="codeinput">portfolio_cap_factor_1_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), 1, portfolio_weight_ts(50:end),false);
 portfolio_cap_factor_2_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), hedgeratio, portfolio_weight_ts(50:end),false);
@@ -492,14 +492,14 @@ snapnow;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_15.png" alt=""> <pre class="codeoutput">
 ans =
 
-    1.0976    0.6645
+    1.0397    0.5844
 
 </pre><p>correlation</p><pre class="codeinput">corrcoef(fts2mat(tick2ret(portfolio_cap_factor_2_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000   -0.2823
-   -0.2823    1.0000
+    1.0000   -0.2894
+   -0.2894    1.0000
 
 </pre><p>better still I can ask the sequential backtester to adjust the hedge ratio dynamically.</p><pre class="codeinput">portfolio_cap_factor_3_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
 
@@ -513,16 +513,42 @@ hold <span class="string">off</span>;
 </pre><img vspace="5" hspace="5" src="MultipleFactors_2_16.png" alt=""> <pre class="codeoutput">
 ans =
 
-    1.0976    0.6645    0.7897
+    1.0397    0.5844    0.7482
 
 </pre><p>correlation</p><pre class="codeinput">corrcoef(fts2mat(tick2ret(portfolio_cap_factor_3_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000    0.0686
-    0.0686    1.0000
+    1.0000    0.0632
+    0.0632    1.0000
 
-</pre><p>pure factor with zero correlation ~~~, can't believe a problem bothered me for 7 months is actually so simple. I shall re-do the percentile analysis in previous posts.</p><pre class="codeinput">i=1;
+</pre><p>Let's run the percentile analysis again with autoadjust sequential test.</p><p>top N</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmlongonly'</span>,0.1*i);
+  portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+  portplot = plot(log(portfolio_cap_ts));
+  portplot.Color(4) = 1 - 0.1*i;
+  hold <span class="string">on</span>;
+
+  sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0);
+  corr = corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))));
+  correlation(i) = corr(1,2);
+  i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_percentile)
+snapnow;
+
+
+plot(correlation)
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_18.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_19.png" alt=""> <p>break into percentiles</p><pre class="codeinput">i=1;
 <span class="keyword">while</span> i&lt;=10
 
   portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmnlongonly'</span>,0.1*i,0.1*(i-1));
@@ -533,8 +559,8 @@ ans =
   hold <span class="string">on</span>;
 
   sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0);
-  corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
-
+  corr = corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))));
+  correlation(i) = corr(1,2);
   i = i+1;
 
 <span class="keyword">end</span>
@@ -544,67 +570,11 @@ snapnow;
 
 plot(sharpe_percentile)
 snapnow;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000    0.0190
-    0.0190    1.0000
 
 
-ans =
-
-    1.0000   -0.1267
-   -0.1267    1.0000
-
-
-ans =
-
-    1.0000   -0.0698
-   -0.0698    1.0000
-
-
-ans =
-
-    1.0000   -0.0560
-   -0.0560    1.0000
-
-
-ans =
-
-    1.0000   -0.1687
-   -0.1687    1.0000
-
-
-ans =
-
-    1.0000   -0.1210
-   -0.1210    1.0000
-
-
-ans =
-
-    1.0000   -0.1393
-   -0.1393    1.0000
-
-
-ans =
-
-    1.0000   -0.1750
-   -0.1750    1.0000
-
-
-ans =
-
-    1.0000   -0.1363
-   -0.1363    1.0000
-
-
-ans =
-
-    1.0000   -0.1083
-   -0.1083    1.0000
-
-</pre><img vspace="5" hspace="5" src="MultipleFactors_2_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_18.png" alt=""> <p>QED</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+plot(correlation)
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_20.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_21.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_22.png" alt=""> <p>Pure factor with zero correlation ~~~, can't believe a problem bothered me for 7 months is actually so simple. I shall re-do the percentile analysis in previous posts.</p><p>QED</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Multiple Factors - SML - Too good to be true? 
 % SML is the second of the simplest factors. Let's take a look. 
@@ -789,7 +759,7 @@ snapnow;
 [sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_longshort_rt_ts(50:end)),0)]
 [sqrt(12)*sharpe(fts2mat(portfolio_topmlongonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
 
-%% 'Errh.. Husdon we have a problem here..'
+%% 'Errh.. Huston we have a problem here..'
 % The long short factor portfolio's sharpe is very high (~0.9), the topm version
 % of it, even though lower, is still high (0.6). 
 
@@ -982,14 +952,40 @@ hold off;
 corrcoef(fts2mat(tick2ret(portfolio_cap_factor_3_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
 
 
+%% 
+% Let's run the percentile analysis again with autoadjust sequential test. 
+%%
+% top N
 
+i=1; 
+while i<=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topmlongonly',0.1*i); 
+  portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+  portplot = plot(log(portfolio_cap_ts)); 
+  portplot.Color(4) = 1 - 0.1*i; 
+  hold on; 
+  
+  sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0); 
+  corr = corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end)))); 
+  correlation(i) = corr(1,2); 
+  i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_percentile)
+snapnow; 
+
+
+plot(correlation)
+snapnow; 
 
 %%
-% pure factor with zero correlation ~~~, can't believe a problem bothered me
-% for 7 months is actually so simple. I shall re-do the percentile analysis
-% in previous posts.
-
-
+% break into percentiles
 
 i=1; 
 while i<=10
@@ -1002,8 +998,8 @@ while i<=10
   hold on; 
   
   sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0); 
-  corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
-
+  corr = corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end)))); 
+  correlation(i) = corr(1,2); 
   i = i+1; 
 
 end 
@@ -1013,6 +1009,20 @@ snapnow;
 
 plot(sharpe_percentile)
 snapnow; 
+
+
+plot(correlation)
+snapnow; 
+
+
+
+
+
+
+%%
+% Pure factor with zero correlation ~~~, can't believe a problem bothered me
+% for 7 months is actually so simple. I shall re-do the percentile analysis
+% in previous posts.
 
 %%
 % QED
