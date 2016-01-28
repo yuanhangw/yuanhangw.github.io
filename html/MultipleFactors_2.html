@@ -1,0 +1,846 @@
+---
+layout: page
+title: Multiple Factor - SML adjust for risk
+tag: post
+date: 2016-01-28 00:47:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Multiple Factors - SML - Too good to be true?</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-28"><meta name="DC.source" content="MultipleFactors_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Multiple Factors - SML - Too good to be true?</h1><!--introduction--><p>SML is the second of the simplest factors. Let's take a look.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data</a></li><li><a href="#8">Check signal.</a></li><li><a href="#17">'Errh.. Husdon we have a problem here..'</a></li><li><a href="#29">Adjust for risk</a></li></ul></div><h2>Load Data<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load the Market Cap</p><pre class="codeinput">cap_ts = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+</pre><p>let's take a look at the data</p><pre class="codeinput">plot(cap_ts.dates,fts2mat(cap_ts));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_01.png" alt=""> <p>let's take a look at the full dataset in log scale</p><pre class="codeinput">plot(cap_ts.dates,log(fts2mat(cap_ts)));
+datetick(<span class="string">'x'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_02.png" alt=""> <p>I can clean up the pb data for extreme value, but I prefer to leave it intact. Since we cleaned up price data, let's see what's the corresponding pb data looks like</p><pre class="codeinput">cap_mat = fts2mat(cap_ts);
+px_mat = fts2mat(px);
+
+cap_mat(isnan(px_mat))=nan;
+
+plot(cap_ts.dates,log(cap_mat));
+datetick(<span class="string">'x'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_03.png" alt=""> <p>much better.</p><h2>Check signal.<a name="8"></a></h2><p>Does low valuation securites out perform on risk adjust basis? Let's compare portfolio constructed using only low pb stocks v.s. is equal weighted conterpart.</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'fullsort'</span>,px);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'longonlyeq'</span>);
+portfolio_longonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'equalweight'</span>);
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+</pre><p>let's check the result.</p><pre class="codeinput">plot(cumsum(portfolio_longonly_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+plot(cumsum(portfolio_equalweight_rt_ts));
+legend(<span class="string">'off'</span>);
+
+snapnow;
+
+[sqrt(12)*std(fts2mat(portfolio_longonly_rt_ts(50:end))) sqrt(12)*std(fts2mat(portfolio_equalweight_rt_ts(50:end)))]
+
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_04.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.2251    0.1968
+
+
+ans =
+
+    0.6709    0.5568
+
+</pre><p>There are 10 bps improvement in sharpe.. reasonable i guess? small cap biased equal weight portfolio assumed higher risk as well, 18.5% v.s. 16%. on equal risk footing, small cap equal weighted index improve the return by 1.6% per annual.</p><p>let's take a look at the sector sorted portfolio</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'longonlyeq'</span>,1);
+portfolio_longonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'equalweight'</span>);
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+<span class="comment">% let's check the result.</span>
+plot(cumsum(portfolio_longonly_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+plot(cumsum(portfolio_equalweight_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+
+snapnow;
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_05.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.6760    0.5580
+
+</pre><p>sector neutral improved nothing, unlike pb, market cap doesn't have a strong sector bias I guess.</p><p>Let's check pure long short factor portfolio against equal weighted market portfolio. Notice that it is not market neutral.</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'longshort'</span>);
+portfolio_longshort_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'equalweight'</span>);
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+<span class="comment">% let's check the result.</span>
+plot(cumsum(portfolio_longshort_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+plot(cumsum(portfolio_equalweight_rt_ts));
+legend(<span class="string">'off'</span>);
+
+snapnow;
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longshort_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_06.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.0615    0.5580
+
+</pre><p>let's check the correlation.</p><pre class="codeinput">corrcoef(fts2mat(portfolio_longshort_rt_ts(1:end)), fts2mat(portfolio_equalweight_rt_ts(1:end)))
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.5827
+    0.5827    1.0000
+
+</pre><p>THIS IS TOO GOOD TO BE TRUE!!!? The sharpe is way to high to make sense. this is also the source of equal weight outperformance. I shall investigate this case separately.</p><p>let's see how the top percentile securities do</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topm'</span>,0.2);
+portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmlongonly'</span>,0.2);
+portfolio_topmlongonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+<span class="comment">% let's check the result.</span>
+plot(cumsum(portfolio_topm_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+plot(cumsum(portfolio_topmlongonly_rt_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+
+snapnow;
+
+[sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_longshort_rt_ts(50:end)),0)]
+[sqrt(12)*sharpe(fts2mat(portfolio_topmlongonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_07.png" alt=""> <pre class="codeoutput">
+ans =
+
+    0.9141    1.0615
+
+
+ans =
+
+    0.7340    0.5580
+
+</pre><h2>'Errh.. Husdon we have a problem here..'<a name="17"></a></h2><p>The long short factor portfolio's sharpe is very high (~0.9), the topm version of it, even though lower, is still high (0.6).</p><p>let's see if walkford test shed some light on this puzzle.</p><pre class="codeinput"><span class="comment">% first construct a equalweighted index</span>
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+plot(log(benchmark_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_08.png" alt=""> <p>I load the same portfolio weight into the walkforward tester. this should give me zero.</p><pre class="codeinput">portfolio_cap_ts = fun_sequential_backtest(100, px, benchmark_ts, portfolio_weight_eq_weight_ts,true);
+
+plot(log(portfolio_cap_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_09.png" alt=""> <p>opps.. in fact..</p><pre class="codeinput">plot(100*exp(cumsum(portfolio_rt_ts)));
+hold <span class="string">on</span>;
+plot(fun_sequential_backtest(100, px, benchmark_ts, portfolio_weight_eq_weight_ts,false))
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_10.png" alt=""> <p>THIS ISSUE IS ADDRESSED. portfolio_weight*rt and walkforward test doesn't tie out... who is wrong? portfolio_weight is generated from score_ts, which is generated from rank of fundamental observation. portfolio_weight on both the long side and the short side sum up to one, this is how capital is being deployed. but what if there is portfolio weight, but no px data? nansum() would assume we get zero from this case, but in fact my defacto portfolio weight doesn't sum up to zero...</p><p>very good point! This problem is solved by enforcing that, when I generate the scores, I don't take those observation without executable price into consideration. So who is wrong between portfolio_weight &amp; walkforard? portfolio_weight is wrong. this is good news!!!</p><p>I move back to update the first two post on Multifactors, now HML seems more reasonable. larger dataset problem disappeared,</p><p>This solved the difference between walkforward &amp; weight*return, but it does really solve the problem with SML. To be specific, small cap biased index performance is reasonable(?), but long short factor portfolio seems too good to be true.</p><p>let's run a percentile analysis on cap</p><p>let's take a look at the relationship with N</p><pre class="codeinput">score_cap_ts = -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+
+i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts(50:end),<span class="string">'topmlongonly'</span>,0.1*i);
+  portfolio_topm_rt_ts = fun_portfolio_return(px(50:end), portfolio_weight_ts);
+
+  portplot = plot(fts2mat(cumsum(portfolio_topm_rt_ts)));
+  portplot.Color(4) = 1 - 0.1*i;
+  hold <span class="string">on</span>;
+
+  sharpe_top(i) = sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts),0);
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_11.png" alt=""> <p>let's take a look at each percentile</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmn'</span>,0.1*i,0.1*(i-1));
+  portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
+
+  portplot = plot(fts2mat(cumsum(portfolio_topm_rt_ts)));
+  portplot.Color(4) = 1 - 0.1*i;
+  hold <span class="string">on</span>;
+
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts),0);
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_top);
+hold <span class="string">on</span>;
+plot(sharpe_top_percentile);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_12.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_13.png" alt=""> <p>'problem' is with top 0.2.</p><h2>Adjust for risk<a name="29"></a></h2><p>I know that smallcap long only index is more volatile than equal weight index, is the sharpe due to assuming more market risk? let's take another look.</p><p>long only top 0.1</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmlongonly'</span>,0.5);
+
+portfolio_cap_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), 1, portfolio_weight_ts(50:end),true);
+
+plot(log(portfolio_cap_ts));
+legend(<span class="string">'off'</span>);
+hold <span class="string">on</span>
+
+plot(log(benchmark_ts(50:end)));
+legend(<span class="string">'off'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_14.png" alt=""> <p>sharpe/return/vol</p><pre class="codeinput">[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts(50:end))),0) sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_ts(50:end))),0)]
+[12*nanmean(fts2mat(tick2ret(portfolio_cap_ts(50:end)))) 12*nanmean(fts2mat(tick2ret(benchmark_ts(50:end))))]
+[sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts(50:end)))) sqrt(12)*std(fts2mat(tick2ret(benchmark_ts(50:end))))]
+
+hedgeratio = std(fts2mat(tick2ret(portfolio_cap_ts(50:end))))/std(fts2mat(tick2ret(benchmark_ts(50:end))));
+</pre><pre class="codeoutput">
+ans =
+
+    0.7762    0.6549
+
+
+ans =
+
+    0.2031    0.1294
+
+
+ans =
+
+    0.2621    0.1978
+
+</pre><p>factor portfolio</p><pre class="codeinput">portfolio_cap_factor_1_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), 1, portfolio_weight_ts(50:end),false);
+portfolio_cap_factor_2_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), hedgeratio, portfolio_weight_ts(50:end),false);
+
+plot(log(portfolio_cap_factor_1_ts));
+legend(<span class="string">'off'</span>);
+plot(log(portfolio_cap_factor_2_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+
+[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_1_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_2_ts)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_15.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.0976    0.6645
+
+</pre><p>correlation</p><pre class="codeinput">corrcoef(fts2mat(tick2ret(portfolio_cap_factor_2_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.2823
+   -0.2823    1.0000
+
+</pre><p>better still I can ask the sequential backtester to adjust the hedge ratio dynamically.</p><pre class="codeinput">portfolio_cap_factor_3_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+plot(log(portfolio_cap_factor_3_ts));
+legend(<span class="string">'off'</span>);
+snapnow;
+
+hold <span class="string">off</span>;
+
+[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_1_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_2_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_3_ts)),0)]
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_16.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.0976    0.6645    0.7897
+
+</pre><p>correlation</p><pre class="codeinput">corrcoef(fts2mat(tick2ret(portfolio_cap_factor_3_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.0686
+    0.0686    1.0000
+
+</pre><p>pure factor with zero correlation ~~~, can't believe a problem bothered me for 7 months is actually so simple. I shall re-do the percentile analysis in previous posts.</p><pre class="codeinput">i=1;
+<span class="keyword">while</span> i&lt;=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,<span class="string">'topmnlongonly'</span>,0.1*i,0.1*(i-1));
+  portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+  portplot = plot(log(portfolio_cap_ts));
+  portplot.Color(4) = 1 - 0.1*i;
+  hold <span class="string">on</span>;
+
+  sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0);
+  corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+hold <span class="string">off</span>;
+snapnow;
+
+plot(sharpe_percentile)
+snapnow;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.0190
+    0.0190    1.0000
+
+
+ans =
+
+    1.0000   -0.1267
+   -0.1267    1.0000
+
+
+ans =
+
+    1.0000   -0.0698
+   -0.0698    1.0000
+
+
+ans =
+
+    1.0000   -0.0560
+   -0.0560    1.0000
+
+
+ans =
+
+    1.0000   -0.1687
+   -0.1687    1.0000
+
+
+ans =
+
+    1.0000   -0.1210
+   -0.1210    1.0000
+
+
+ans =
+
+    1.0000   -0.1393
+   -0.1393    1.0000
+
+
+ans =
+
+    1.0000   -0.1750
+   -0.1750    1.0000
+
+
+ans =
+
+    1.0000   -0.1363
+   -0.1363    1.0000
+
+
+ans =
+
+    1.0000   -0.1083
+   -0.1083    1.0000
+
+</pre><img vspace="5" hspace="5" src="MultipleFactors_2_17.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_2_18.png" alt=""> <p>QED</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Multiple Factors - SML - Too good to be true? 
+% SML is the second of the simplest factors. Let's take a look. 
+
+%% Load Data
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load the Market Cap
+
+cap_ts = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+
+
+%%
+% let's take a look at the data
+
+plot(cap_ts.dates,fts2mat(cap_ts));
+datetick('x'); 
+snapnow; 
+
+
+%%
+% let's take a look at the full dataset in log scale
+ 
+plot(cap_ts.dates,log(fts2mat(cap_ts)));
+datetick('x'); 
+snapnow; 
+
+%%
+% I can clean up the pb data for extreme value, but I prefer to leave it
+% intact. Since we cleaned up price data, let's see what's the
+% corresponding pb data looks like
+
+cap_mat = fts2mat(cap_ts); 
+px_mat = fts2mat(px);
+
+cap_mat(isnan(px_mat))=nan; 
+
+plot(cap_ts.dates,log(cap_mat)); 
+datetick('x'); 
+
+%%
+% much better. 
+
+%% Check signal. 
+% Does low valuation securites out perform on risk adjust basis? Let's
+% compare portfolio constructed using only low pb stocks v.s. is equal
+% weighted conterpart. 
+
+score_cap_ts = -fun_calculate_score(cap_ts,list,'fullsort',px); 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'longonlyeq'); 
+portfolio_longonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'equalweight'); 
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+%%
+% let's check the result. 
+
+plot(cumsum(portfolio_longonly_rt_ts)); 
+legend('off'); 
+hold on; 
+
+plot(cumsum(portfolio_equalweight_rt_ts)); 
+legend('off'); 
+
+snapnow; 
+
+[sqrt(12)*std(fts2mat(portfolio_longonly_rt_ts(50:end))) sqrt(12)*std(fts2mat(portfolio_equalweight_rt_ts(50:end)))]
+
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+
+%%
+% There are 10 bps improvement in sharpe.. reasonable i guess? small cap biased equal weight
+% portfolio assumed higher risk as well, 18.5% v.s. 16%. on equal risk
+% footing, small cap equal weighted index improve the return by 1.6% per
+% annual. 
+
+%%
+% let's take a look at the sector sorted portfolio
+
+score_cap_ts = -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'longonlyeq',1); 
+portfolio_longonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'equalweight'); 
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+% let's check the result. 
+plot(cumsum(portfolio_longonly_rt_ts)); 
+legend('off'); 
+hold on; 
+
+plot(cumsum(portfolio_equalweight_rt_ts)); 
+legend('off'); 
+hold off; 
+
+snapnow; 
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+
+%%
+% sector neutral improved nothing, unlike pb, market cap doesn't have a
+% strong sector bias I guess. 
+
+%%
+% Let's check pure long short factor portfolio against equal
+% weighted market portfolio. Notice that it is not market neutral.
+
+
+score_cap_ts = -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'longshort'); 
+portfolio_longshort_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'equalweight'); 
+portfolio_equalweight_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+% let's check the result. 
+plot(cumsum(portfolio_longshort_rt_ts)); 
+legend('off'); 
+hold on; 
+
+plot(cumsum(portfolio_equalweight_rt_ts)); 
+legend('off'); 
+
+snapnow; 
+
+[sqrt(12)*sharpe(fts2mat(portfolio_longshort_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+
+%%
+% let's check the correlation. 
+
+corrcoef(fts2mat(portfolio_longshort_rt_ts(1:end)), fts2mat(portfolio_equalweight_rt_ts(1:end)))
+
+%%
+% THIS IS TOO GOOD TO BE TRUE!!!? The sharpe is way to high to make sense. 
+% this is also the source of equal weight outperformance. I shall
+% investigate this case separately. 
+
+
+
+%%
+% let's see how the top percentile securities do
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topm',0.2); 
+portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topmlongonly',0.2); 
+portfolio_topmlongonly_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+% let's check the result. 
+plot(cumsum(portfolio_topm_rt_ts)); 
+legend('off'); 
+hold on;
+
+plot(cumsum(portfolio_topmlongonly_rt_ts)); 
+legend('off'); 
+hold off; 
+
+snapnow; 
+
+[sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_longshort_rt_ts(50:end)),0)]
+[sqrt(12)*sharpe(fts2mat(portfolio_topmlongonly_rt_ts(50:end)),0) sqrt(12)*sharpe(fts2mat(portfolio_equalweight_rt_ts(50:end)),0)]
+
+%% 'Errh.. Husdon we have a problem here..'
+% The long short factor portfolio's sharpe is very high (~0.9), the topm version
+% of it, even though lower, is still high (0.6). 
+
+%%
+% let's see if walkford test shed some light on this puzzle.
+
+% first construct a equalweighted index
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+plot(log(benchmark_ts)); 
+legend('off'); 
+hold on; 
+
+%%
+% I load the same portfolio weight into the walkforward tester. this should
+% give me zero. 
+
+portfolio_cap_ts = fun_sequential_backtest(100, px, benchmark_ts, portfolio_weight_eq_weight_ts,true);
+
+plot(log(portfolio_cap_ts)); 
+legend('off');
+hold off; 
+%%
+% opps.. in fact..
+
+plot(100*exp(cumsum(portfolio_rt_ts))); 
+hold on; 
+plot(fun_sequential_backtest(100, px, benchmark_ts, portfolio_weight_eq_weight_ts,false))
+hold off; 
+snapnow; 
+%%
+% THIS ISSUE IS ADDRESSED. 
+% portfolio_weight*rt and walkforward test doesn't tie out... who is wrong?
+% portfolio_weight is generated from score_ts, which is generated from rank
+% of fundamental observation. portfolio_weight on both the long side and
+% the short side sum up to one, this is how capital is being deployed. but
+% what if there is portfolio weight, but no px data? nansum() would assume
+% we get zero from this case, but in fact my defacto portfolio weight
+% doesn't sum up to zero... 
+
+%%
+% very good point! This problem is solved by enforcing that, when I
+% generate the scores, I don't take those observation without executable
+% price into consideration. So who is wrong between portfolio_weight &
+% walkforard? portfolio_weight is wrong. this is good news!!!
+
+%%
+% I move back to update the first two post on Multifactors, now HML seems
+% more reasonable. larger dataset problem disappeared, 
+
+
+%%
+% This solved the difference between walkforward & weight*return, but
+% it does really solve the problem with SML. To be
+% specific, small cap biased index performance is reasonable(?), but long
+% short factor portfolio seems too good to be true. 
+
+
+%%
+% let's run a percentile analysis on cap 
+
+
+%% 
+% let's take a look at the relationship with N
+
+score_cap_ts = -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+
+i=1; 
+while i<=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts(50:end),'topmlongonly',0.1*i); 
+  portfolio_topm_rt_ts = fun_portfolio_return(px(50:end), portfolio_weight_ts); 
+
+  portplot = plot(fts2mat(cumsum(portfolio_topm_rt_ts)));
+  portplot.Color(4) = 1 - 0.1*i; 
+  hold on; 
+  
+  sharpe_top(i) = sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts),0); 
+  
+  i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+
+
+
+
+%%
+% let's take a look at each percentile 
+
+
+i=1; 
+while i<=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topmn',0.1*i,0.1*(i-1)); 
+  portfolio_topm_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
+
+  portplot = plot(fts2mat(cumsum(portfolio_topm_rt_ts)));
+  portplot.Color(4) = 1 - 0.1*i; 
+  hold on; 
+  
+  sharpe_top_percentile(i) = sqrt(12)*sharpe(fts2mat(portfolio_topm_rt_ts),0); 
+  
+  i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_top); 
+hold on; 
+plot(sharpe_top_percentile); 
+snapnow; 
+
+%%
+% 'problem' is with top 0.2. 
+
+%% Adjust for risk 
+% I know that smallcap long only index is more volatile than equal weight
+% index, is the sharpe due to assuming more market risk? let's take another
+% look. 
+
+
+%%
+% long only top 0.1
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topmlongonly',0.5); 
+
+portfolio_cap_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), 1, portfolio_weight_ts(50:end),true);
+
+plot(log(portfolio_cap_ts)); 
+legend('off'); 
+hold on
+
+plot(log(benchmark_ts(50:end))); 
+legend('off'); 
+
+
+%%
+% sharpe/return/vol
+
+[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts(50:end))),0) sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_ts(50:end))),0)]
+[12*nanmean(fts2mat(tick2ret(portfolio_cap_ts(50:end)))) 12*nanmean(fts2mat(tick2ret(benchmark_ts(50:end))))]
+[sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts(50:end)))) sqrt(12)*std(fts2mat(tick2ret(benchmark_ts(50:end))))]
+
+hedgeratio = std(fts2mat(tick2ret(portfolio_cap_ts(50:end))))/std(fts2mat(tick2ret(benchmark_ts(50:end)))); 
+%%
+% factor portfolio
+
+portfolio_cap_factor_1_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), 1, portfolio_weight_ts(50:end),false);
+portfolio_cap_factor_2_ts = fun_sequential_backtest_partial(100, px(50:end), benchmark_ts(50:end), hedgeratio, portfolio_weight_ts(50:end),false);
+
+plot(log(portfolio_cap_factor_1_ts)); 
+legend('off');
+plot(log(portfolio_cap_factor_2_ts)); 
+legend('off');
+snapnow; 
+
+[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_1_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_2_ts)),0)]
+
+%%
+% correlation
+corrcoef(fts2mat(tick2ret(portfolio_cap_factor_2_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+
+
+%%
+% better still I can ask the sequential backtester to adjust the hedge
+% ratio dynamically. 
+
+portfolio_cap_factor_3_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+plot(log(portfolio_cap_factor_3_ts)); 
+legend('off');
+snapnow; 
+
+hold off; 
+
+[sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_1_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_2_ts)),0) sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_factor_3_ts)),0)]
+
+
+%%
+% correlation
+corrcoef(fts2mat(tick2ret(portfolio_cap_factor_3_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+
+
+
+
+%%
+% pure factor with zero correlation ~~~, can't believe a problem bothered me
+% for 7 months is actually so simple. I shall re-do the percentile analysis
+% in previous posts.
+
+
+
+i=1; 
+while i<=10
+
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_cap_ts,'topmnlongonly',0.1*i,0.1*(i-1)); 
+  portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px(50:end), benchmark_ts(50:end), portfolio_weight_ts(50:end),false);
+
+  portplot = plot(log(portfolio_cap_ts)); 
+  portplot.Color(4) = 1 - 0.1*i; 
+  hold on; 
+  
+  sharpe_percentile(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0); 
+  corrcoef(fts2mat(tick2ret(portfolio_cap_ts)), fts2mat(tick2ret(benchmark_ts(50:end))))
+
+  i = i+1; 
+
+end 
+
+hold off; 
+snapnow; 
+
+plot(sharpe_percentile)
+snapnow; 
+
+%%
+% QED
+
+##### SOURCE END #####
+--></body></html>
