@@ -1,10 +1,10 @@
 # Site settings
-title: OOOnion	
+title: nion	
 email: iam@here.now
 description: > # this means to ignore newlines until "baseurl:"
   keep it simple :: finish it off :: iterate
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://yuanhangw.github.com" # the base hostname & protocol for your site
 twitter_username: large
 github_username:  yuanhangw
 

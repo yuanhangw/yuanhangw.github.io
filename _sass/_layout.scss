@@ -17,12 +17,18 @@
     margin-bottom: 0;
     float: left;
 
+
     &,
     &:visited {
         color: $grey-color-dark;
     }
 }
 
+.logo{
+    
+    vertical-align : baseline;
+    margin: 4px 2px -5px 0px;
+}
 .site-nav {
     float: right;
     line-height: 56px;
@@ -168,6 +174,7 @@
 .page-heading {
     font-size: 20px;
 }
+
 
 .post-list {
     margin-left: 0;

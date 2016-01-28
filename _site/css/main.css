@@ -160,6 +160,10 @@ pre {
   .site-title, .site-title:visited {
     color: #424242; }
 
+.logo {
+  vertical-align: baseline;
+  margin: 4px 2px -5px 0px; }
+
 .site-nav {
   float: right;
   line-height: 56px; }

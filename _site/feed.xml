@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>OOOnion</title>
+    <title>nion</title>
     <description>keep it simple :: finish it off :: iterate
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 28 Jan 2016 16:24:29 +0800</pubDate>
-    <lastBuildDate>Thu, 28 Jan 2016 16:24:29 +0800</lastBuildDate>
+    <link>http://yuanhangw.github.com/</link>
+    <atom:link href="http://yuanhangw.github.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 28 Jan 2016 18:00:11 +0800</pubDate>
+    <lastBuildDate>Thu, 28 Jan 2016 18:00:11 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -18,8 +18,8 @@
 
 </description>
         <pubDate>Tue, 19 Jan 2016 01:20:06 +0800</pubDate>
-        <link>http://yourdomain.com/general/2016/01/19/Setup-Jekyll-Journal.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/general/2016/01/19/Setup-Jekyll-Journal.html</guid>
+        <link>http://yuanhangw.github.com/general/2016/01/19/Setup-Jekyll-Journal.html</link>
+        <guid isPermaLink="true">http://yuanhangw.github.com/general/2016/01/19/Setup-Jekyll-Journal.html</guid>
         
         
         <category>general</category>
