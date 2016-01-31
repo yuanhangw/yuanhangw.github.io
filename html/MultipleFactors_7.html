@@ -1,0 +1,637 @@
+---
+layout: page
+title: Multiple Factors - All in one 
+tag: post
+date: 2016-01-31 16:54:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Multiple Factors</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-31"><meta name="DC.source" content="MultipleFactors_7.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Multiple Factors</h1><!--introduction--><p>All in one place.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Preparation</a></li><li><a href="#6">Trim</a></li><li><a href="#7">Capital neutral factor portfolios</a></li><li><a href="#8">Risk neutral factor portfolios</a></li><li><a href="#9">Market neutral factor portfolios</a></li><li><a href="#10">Show Result</a></li></ul></div><p>All for one and one for all.</p><pre class="codeinput">imshow(<span class="string">'allforone.jpg'</span>);
+</pre><img vspace="5" hspace="5" src="MultipleFactors_7_01.png" alt=""> <h2>Preparation<a name="2"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><h2>Trim<a name="6"></a></h2><pre class="codeinput">score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+</pre><h2>Capital neutral factor portfolios<a name="7"></a></h2><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=5
+
+
+  <span class="comment">% load benchmark</span>
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'equalweight'</span>);
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+
+  <span class="comment">% calculate factor portfolio</span>
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'longonly'</span>);
+  portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i},1, portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2);
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i})));
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+
+portfolio_cap_ts_CN = portfolio_cap_ts;
+correlation_CN = correlation;
+sharpe_ratio_CN = sharpe_ratio;
+vol_CN = vol;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.7768   -0.5457    0.5141    0.4964
+   -0.7768    1.0000    0.7891   -0.6920   -0.6403
+   -0.5457    0.7891    1.0000   -0.6945   -0.4401
+    0.5141   -0.6920   -0.6945    1.0000    0.4170
+    0.4964   -0.6403   -0.4401    0.4170    1.0000
+
+</pre><h2>Risk neutral factor portfolios<a name="8"></a></h2><pre class="codeinput">i = 1;
+<span class="keyword">while</span> i&lt;=5
+
+
+  <span class="comment">% load benchmark</span>
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'equalweight'</span>);
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+
+  <span class="comment">% calculate factor portfolio</span>
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'longonly'</span>);
+  portfolio_cap_ts{i} = fun_sequential_backtest_autoadjust(100, px, benchmark_ts{i}, portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2);
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i})));
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+
+portfolio_cap_ts_RN = portfolio_cap_ts;
+correlation_RN = correlation;
+sharpe_ratio_RN = sharpe_ratio;
+vol_RN = vol;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.6201   -0.2888    0.2597    0.3856
+   -0.6201    1.0000    0.6124   -0.3031   -0.4738
+   -0.2888    0.6124    1.0000   -0.3476   -0.1848
+    0.2597   -0.3031   -0.3476    1.0000    0.1129
+    0.3856   -0.4738   -0.1848    0.1129    1.0000
+
+</pre><h2>Market neutral factor portfolios<a name="9"></a></h2><pre class="codeinput">hedge_ratio = [0.82 1.23 1.2 0.75 0.88];
+
+i = 1;
+<span class="keyword">while</span> i&lt;=5
+
+
+  <span class="comment">% load benchmark</span>
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'equalweight'</span>);
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+
+  <span class="comment">% calculate factor portfolio</span>
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'longonly'</span>);
+  portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i}, hedge_ratio(i), portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2);
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i})));
+
+  i = i+1;
+
+<span class="keyword">end</span>
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+portfolio_cap_ts_MN = portfolio_cap_ts;
+correlation_MN = correlation;
+sharpe_ratio_MN = sharpe_ratio;
+vol_MN = vol;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.6915   -0.3393    0.2515    0.3794
+   -0.6915    1.0000    0.5742   -0.3417   -0.5379
+   -0.3393    0.5742    1.0000   -0.3285   -0.2048
+    0.2515   -0.3417   -0.3285    1.0000    0.1211
+    0.3794   -0.5379   -0.2048    0.1211    1.0000
+
+</pre><h2>Show Result<a name="10"></a></h2><pre class="codeinput">figure;
+
+i=1;
+
+<span class="keyword">while</span> i&lt;=5
+
+  plot(log(portfolio_cap_ts_CN{i}));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(log(benchmark_ts{1}));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+title(<span class="string">'Capital Neutral Factors'</span>);
+legend(<span class="string">'MOM'</span>,<span class="string">'HML'</span>,<span class="string">'SML'</span>,<span class="string">'BAB'</span>,<span class="string">'QUAL'</span>,<span class="string">'Benchmark'</span>,<span class="string">'Location'</span>,<span class="string">'northwest'</span>);
+snapnow;
+
+i=1;
+
+<span class="keyword">while</span> i&lt;=5
+
+  plot(log(portfolio_cap_ts_RN{i}));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(log(benchmark_ts{1}));
+legend(<span class="string">'off'</span>);
+hold <span class="string">off</span>;
+title(<span class="string">'Risk Neutral Factors'</span>);
+legend(<span class="string">'MOM'</span>,<span class="string">'HML'</span>,<span class="string">'SML'</span>,<span class="string">'BAB'</span>,<span class="string">'QUAL'</span>,<span class="string">'Benchmark'</span>,<span class="string">'Location'</span>,<span class="string">'northwest'</span>);
+snapnow;
+
+
+i=1;
+
+<span class="keyword">while</span> i&lt;=5
+
+  plot(log(portfolio_cap_ts_MN{i}));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">on</span>;
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(log(benchmark_ts{1}));
+hold <span class="string">off</span>;
+title(<span class="string">'Market Neutral Factors'</span>);
+legend(<span class="string">'MOM'</span>,<span class="string">'HML'</span>,<span class="string">'SML'</span>,<span class="string">'BAB'</span>,<span class="string">'QUAL'</span>,<span class="string">'Benchmark'</span>,<span class="string">'Location'</span>,<span class="string">'northwest'</span>);
+snapnow;
+
+
+title_name = {<span class="string">'MOM'</span>;<span class="string">'HML'</span>;<span class="string">'SML'</span>;<span class="string">'BAB'</span>;<span class="string">'QUAL'</span>};
+
+i=1;
+<span class="keyword">while</span> i&lt;=5
+
+  plot(log(portfolio_cap_ts_CN{i}));
+  hold <span class="string">on</span>;
+  plot(log(portfolio_cap_ts_RN{i}));
+  plot(log(portfolio_cap_ts_MN{i}));
+  plot(log(benchmark_ts{i}));
+  legend(<span class="string">'off'</span>);
+  hold <span class="string">off</span>;
+  title(title_name{i});
+  legend(<span class="string">'Capital Neutral'</span>, <span class="string">'Risk Neutral'</span>,<span class="string">'Market Neutral'</span>,<span class="string">'Benchmark'</span>,<span class="string">'Location'</span>,<span class="string">'NorthWest'</span>);
+  snapnow;
+
+  i=i+1;
+<span class="keyword">end</span>
+
+plot(correlation_CN);
+hold <span class="string">on</span>;
+plot(correlation_RN);
+plot(correlation_MN);
+hold <span class="string">off</span>;
+title(<span class="string">'Correlation'</span>);
+legend(<span class="string">'Capital Neutral'</span>,<span class="string">'Risk Neutral'</span>, <span class="string">'Market Neutral'</span>, <span class="string">'Location'</span>,<span class="string">'Northwest'</span>);
+snapnow;
+
+plot(sharpe_ratio_CN);
+hold <span class="string">on</span>;
+plot(sharpe_ratio_RN);
+plot(sharpe_ratio_MN);
+hold <span class="string">off</span>;
+title(<span class="string">'Sharpe Ratio'</span>);
+legend(<span class="string">'Capital Neutral'</span>,<span class="string">'Risk Neutral'</span>, <span class="string">'Market Neutral'</span>, <span class="string">'Location'</span>,<span class="string">'Northwest'</span>);
+snapnow;
+
+plot(vol_CN);
+hold <span class="string">on</span>;
+plot(vol_RN);
+plot(vol_MN);
+hold <span class="string">off</span>;
+title(<span class="string">'Volatility'</span>);
+legend(<span class="string">'Capital Neutral'</span>,<span class="string">'Risk Neutral'</span>, <span class="string">'Market Neutral'</span>, <span class="string">'Location'</span>,<span class="string">'Northwest'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="MultipleFactors_7_02.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_03.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_04.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_05.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_06.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_07.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_08.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_09.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_10.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_11.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_7_12.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Multiple Factors  
+% All in one place.
+
+%%
+% All for one and one for all. 
+
+imshow('allforone.jpg'); 
+
+%% Preparation
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%% Trim 
+%
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+
+
+%% Capital neutral factor portfolios
+% 
+
+i = 1; 
+while i<=5
+  
+  
+  % load benchmark 
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'equalweight'); 
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+  
+  % calculate factor portfolio
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'longonly'); 
+  portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i},1, portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2); 
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i}))); 
+  
+  i = i+1;
+  
+end 
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+
+portfolio_cap_ts_CN = portfolio_cap_ts; 
+correlation_CN = correlation; 
+sharpe_ratio_CN = sharpe_ratio; 
+vol_CN = vol; 
+
+%% Risk neutral factor portfolios
+
+i = 1; 
+while i<=5
+  
+  
+  % load benchmark 
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'equalweight'); 
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+  
+  % calculate factor portfolio
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'longonly'); 
+  portfolio_cap_ts{i} = fun_sequential_backtest_autoadjust(100, px, benchmark_ts{i}, portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2); 
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i}))); 
+  
+  i = i+1;
+  
+end
+
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+
+portfolio_cap_ts_RN = portfolio_cap_ts; 
+correlation_RN = correlation; 
+sharpe_ratio_RN = sharpe_ratio; 
+vol_RN = vol; 
+
+%% Market neutral factor portfolios
+
+hedge_ratio = [0.82 1.23 1.2 0.75 0.88]; 
+
+i = 1; 
+while i<=5
+  
+  
+  % load benchmark 
+
+  portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'equalweight'); 
+  portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+  benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+  benchmark_ts{i} = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+  
+  % calculate factor portfolio
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'longonly'); 
+  portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i}, hedge_ratio(i), portfolio_weight_ts,false);
+
+  correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
+  correlation(i) = correlation_matrix(1,2); 
+  sharpe_ratio(i) = sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts{i})),0);
+  vol(i) = sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts{i}))); 
+  
+  i = i+1;
+  
+end
+
+corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
+
+portfolio_cap_ts_MN = portfolio_cap_ts; 
+correlation_MN = correlation; 
+sharpe_ratio_MN = sharpe_ratio; 
+vol_MN = vol; 
+
+
+%% Show Result
+% 
+figure;
+
+i=1; 
+
+while i<=5
+  
+  plot(log(portfolio_cap_ts_CN{i}));
+  legend('off'); 
+  hold on; 
+  
+  i=i+1; 
+end 
+
+plot(log(benchmark_ts{1})); 
+legend('off'); 
+hold off; 
+title('Capital Neutral Factors'); 
+legend('MOM','HML','SML','BAB','QUAL','Benchmark','Location','northwest');
+snapnow; 
+
+i=1; 
+
+while i<=5
+  
+  plot(log(portfolio_cap_ts_RN{i}));
+  legend('off'); 
+  hold on; 
+  
+  i=i+1; 
+end 
+
+plot(log(benchmark_ts{1})); 
+legend('off'); 
+hold off; 
+title('Risk Neutral Factors'); 
+legend('MOM','HML','SML','BAB','QUAL','Benchmark','Location','northwest');
+snapnow; 
+
+
+i=1; 
+
+while i<=5
+  
+  plot(log(portfolio_cap_ts_MN{i}));
+  legend('off'); 
+  hold on; 
+  
+  i=i+1; 
+end
+
+plot(log(benchmark_ts{1}));
+hold off; 
+title('Market Neutral Factors'); 
+legend('MOM','HML','SML','BAB','QUAL','Benchmark','Location','northwest');
+snapnow; 
+
+
+title_name = {'MOM';'HML';'SML';'BAB';'QUAL'}; 
+
+i=1; 
+while i<=5
+  
+  plot(log(portfolio_cap_ts_CN{i}));
+  hold on; 
+  plot(log(portfolio_cap_ts_RN{i}));
+  plot(log(portfolio_cap_ts_MN{i}));
+  plot(log(benchmark_ts{i})); 
+  legend('off'); 
+  hold off; 
+  title(title_name{i}); 
+  legend('Capital Neutral', 'Risk Neutral','Market Neutral','Benchmark','Location','NorthWest');
+  snapnow; 
+  
+  i=i+1; 
+end
+
+plot(correlation_CN);
+hold on; 
+plot(correlation_RN); 
+plot(correlation_MN); 
+hold off; 
+title('Correlation'); 
+legend('Capital Neutral','Risk Neutral', 'Market Neutral', 'Location','Northwest');
+snapnow; 
+
+plot(sharpe_ratio_CN);
+hold on; 
+plot(sharpe_ratio_RN); 
+plot(sharpe_ratio_MN); 
+hold off; 
+title('Sharpe Ratio'); 
+legend('Capital Neutral','Risk Neutral', 'Market Neutral', 'Location','Northwest');
+snapnow; 
+
+plot(vol_CN);
+hold on; 
+plot(vol_RN); 
+plot(vol_MN); 
+hold off; 
+title('Volatility'); 
+legend('Capital Neutral','Risk Neutral', 'Market Neutral', 'Location','Northwest');
+snapnow; 
+
+
+
+##### SOURCE END #####
+--></body></html>
