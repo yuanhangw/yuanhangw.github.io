@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Toolbox - 1
+title: Combined Factors - In theory ...
 tag: post
-date: 2016-02-01 10:57:18
+date: 2016-02-01 12:09:18
 categories: matlab
 ---
 
@@ -13,7 +13,7 @@ categories: matlab
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Combined Factors</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-01"><meta name="DC.source" content="CombinedFactors.m"><style type="text/css">
+      --><title>Combined Factors  -  In theory</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-01"><meta name="DC.source" content="CombinedFactors_toolbox.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -73,24 +73,26 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Combined Factors</h1><!--introduction--><p>Matlab portfolio optimization toolbox - 1</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Setup</a></li><li><a href="#2">Create portfolio object</a></li><li><a href="#3">Plot Helper</a></li><li><a href="#4">Portfolio Optimization</a></li><li><a href="#7">Estimate range of efficient portfolio Risk and Return range</a></li><li><a href="#8">Find Specific portfolio with target Risk or target Return</a></li><li><a href="#9">Inculding transaction cost consideration</a></li><li><a href="#10">Including turnover constrains</a></li><li><a href="#11">Checking Errors is only available in 2015b</a></li><li><a href="#12">Max Sharpe portfolio</a></li><li><a href="#13">Dollar Neutral</a></li><li><a href="#14">130-30</a></li></ul></div><h2>Setup<a name="1"></a></h2><pre class="codeinput">load <span class="string">BlueChipStockMoments</span>
+  </style></head><body><div class="content"><h1>Combined Factors  -  In theory</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The theory</a></li><li><a href="#7">Setup</a></li><li><a href="#8">Create portfolio object</a></li><li><a href="#9">Plot Helper</a></li><li><a href="#10">Portfolio Optimization</a></li><li><a href="#13">Estimate range of efficient portfolio Risk and Return range</a></li><li><a href="#14">Find Specific portfolio with target Risk or target Return</a></li><li><a href="#15">Inculding transaction cost consideration</a></li><li><a href="#16">Including turnover constrains</a></li><li><a href="#17">Checking Errors is only available in 2015b</a></li><li><a href="#18">Max Sharpe portfolio</a></li><li><a href="#19">Dollar Neutral</a></li><li><a href="#20">130-30</a></li></ul></div><h2>The theory<a name="1"></a></h2><p>'In theory, there is no difference between theory and practice. In practice there is.'</p><pre class="codeinput">imshow(<span class="string">'yogi.jpg'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_01.png" alt=""> <p>The theory is simple: If the whole security univere's can be reduced to a mean vector and covariance matrix (Berkshire partners: 'ridiculous!'), and if both of which can be predicted accurately. Then it is straight forward to find the optimal combination of securities, that achieve the highest return with given amount of 'risk', or the lowest risk with given target of return.</p><p>It gets fancier when we take 1) transaction cost 2) turnover constrain 3) leverage constrain 4) longshort constrains 5) tracking error into consideration. But those are auxiliary considerations. The main problem lies with the estimation of mean and covariance matrix, the later more trouble some than the former.</p><p>Typically when I need diversification most, the correlation between securities collapse to 1.</p><p>What if the underlying securites under consideration is inherently uncorrelated and stable? Especially during the distressed period?</p><h2>Setup<a name="7"></a></h2><pre class="codeinput">load <span class="string">BlueChipStockMoments</span>
 
 mret = MarketMean;
 mrsk = sqrt(MarketVar);
 cret = CashMean;
 crsk = sqrt(CashVar);
-</pre><h2>Create portfolio object<a name="2"></a></h2><pre class="codeinput">p = Portfolio(<span class="string">'AssetList'</span>, AssetList, <span class="string">'RiskFreeRate'</span>, CashMean);
+</pre><h2>Create portfolio object<a name="8"></a></h2><pre class="codeinput">p = Portfolio(<span class="string">'AssetList'</span>, AssetList, <span class="string">'RiskFreeRate'</span>, CashMean);
 p = setAssetMoments(p, AssetMean, AssetCovar);
 
 p = setInitPort(p, 1/p.NumAssets);
 [ersk, eret] = estimatePortMoments(p, p.InitPort);
-</pre><h2>Plot Helper<a name="3"></a></h2><pre class="codeinput">clf;
+</pre><h2>Plot Helper<a name="9"></a></h2><pre class="codeinput">figure;
+clf;
 portfolioexamples_plot(<span class="string">'Asset Risks and Returns'</span>, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, mrsk, mret, {<span class="string">'Market'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, crsk, cret, {<span class="string">'Cash'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, ersk, eret, {<span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_01.png" alt=""> <h2>Portfolio Optimization<a name="4"></a></h2><pre class="codeinput">p = setDefaultConstraints(p);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_02.png" alt=""> <h2>Portfolio Optimization<a name="10"></a></h2><pre class="codeinput">p = setDefaultConstraints(p);
 
 pwgt = estimateFrontier(p, 40);
 [prsk, pret] = estimatePortMoments(p, pwgt);
@@ -99,7 +101,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier'</span>, <span c
 	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_02.png" alt=""> <p>Tangent line to efficient frontier</p><pre class="codeinput">q = setBudget(p, 0, 1.5);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_03.png" alt=""> <p>Tangent line to efficient frontier</p><pre class="codeinput">q = setBudget(p, 0, 1.5);
 
 qwgt = estimateFrontier(q, 20);
 [qrsk, qret] = estimatePortMoments(q, qwgt);
@@ -112,7 +114,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier with Tangent Lin
 	{<span class="string">'line'</span>, qrsk, qret, [], [], 1}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_03.png" alt=""> <h2>Estimate range of efficient portfolio Risk and Return range<a name="7"></a></h2><pre class="codeinput">[rsk, ret] = estimatePortMoments(p, estimateFrontierLimits(p));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_04.png" alt=""> <h2>Estimate range of efficient portfolio Risk and Return range<a name="13"></a></h2><pre class="codeinput">[rsk, ret] = estimatePortMoments(p, estimateFrontierLimits(p));
 
 display(rsk);
 display(ret);
@@ -128,7 +130,7 @@ ret =
     0.0094
     0.0179
 
-</pre><h2>Find Specific portfolio with target Risk or target Return<a name="8"></a></h2><pre class="codeinput">TargetReturn = 0.20;            <span class="comment">% input target annualized return and risk here</span>
+</pre><h2>Find Specific portfolio with target Risk or target Return<a name="14"></a></h2><pre class="codeinput">TargetReturn = 0.20;            <span class="comment">% input target annualized return and risk here</span>
 TargetRisk = 0.15;
 
 <span class="comment">% Obtain portfolios with targeted return and risk</span>
@@ -181,7 +183,7 @@ Portfolio with 15% Target Risk
     WMT     25.031
     XOM      12.69
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_04.png" alt=""> <h2>Inculding transaction cost consideration<a name="9"></a></h2><pre class="codeinput">BuyCost = 0.0020;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_05.png" alt=""> <h2>Inculding transaction cost consideration<a name="15"></a></h2><pre class="codeinput">BuyCost = 0.0020;
 SellCost = 0.0020;
 
 q = setCosts(p, BuyCost, SellCost);
@@ -197,7 +199,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier with and without
 	{<span class="string">'line'</span>, qrsk, qret, {<span class="string">'Net'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_05.png" alt=""> <h2>Including turnover constrains<a name="10"></a></h2><pre class="codeinput">BuyCost = 0.0020;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_06.png" alt=""> <h2>Including turnover constrains<a name="16"></a></h2><pre class="codeinput">BuyCost = 0.0020;
 SellCost = 0.0020;
 Turnover = 0.2;
 
@@ -251,7 +253,7 @@ Sum of Sales by Portfolio along Efficient Frontier (Max. Turnover 20%)
 
    20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_06.png" alt=""> <h2>Checking Errors is only available in 2015b<a name="11"></a></h2><p>ii = [15, 16, 20, 21, 23, 25, 27, 29, 30];		% indexes of assets to include in tracking portfolio</p><p>TrackingError = 0.05/sqrt(12); TrackingPort = zeros(30, 1); TrackingPort(ii) = 1; TrackingPort = (1/sum(TrackingPort))*TrackingPort;</p><p>q = setTrackingError(p, TrackingError, TrackingPort);</p><p>qwgt = estimateFrontier(q, 20); [qrsk, qret] = estimatePortMoments(q, qwgt);</p><p>[trsk, tret] = estimatePortMoments(q, TrackingPort);</p><p>% Plot efficient frontier with tracking-error constraint</p><p>clf; portfolioexamples_plot('Efficient Frontier with 5% Tracking-Error Constraint', ... 	{'line', prsk, pret, {'Unconstrained'}, ':b'}, ... 	{'line', qrsk, qret, {'Tracking'}}, ... 	{'scatter', [mrsk, crsk], [mret, cret], {'Market', 'Cash'}}, ... 	{'scatter', trsk, tret, {'Tracking'}, 'r'});</p><h2>Max Sharpe portfolio<a name="12"></a></h2><pre class="codeinput">p = setInitPort(p, 0);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_07.png" alt=""> <h2>Checking Errors is only available in 2015b<a name="17"></a></h2><p>ii = [15, 16, 20, 21, 23, 25, 27, 29, 30];		% indexes of assets to include in tracking portfolio</p><p>TrackingError = 0.05/sqrt(12); TrackingPort = zeros(30, 1); TrackingPort(ii) = 1; TrackingPort = (1/sum(TrackingPort))*TrackingPort;</p><p>q = setTrackingError(p, TrackingError, TrackingPort);</p><p>qwgt = estimateFrontier(q, 20); [qrsk, qret] = estimatePortMoments(q, qwgt);</p><p>[trsk, tret] = estimatePortMoments(q, TrackingPort);</p><p>% Plot efficient frontier with tracking-error constraint</p><p>clf; portfolioexamples_plot('Efficient Frontier with 5% Tracking-Error Constraint', ... 	{'line', prsk, pret, {'Unconstrained'}, ':b'}, ... 	{'line', qrsk, qret, {'Tracking'}}, ... 	{'scatter', [mrsk, crsk], [mret, cret], {'Market', 'Cash'}}, ... 	{'scatter', trsk, tret, {'Tracking'}, 'r'});</p><h2>Max Sharpe portfolio<a name="18"></a></h2><pre class="codeinput">p = setInitPort(p, 0);
 
 swgt = estimateMaxSharpeRatio(p);
 [srsk, sret] = estimatePortMoments(p, swgt);
@@ -283,7 +285,7 @@ disp(Blotter);
     WMT     22.051
     XOM     18.841
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_07.png" alt=""> <h2>Dollar Neutral<a name="13"></a></h2><pre class="codeinput">Exposure = 1;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_08.png" alt=""> <h2>Dollar Neutral<a name="19"></a></h2><pre class="codeinput">Exposure = 1;
 
 q = setBounds(p, -Exposure, Exposure);
 q = setBudget(q, 0, 0);
@@ -355,7 +357,7 @@ Confirm Dollar-Neutral Portfolio
   (Net, Long, Short)
    -0.0000   82.3985   82.3985
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_08.png" alt=""> <h2>130-30<a name="14"></a></h2><pre class="codeinput">Leverage = 0.3;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_09.png" alt=""> <h2>130-30<a name="20"></a></h2><pre class="codeinput">Leverage = 0.3;
 
 q = setBounds(p, -Leverage, 1 + Leverage);
 q = setBudget(q, 1, 1);
@@ -412,10 +414,40 @@ Confirm 130-30 Portfolio
   (Net, Long, Short)
   100.0000  130.0000   30.0000
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_09.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="CombinedFactors_toolbox_10.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Combined Factors  
-% Matlab portfolio optimization toolbox - 1 
+%% Combined Factors  -  In theory
+
+%% The theory
+%
+%%
+% 'In theory, there is no difference between theory and practice. In
+% practice there is.'
+
+imshow('yogi.jpg'); 
+
+%%
+% The theory is simple: If the whole security univere's can be reduced to
+% a mean vector and covariance matrix (Berkshire partners: 'ridiculous!'), and if both of which can be predicted accurately. 
+% Then it is straight forward to find the optimal combination of securities, that achieve the highest return with 
+% given amount of 'risk', or the lowest risk with given target of return.  
+
+%%
+% It gets fancier when we take 1) transaction cost 2) turnover constrain 3)
+% leverage constrain 4) longshort constrains 5) tracking error into
+% consideration. But those are auxiliary considerations. 
+% The main problem lies with the estimation of mean and covariance matrix,
+% the later more trouble some than the former. 
+
+%%
+% Typically when I need diversification most, the correlation between securities collapse to 1.
+
+
+%%
+% What if the underlying securites under consideration is inherently
+% uncorrelated and stable? Especially during the distressed period? 
+
+
 
 %% Setup 
 %
@@ -438,7 +470,7 @@ p = setInitPort(p, 1/p.NumAssets);
 
 %% Plot Helper
 %
-
+figure; 
 clf;
 portfolioexamples_plot('Asset Risks and Returns', ...
 	{'scatter', mrsk, mret, {'Market'}}, ...
