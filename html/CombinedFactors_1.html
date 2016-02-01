@@ -2,7 +2,7 @@
 layout: page
 title: Combined Factors - Theory mixed with a little bit of reality
 tag: post
-date: 2016-02-01 15:27:18
+date: 2016-02-01 15:39:18
 categories: matlab
 ---
 
@@ -146,32 +146,35 @@ corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_
 
 
 plot(correlation);
+snapnow;
 plot(sharpe_ratio);
+snapnow;
 plot(vol);
+snapnow;
 </pre><pre class="codeoutput">
 ans =
 
-    0.0441   -0.0030    0.0343    0.0111    0.0293
+    0.0458   -0.0040    0.0352    0.0121    0.0293
 
 
 ans =
 
-    1.0000   -0.6802   -0.4018    0.2304    0.3896
-   -0.6802    1.0000    0.6117   -0.3089   -0.5712
-   -0.4018    0.6117    1.0000   -0.2925   -0.3007
-    0.2304   -0.3089   -0.2925    1.0000    0.0780
-    0.3896   -0.5712   -0.3007    0.0780    1.0000
+    1.0000   -0.6788   -0.3751    0.2643    0.3778
+   -0.6788    1.0000    0.6057   -0.3530   -0.5478
+   -0.3751    0.6057    1.0000   -0.3196   -0.2935
+    0.2643   -0.3530   -0.3196    1.0000    0.1224
+    0.3778   -0.5478   -0.2935    0.1224    1.0000
 
 
 ans =
 
-    0.0039   -0.0022   -0.0013    0.0005    0.0009
-   -0.0022    0.0027    0.0016   -0.0005   -0.0010
-   -0.0013    0.0016    0.0025   -0.0005   -0.0005
-    0.0005   -0.0005   -0.0005    0.0010    0.0001
-    0.0009   -0.0010   -0.0005    0.0001    0.0013
+    0.0039   -0.0022   -0.0011    0.0006    0.0008
+   -0.0022    0.0028    0.0016   -0.0006   -0.0010
+   -0.0011    0.0016    0.0024   -0.0005   -0.0005
+    0.0006   -0.0006   -0.0005    0.0011    0.0001
+    0.0008   -0.0010   -0.0005    0.0001    0.0012
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_01.png" alt=""> <h2>Combined Factor portfolios<a name="8"></a></h2><p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>};
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_01.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_1_02.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_1_03.png" alt=""> <h2>Combined Factor portfolios<a name="8"></a></h2><p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>};
 
 d = portfolio_cap_ts{1}.dates;
 Xfts = fints(d, zeros(numel(d),5), FactorList);
@@ -185,7 +188,7 @@ Xfts.QUAL = fts2mat(portfolio_cap_ts{5});
 
 plot(log(Xfts));
 legend(<span class="string">'location'</span>,<span class="string">'northwest'</span>);
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_02.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_04.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
 market_vol = std(fts2mat(tick2ret(benchmark_ts{1})));
 
 cash_return = 0.0008;
@@ -205,7 +208,7 @@ portfolioexamples_plot(<span class="string">'Asset Risks and Returns'</span>, <s
 	{<span class="string">'scatter'</span>, cash_vol, cash_return, {<span class="string">'Cash'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, equal_weight_vol, equal_weight_return, {<span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_03.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_05.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
 
 pwgt = estimateFrontier(p, 40);
 [prsk, pret] = estimatePortMoments(p, pwgt);
@@ -216,7 +219,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier'</span>, <span c
 	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [market_vol, cash_vol, equal_weight_vol], [market_return, cash_return, equal_weight_return], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_04.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_06.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
 
 qwgt = estimateFrontier(q, 20);
 [qrsk, qret] = estimatePortMoments(q, qwgt);
@@ -238,22 +241,23 @@ swgt = estimateMaxSharpeRatio(p);
 
 disp(swgt);
 disp(sqrt(12)*sret/srsk);
-</pre><pre class="codeoutput">    0.2164
+</pre><pre class="codeoutput">    0.2143
          0
-    0.3853
-    0.0791
-    0.3192
+    0.3922
+    0.0784
+    0.3151
 
-    1.5372
+    1.5717
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_05.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_07.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
 portfolio_rt_ts = fun_portfolio_return(Xfts, portfolio_weight_ts);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 hold <span class="string">on</span>;
 plot(log(Xfts)-log(100));
+legend(<span class="string">'off'</span>);
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_06.png" alt=""> <p>factor portfolios all has very low volatility. I need a lot of leverage to amplify its risk to target level. since all factor portfolio are close to capital neutral, the capital requirement is merely for margins. can we learned anything here?</p><h2>Combined factor portfolio with Market<a name="17"></a></h2><p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>,<span class="string">'MKT'</span>};
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_08.png" alt=""> <p>factor portfolios all has very low volatility. I need a lot of leverage to amplify its risk to target level. since all factor portfolio are close to capital neutral, the capital requirement is merely for margins. can we learned anything here?</p><h2>Combined factor portfolio with Market<a name="17"></a></h2><p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>,<span class="string">'MKT'</span>};
 
 d = portfolio_cap_ts{1}.dates;
 Xfts = fints(d, zeros(numel(d),6), FactorList);
@@ -266,7 +270,7 @@ Xfts.QUAL = fts2mat(portfolio_cap_ts{5});
 Xfts.MKT = fts2mat(benchmark_ts{1});
 
 plot(log(Xfts));
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_07.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_09.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
 market_vol = std(fts2mat(tick2ret(benchmark_ts{1})));
 
 cash_return = 0.0008;
@@ -286,7 +290,7 @@ portfolioexamples_plot(<span class="string">'Asset Risks and Returns'</span>, <s
 	{<span class="string">'scatter'</span>, cash_vol, cash_return, {<span class="string">'Cash'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, equal_weight_vol, equal_weight_return, {<span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_08.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_10.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
 
 pwgt = estimateFrontier(p, 40);
 [prsk, pret] = estimatePortMoments(p, pwgt);
@@ -297,7 +301,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier'</span>, <span c
 	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [market_vol, cash_vol, equal_weight_vol], [market_return, cash_return, equal_weight_return], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_09.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_11.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
 
 qwgt = estimateFrontier(q, 20);
 [qrsk, qret] = estimatePortMoments(q, qwgt);
@@ -319,23 +323,24 @@ swgt = estimateMaxSharpeRatio(p);
 
 disp(swgt);
 disp(sqrt(12)*sret/srsk);
-</pre><pre class="codeoutput">    0.2228
+</pre><pre class="codeoutput">    0.2166
          0
-    0.3906
-    0.0598
-    0.2642
-    0.0627
+    0.3919
+    0.0620
+    0.2688
+    0.0606
 
-    1.6676
+    1.7005
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_10.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_12.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
 portfolio_rt_ts = fun_portfolio_return(Xfts, portfolio_weight_ts);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 hold <span class="string">on</span>;
 plot(log(Xfts)-log(100));
+legend(<span class="string">'off'</span>);
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_11.png" alt=""> <h2>Topm combined factor portfolio<a name="25"></a></h2><p>I know that topm factor portfolio has stronger signal and high vol, let's check those out.</p><p>Market neutral factor portfolios</p><pre class="codeinput">hedge_ratio = [0.82 1.47 1.57 0.70 0.88];
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_13.png" alt=""> <h2>Topm combined factor portfolio<a name="25"></a></h2><p>I know that topm factor portfolio has stronger signal and high vol, let's check those out.</p><p>Market neutral factor portfolios</p><pre class="codeinput">hedge_ratio = [0.82 1.47 1.57 0.70 0.88];
 
 i = 1;
 <span class="keyword">while</span> i&lt;=5
@@ -350,7 +355,7 @@ i = 1;
 
 
   <span class="comment">% calculate factor portfolio</span>
-  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'topmlongonly'</span>,0.1);
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},<span class="string">'topmlongonly'</span>,0.2);
   portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i}, hedge_ratio(i), portfolio_weight_ts,false);
 
   correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
@@ -367,32 +372,35 @@ corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_
 12*cov([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
 
 plot(correlation);
+snapnow;
 plot(sharpe_ratio);
+snapnow;
 plot(vol);
+snapnow;
 </pre><pre class="codeoutput">
 ans =
 
-    0.0786    0.0116    0.0853    0.0160    0.0669
+    0.0706   -0.0026    0.0360    0.0115    0.0632
 
 
 ans =
 
-    1.0000   -0.3865   -0.1722    0.2576    0.1776
-   -0.3865    1.0000    0.6014   -0.2240   -0.0929
-   -0.1722    0.6014    1.0000   -0.1931    0.0122
-    0.2576   -0.2240   -0.1931    1.0000    0.0795
-    0.1776   -0.0929    0.0122    0.0795    1.0000
+    1.0000   -0.5488   -0.2467    0.2442    0.0874
+   -0.5488    1.0000    0.5780   -0.3087   -0.0838
+   -0.2467    0.5780    1.0000   -0.1546   -0.0678
+    0.2442   -0.3087   -0.1546    1.0000   -0.0366
+    0.0874   -0.0838   -0.0678   -0.0366    1.0000
 
 
 ans =
 
-    0.0165   -0.0063   -0.0031    0.0022    0.0053
-   -0.0063    0.0160    0.0107   -0.0019   -0.0027
-   -0.0031    0.0107    0.0199   -0.0018    0.0004
-    0.0022   -0.0019   -0.0018    0.0045    0.0012
-    0.0053   -0.0027    0.0004    0.0012    0.0545
+    0.0106   -0.0063   -0.0025    0.0014    0.0012
+   -0.0063    0.0124    0.0064   -0.0019   -0.0013
+   -0.0025    0.0064    0.0099   -0.0009   -0.0009
+    0.0014   -0.0019   -0.0009    0.0031   -0.0003
+    0.0012   -0.0013   -0.0009   -0.0003    0.0192
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_12.png" alt=""> <p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>};
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_14.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_1_15.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_1_16.png" alt=""> <p>put factor portfolio in order.</p><pre class="codeinput">FactorList = {<span class="string">'MOM'</span>, <span class="string">'HML'</span>, <span class="string">'SML'</span>, <span class="string">'BAB'</span>,<span class="string">'QUAL'</span>};
 
 d = portfolio_cap_ts{1}.dates;
 Xfts = fints(d, zeros(numel(d),5), FactorList);
@@ -405,7 +413,7 @@ Xfts.QUAL = fts2mat(portfolio_cap_ts{5});
 
 
 plot(log(Xfts));
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_13.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_17.png" alt=""> <p>cash and market</p><pre class="codeinput">market_return = mean(fts2mat(tick2ret(benchmark_ts{1})));
 market_vol = std(fts2mat(tick2ret(benchmark_ts{1})));
 
 cash_return = 0.0008;
@@ -425,7 +433,7 @@ portfolioexamples_plot(<span class="string">'Asset Risks and Returns'</span>, <s
 	{<span class="string">'scatter'</span>, cash_vol, cash_return, {<span class="string">'Cash'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, equal_weight_vol, equal_weight_return, {<span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_14.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_18.png" alt=""> <p>optimze the portfolio</p><pre class="codeinput">p = setDefaultConstraints(p);
 
 pwgt = estimateFrontier(p, 40);
 [prsk, pret] = estimatePortMoments(p, pwgt);
@@ -436,7 +444,7 @@ portfolioexamples_plot(<span class="string">'Efficient Frontier'</span>, <span c
 	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, [market_vol, cash_vol, equal_weight_vol], [market_return, cash_return, equal_weight_return], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
 	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_15.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_19.png" alt=""> <p>maximize sharpe ratio</p><pre class="codeinput">q = setBudget(p, 0, 1);
 
 qwgt = estimateFrontier(q, 20);
 [qrsk, qret] = estimatePortMoments(q, qwgt);
@@ -458,22 +466,23 @@ swgt = estimateMaxSharpeRatio(p);
 
 disp(swgt);
 disp(sqrt(12)*sret/srsk);
-</pre><pre class="codeoutput">    0.4463
+</pre><pre class="codeoutput">    0.4777
+    0.0343
+    0.3050
          0
-    0.4301
-    0.0741
-    0.0496
+    0.1829
 
-    0.9668
+    0.9799
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_16.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_20.png" alt=""> <p>plot result.</p><pre class="codeinput">portfolio_weight_ts = fints(Xfts.dates,bsxfun(@times, ones(length(Xfts),length(swgt)),swgt'));
 portfolio_rt_ts = fun_portfolio_return(Xfts, portfolio_weight_ts);
 plot(cumsum(portfolio_rt_ts));
 legend(<span class="string">'off'</span>);
 hold <span class="string">on</span>;
 plot(log(Xfts)-log(100));
+legend(<span class="string">'off'</span>);
 hold <span class="string">off</span>;
-</pre><img vspace="5" hspace="5" src="CombinedFactors_1_17.png" alt=""> <p>Sharpe 1~1.5 can be expected.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="CombinedFactors_1_21.png" alt=""> <p>Sharpe 1~1.5 can be expected.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Combined Factors  -  In theory 2
 
@@ -580,8 +589,11 @@ corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_
 
 
 plot(correlation); 
+snapnow; 
 plot(sharpe_ratio); 
+snapnow;
 plot(vol); 
+snapnow; 
 %% Combined Factor portfolios 
 % 
 
@@ -684,6 +696,7 @@ plot(cumsum(portfolio_rt_ts));
 legend('off');
 hold on;
 plot(log(Xfts)-log(100));
+legend('off');
 hold off; 
 
 %%
@@ -793,6 +806,7 @@ plot(cumsum(portfolio_rt_ts));
 legend('off');
 hold on;
 plot(log(Xfts)-log(100));
+legend('off');
 hold off; 
 
 
@@ -818,7 +832,7 @@ while i<=5
 
   
   % calculate factor portfolio
-  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'topmlongonly',0.1); 
+  portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_ts{i},'topmlongonly',0.2); 
   portfolio_cap_ts{i} = fun_sequential_backtest_partial(100, px, benchmark_ts{i}, hedge_ratio(i), portfolio_weight_ts,false);
 
   correlation_matrix = corrcoef(fts2mat(tick2ret(portfolio_cap_ts{i})), fts2mat(tick2ret(benchmark_ts{i})));
@@ -835,8 +849,11 @@ corrcoef([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_
 12*cov([fts2mat(tick2ret(portfolio_cap_ts{1})) fts2mat(tick2ret(portfolio_cap_ts{2})) fts2mat(tick2ret(portfolio_cap_ts{3})) fts2mat(tick2ret(portfolio_cap_ts{4})) fts2mat(tick2ret(portfolio_cap_ts{5}))])
 
 plot(correlation); 
+snapnow; 
 plot(sharpe_ratio); 
+snapnow;
 plot(vol); 
+snapnow; 
 %%
 % put factor portfolio in order. 
 FactorList = {'MOM', 'HML', 'SML', 'BAB','QUAL'};
@@ -935,6 +952,7 @@ plot(cumsum(portfolio_rt_ts));
 legend('off');
 hold on;
 plot(log(Xfts)-log(100));
+legend('off');
 hold off; 
 
 
