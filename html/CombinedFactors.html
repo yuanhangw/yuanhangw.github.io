@@ -1,0 +1,712 @@
+---
+layout: page
+title: Toolbox - 1
+tag: post
+date: 2016-02-01 10:57:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-01"><meta name="DC.source" content="CombinedFactors.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors</h1><!--introduction--><p>Matlab portfolio optimization toolbox - 1</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Setup</a></li><li><a href="#2">Create portfolio object</a></li><li><a href="#3">Plot Helper</a></li><li><a href="#4">Portfolio Optimization</a></li><li><a href="#7">Estimate range of efficient portfolio Risk and Return range</a></li><li><a href="#8">Find Specific portfolio with target Risk or target Return</a></li><li><a href="#9">Inculding transaction cost consideration</a></li><li><a href="#10">Including turnover constrains</a></li><li><a href="#11">Checking Errors is only available in 2015b</a></li><li><a href="#12">Max Sharpe portfolio</a></li><li><a href="#13">Dollar Neutral</a></li><li><a href="#14">130-30</a></li></ul></div><h2>Setup<a name="1"></a></h2><pre class="codeinput">load <span class="string">BlueChipStockMoments</span>
+
+mret = MarketMean;
+mrsk = sqrt(MarketVar);
+cret = CashMean;
+crsk = sqrt(CashVar);
+</pre><h2>Create portfolio object<a name="2"></a></h2><pre class="codeinput">p = Portfolio(<span class="string">'AssetList'</span>, AssetList, <span class="string">'RiskFreeRate'</span>, CashMean);
+p = setAssetMoments(p, AssetMean, AssetCovar);
+
+p = setInitPort(p, 1/p.NumAssets);
+[ersk, eret] = estimatePortMoments(p, p.InitPort);
+</pre><h2>Plot Helper<a name="3"></a></h2><pre class="codeinput">clf;
+portfolioexamples_plot(<span class="string">'Asset Risks and Returns'</span>, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, mrsk, mret, {<span class="string">'Market'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, crsk, cret, {<span class="string">'Cash'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, ersk, eret, {<span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+</pre><img vspace="5" hspace="5" src="CombinedFactors_01.png" alt=""> <h2>Portfolio Optimization<a name="4"></a></h2><pre class="codeinput">p = setDefaultConstraints(p);
+
+pwgt = estimateFrontier(p, 40);
+[prsk, pret] = estimatePortMoments(p, pwgt);
+</pre><p>plot</p><pre class="codeinput">clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+</pre><img vspace="5" hspace="5" src="CombinedFactors_02.png" alt=""> <p>Tangent line to efficient frontier</p><pre class="codeinput">q = setBudget(p, 0, 1.5);
+
+qwgt = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+<span class="comment">% Plot efficient frontier with tangent line (0 to 1 cash)</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with Tangent Line'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, qrsk, qret, [], [], 1}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+</pre><img vspace="5" hspace="5" src="CombinedFactors_03.png" alt=""> <h2>Estimate range of efficient portfolio Risk and Return range<a name="7"></a></h2><pre class="codeinput">[rsk, ret] = estimatePortMoments(p, estimateFrontierLimits(p));
+
+display(rsk);
+display(ret);
+</pre><pre class="codeoutput">
+rsk =
+
+    0.0348
+    0.0903
+
+
+ret =
+
+    0.0094
+    0.0179
+
+</pre><h2>Find Specific portfolio with target Risk or target Return<a name="8"></a></h2><pre class="codeinput">TargetReturn = 0.20;            <span class="comment">% input target annualized return and risk here</span>
+TargetRisk = 0.15;
+
+<span class="comment">% Obtain portfolios with targeted return and risk</span>
+
+awgt = estimateFrontierByReturn(p, TargetReturn/12);
+[arsk, aret] = estimatePortMoments(p, awgt);
+
+bwgt = estimateFrontierByRisk(p, TargetRisk/sqrt(12));
+[brsk, bret] = estimatePortMoments(p, bwgt);
+
+<span class="comment">% Plot efficient frontier with targeted portfolios</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with Targeted Portfolios'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, arsk, aret, {sprintf(<span class="string">'%g%% Return'</span>,100*TargetReturn)}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, brsk, bret, {sprintf(<span class="string">'%g%% Risk'</span>,100*TargetRisk)}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+
+<span class="comment">% Display portfolio weight</span>
+
+aBlotter = dataset({100*awgt(awgt &gt; 0),<span class="string">'Weight'</span>}, <span class="string">'obsnames'</span>, p.AssetList(awgt &gt; 0));
+
+fprintf(<span class="string">'Portfolio with %g%% Target Return\n'</span>, 100*TargetReturn);
+disp(aBlotter);
+
+bBlotter = dataset({100*bwgt(bwgt &gt; 0),<span class="string">'Weight'</span>}, <span class="string">'obsnames'</span>, p.AssetList(bwgt &gt; 0));
+
+fprintf(<span class="string">'Portfolio with %g%% Target Risk\n'</span>, 100*TargetRisk);
+disp(bBlotter);
+</pre><pre class="codeoutput">Portfolio with 20% Target Return
+            Weight 
+    CAT      1.1445
+    INTC    0.17452
+    MO       9.6521
+    MSFT    0.85862
+    UTX      56.918
+    WMT      31.253
+
+Portfolio with 15% Target Risk
+            Weight
+    INTC    2.2585
+    JNJ     9.2162
+    MMM     16.603
+    MO      15.388
+    MSFT    4.4467
+    PG       4.086
+    UTX     10.281
+    WMT     25.031
+    XOM      12.69
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_04.png" alt=""> <h2>Inculding transaction cost consideration<a name="9"></a></h2><pre class="codeinput">BuyCost = 0.0020;
+SellCost = 0.0020;
+
+q = setCosts(p, BuyCost, SellCost);
+
+qwgt = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+<span class="comment">% Plot efficient frontiers with gross and net returns</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with and without Transaction Costs'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret, {<span class="string">'Gross'</span>}, <span class="string">':b'</span>}, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, qrsk, qret, {<span class="string">'Net'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+</pre><img vspace="5" hspace="5" src="CombinedFactors_05.png" alt=""> <h2>Including turnover constrains<a name="10"></a></h2><pre class="codeinput">BuyCost = 0.0020;
+SellCost = 0.0020;
+Turnover = 0.2;
+
+q = setCosts(p, BuyCost, SellCost);
+q = setTurnover(q, Turnover);
+
+[qwgt, qbuy, qsell] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+<span class="comment">% Plot efficient frontier with turnover constraint</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with Turnover Constraint'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret, {<span class="string">'Unconstrained'</span>}, <span class="string">':b'</span>}, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, qrsk, qret, {sprintf(<span class="string">'%g%% Turnover'</span>, 100*Turnover)}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+
+fprintf(<span class="string">'Sum of Purchases by Portfolio along Efficient Frontier (Max. Turnover %g%%)\n'</span>, <span class="keyword">...</span>
+    100*Turnover);
+
+disp(100*sum(qbuy));
+
+fprintf(<span class="string">'Sum of Sales by Portfolio along Efficient Frontier (Max. Turnover %g%%)\n'</span>, <span class="keyword">...</span>
+    100*Turnover);
+
+disp(100*sum(qsell));
+</pre><pre class="codeoutput">Sum of Purchases by Portfolio along Efficient Frontier (Max. Turnover 20%)
+  Columns 1 through 7
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+  Columns 8 through 14
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+  Columns 15 through 20
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+Sum of Sales by Portfolio along Efficient Frontier (Max. Turnover 20%)
+  Columns 1 through 7
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+  Columns 8 through 14
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+  Columns 15 through 20
+
+   20.0000   20.0000   20.0000   20.0000   20.0000   20.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_06.png" alt=""> <h2>Checking Errors is only available in 2015b<a name="11"></a></h2><p>ii = [15, 16, 20, 21, 23, 25, 27, 29, 30];		% indexes of assets to include in tracking portfolio</p><p>TrackingError = 0.05/sqrt(12); TrackingPort = zeros(30, 1); TrackingPort(ii) = 1; TrackingPort = (1/sum(TrackingPort))*TrackingPort;</p><p>q = setTrackingError(p, TrackingError, TrackingPort);</p><p>qwgt = estimateFrontier(q, 20); [qrsk, qret] = estimatePortMoments(q, qwgt);</p><p>[trsk, tret] = estimatePortMoments(q, TrackingPort);</p><p>% Plot efficient frontier with tracking-error constraint</p><p>clf; portfolioexamples_plot('Efficient Frontier with 5% Tracking-Error Constraint', ... 	{'line', prsk, pret, {'Unconstrained'}, ':b'}, ... 	{'line', qrsk, qret, {'Tracking'}}, ... 	{'scatter', [mrsk, crsk], [mret, cret], {'Market', 'Cash'}}, ... 	{'scatter', trsk, tret, {'Tracking'}, 'r'});</p><h2>Max Sharpe portfolio<a name="12"></a></h2><pre class="codeinput">p = setInitPort(p, 0);
+
+swgt = estimateMaxSharpeRatio(p);
+[srsk, sret] = estimatePortMoments(p, swgt);
+
+<span class="comment">% Plot efficient frontier with portfolio that attains maximum Sharpe ratio</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with Maximum Sharpe Ratio Portfolio'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, srsk, sret, {<span class="string">'Sharpe'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+
+<span class="comment">% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio</span>
+
+Blotter = dataset({100*swgt(swgt &gt; 0),<span class="string">'Weight'</span>}, <span class="string">'obsnames'</span>, AssetList(swgt &gt; 0));
+
+fprintf(<span class="string">'Portfolio with Maximum Sharpe Ratio\n'</span>);
+disp(Blotter);
+</pre><pre class="codeoutput">Portfolio with Maximum Sharpe Ratio
+            Weight
+    INTC    2.6638
+    JNJ     9.0044
+    MMM     15.502
+    MO      13.996
+    MSFT    4.4777
+    PG      7.4588
+    UTX     6.0056
+    WMT     22.051
+    XOM     18.841
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_07.png" alt=""> <h2>Dollar Neutral<a name="13"></a></h2><pre class="codeinput">Exposure = 1;
+
+q = setBounds(p, -Exposure, Exposure);
+q = setBudget(q, 0, 0);
+q = setOneWayTurnover(q, Exposure, Exposure, 0);
+
+[qwgt, qlong, qshort] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+[qswgt, qslong, qsshort] = estimateMaxSharpeRatio(q);
+[qsrsk, qsret] = estimatePortMoments(q, qswgt);
+
+<span class="comment">% Plot efficient frontier for a dollar-neutral fund structure with tangency portfolio</span>
+
+clf;
+portfolioexamples_plot(<span class="string">'Efficient Frontier with Dollar-Neutral Portfolio'</span>, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret, {<span class="string">'Standard'</span>}, <span class="string">'b:'</span>}, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, qrsk, qret, {<span class="string">'Dollar-Neutral'</span>}, <span class="string">'b'</span>}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, qsrsk, qsret, {<span class="string">'Sharpe'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+
+<span class="comment">% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio</span>
+
+Blotter = dataset({100*qswgt(abs(qswgt) &gt; 1.0e-4), <span class="string">'Weight'</span>}, <span class="keyword">...</span>
+	{100*qslong(abs(qswgt) &gt; 1.0e-4), <span class="string">'Long'</span>}, <span class="keyword">...</span>
+	{100*qsshort(abs(qswgt) &gt; 1.0e-4), <span class="string">'Short'</span>}, <span class="keyword">...</span>
+	<span class="string">'obsnames'</span>, AssetList(abs(qswgt) &gt; 1.0e-4));
+
+fprintf(<span class="string">'Dollar-Neutral Portfolio with Maximum Sharpe Ratio\n'</span>);
+disp(Blotter);
+
+fprintf(<span class="string">'Confirm Dollar-Neutral Portfolio\n'</span>);
+fprintf(<span class="string">'  (Net, Long, Short)\n'</span>);
+disp([ sum(Blotter.Weight), sum(Blotter.Long), sum(Blotter.Short) ]);
+</pre><pre class="codeoutput">Dollar-Neutral Portfolio with Maximum Sharpe Ratio
+            Weight     Long       Short 
+    AA      0.54635    0.54635         0
+    AIG      3.2638     3.2638         0
+    AXP     0.99646    0.99646         0
+    BA      -3.7532          0    3.7532
+    C        15.036     15.036         0
+    CAT      4.0011     4.0011         0
+    DD      -19.396          0    19.396
+    DIS     -5.1796          0    5.1796
+    GE      -3.8848          0    3.8848
+    GM      -3.9958          0    3.9958
+    HD       1.1822     1.1822         0
+    HON     -1.5408          0    1.5408
+    HPQ      0.1064     0.1064         0
+    IBM     -8.6533          0    8.6533
+    INTC     1.8999     1.8999         0
+    JNJ      1.4707     1.4707         0
+    JPM     -2.7136          0    2.7136
+    KO      -15.253          0    15.253
+    MCD      4.1986     4.1986         0
+    MMM      8.1604     8.1604         0
+    MO       4.3871     4.3871         0
+    MRK      4.0236     4.0236         0
+    MSFT     4.3777     4.3777         0
+    PFE     -9.7673          0    9.7673
+    PG        1.771      1.771         0
+    SBC     -5.6426          0    5.6426
+    UTX      6.1694     6.1694         0
+    VZ      -2.6179          0    2.6179
+    WMT     0.91105    0.91105         0
+    XOM      19.896     19.896         0
+
+Confirm Dollar-Neutral Portfolio
+  (Net, Long, Short)
+   -0.0000   82.3985   82.3985
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_08.png" alt=""> <h2>130-30<a name="14"></a></h2><pre class="codeinput">Leverage = 0.3;
+
+q = setBounds(p, -Leverage, 1 + Leverage);
+q = setBudget(q, 1, 1);
+q = setOneWayTurnover(q, 1 + Leverage, Leverage);
+
+[qwgt, qbuy, qsell] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+[qswgt, qslong, qsshort] = estimateMaxSharpeRatio(q);
+[qsrsk, qsret] = estimatePortMoments(q, qswgt);
+
+<span class="comment">% Plot efficient frontier for a 130-30 fund structure with tangency portfolio</span>
+
+clf;
+portfolioexamples_plot(sprintf(<span class="string">'Efficient Frontier with %g-%g Portfolio'</span>, <span class="keyword">...</span>
+    100*(1 + Leverage),100*Leverage), <span class="keyword">...</span>
+	{<span class="string">'line'</span>, prsk, pret, {<span class="string">'Standard'</span>}, <span class="string">'b:'</span>}, <span class="keyword">...</span>
+	{<span class="string">'line'</span>, qrsk, qret, {<span class="string">'130-30'</span>}, <span class="string">'b'</span>}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, qsrsk, qsret, {<span class="string">'Sharpe'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, [mrsk, crsk, ersk], [mret, cret, eret], {<span class="string">'Market'</span>, <span class="string">'Cash'</span>, <span class="string">'Equal'</span>}}, <span class="keyword">...</span>
+	{<span class="string">'scatter'</span>, sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, <span class="string">'.r'</span>});
+
+<span class="comment">% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio</span>
+
+Blotter = dataset({100*qswgt(abs(qswgt) &gt; 1.0e-4), <span class="string">'Weight'</span>}, <span class="keyword">...</span>
+	{100*qslong(abs(qswgt) &gt; 1.0e-4), <span class="string">'Long'</span>}, <span class="keyword">...</span>
+	{100*qsshort(abs(qswgt) &gt; 1.0e-4), <span class="string">'Short'</span>}, <span class="keyword">...</span>
+	<span class="string">'obsnames'</span>, AssetList(abs(qswgt) &gt; 1.0e-4));
+
+fprintf(<span class="string">'%g-%g Portfolio with Maximum Sharpe Ratio\n'</span>,100*(1 + Leverage),100*Leverage);
+disp(Blotter);
+
+fprintf(<span class="string">'Confirm %g-%g Portfolio\n'</span>,100*(1 + Leverage),100*Leverage);
+fprintf(<span class="string">'  (Net, Long, Short)\n'</span>);
+disp([ sum(Blotter.Weight), sum(Blotter.Long), sum(Blotter.Short) ]);
+</pre><pre class="codeoutput">130-30 Portfolio with Maximum Sharpe Ratio
+            Weight      Long      Short  
+    DD       -9.5565         0     9.5565
+    HON      -6.0245         0     6.0245
+    INTC      4.0335    4.0335          0
+    JNJ       7.1234    7.1234          0
+    JPM     -0.44583         0    0.44583
+    KO       -13.646         0     13.646
+    MMM       20.908    20.908          0
+    MO        14.433    14.433          0
+    MSFT      4.5592    4.5592          0
+    PG        17.243    17.243          0
+    SBC     -0.32712         0    0.32712
+    UTX       5.3584    5.3584          0
+    WMT       21.018    21.018          0
+    XOM       35.323    35.323          0
+
+Confirm 130-30 Portfolio
+  (Net, Long, Short)
+  100.0000  130.0000   30.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_09.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  
+% Matlab portfolio optimization toolbox - 1 
+
+%% Setup 
+%
+
+load BlueChipStockMoments
+
+mret = MarketMean;
+mrsk = sqrt(MarketVar);
+cret = CashMean;
+crsk = sqrt(CashVar);
+
+%% Create portfolio object
+% 
+
+p = Portfolio('AssetList', AssetList, 'RiskFreeRate', CashMean);
+p = setAssetMoments(p, AssetMean, AssetCovar);
+
+p = setInitPort(p, 1/p.NumAssets);
+[ersk, eret] = estimatePortMoments(p, p.InitPort);
+
+%% Plot Helper
+%
+
+clf;
+portfolioexamples_plot('Asset Risks and Returns', ...
+	{'scatter', mrsk, mret, {'Market'}}, ...
+	{'scatter', crsk, cret, {'Cash'}}, ...
+	{'scatter', ersk, eret, {'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+%% Portfolio Optimization 
+%
+
+p = setDefaultConstraints(p);
+
+pwgt = estimateFrontier(p, 40);
+[prsk, pret] = estimatePortMoments(p, pwgt);
+
+%%
+% plot 
+
+clf;
+portfolioexamples_plot('Efficient Frontier', ...
+	{'line', prsk, pret}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+%%
+% Tangent line to efficient frontier
+
+q = setBudget(p, 0, 1.5);
+
+qwgt = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+% Plot efficient frontier with tangent line (0 to 1 cash)
+
+clf;
+portfolioexamples_plot('Efficient Frontier with Tangent Line', ...
+	{'line', prsk, pret}, ...
+	{'line', qrsk, qret, [], [], 1}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+%% Estimate range of efficient portfolio Risk and Return range
+% 
+
+[rsk, ret] = estimatePortMoments(p, estimateFrontierLimits(p));
+
+display(rsk);
+display(ret);
+
+%% Find Specific portfolio with target Risk or target Return
+% 
+
+TargetReturn = 0.20;            % input target annualized return and risk here
+TargetRisk = 0.15;
+
+% Obtain portfolios with targeted return and risk
+
+awgt = estimateFrontierByReturn(p, TargetReturn/12);
+[arsk, aret] = estimatePortMoments(p, awgt);
+
+bwgt = estimateFrontierByRisk(p, TargetRisk/sqrt(12));
+[brsk, bret] = estimatePortMoments(p, bwgt);
+
+% Plot efficient frontier with targeted portfolios
+
+clf;
+portfolioexamples_plot('Efficient Frontier with Targeted Portfolios', ...
+	{'line', prsk, pret}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', arsk, aret, {sprintf('%g%% Return',100*TargetReturn)}}, ...
+	{'scatter', brsk, bret, {sprintf('%g%% Risk',100*TargetRisk)}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+% Display portfolio weight 
+
+aBlotter = dataset({100*awgt(awgt > 0),'Weight'}, 'obsnames', p.AssetList(awgt > 0));
+
+fprintf('Portfolio with %g%% Target Return\n', 100*TargetReturn);
+disp(aBlotter);
+
+bBlotter = dataset({100*bwgt(bwgt > 0),'Weight'}, 'obsnames', p.AssetList(bwgt > 0));
+
+fprintf('Portfolio with %g%% Target Risk\n', 100*TargetRisk);
+disp(bBlotter);
+
+%% Inculding transaction cost consideration
+%
+
+BuyCost = 0.0020;
+SellCost = 0.0020;
+
+q = setCosts(p, BuyCost, SellCost);
+
+qwgt = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+% Plot efficient frontiers with gross and net returns
+
+clf;
+portfolioexamples_plot('Efficient Frontier with and without Transaction Costs', ...
+	{'line', prsk, pret, {'Gross'}, ':b'}, ...
+	{'line', qrsk, qret, {'Net'}}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+
+%% Including turnover constrains
+%
+
+BuyCost = 0.0020;
+SellCost = 0.0020;
+Turnover = 0.2;
+
+q = setCosts(p, BuyCost, SellCost);
+q = setTurnover(q, Turnover);
+
+[qwgt, qbuy, qsell] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+% Plot efficient frontier with turnover constraint
+
+clf;
+portfolioexamples_plot('Efficient Frontier with Turnover Constraint', ...
+	{'line', prsk, pret, {'Unconstrained'}, ':b'}, ...
+	{'line', qrsk, qret, {sprintf('%g%% Turnover', 100*Turnover)}}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+fprintf('Sum of Purchases by Portfolio along Efficient Frontier (Max. Turnover %g%%)\n', ...
+    100*Turnover);
+
+disp(100*sum(qbuy));
+
+fprintf('Sum of Sales by Portfolio along Efficient Frontier (Max. Turnover %g%%)\n', ...
+    100*Turnover);
+
+disp(100*sum(qsell));
+
+%% Checking Errors is only available in 2015b
+% 
+% 
+% ii = [15, 16, 20, 21, 23, 25, 27, 29, 30];		% indexes of assets to include in tracking portfolio
+% 
+% TrackingError = 0.05/sqrt(12);
+% TrackingPort = zeros(30, 1);
+% TrackingPort(ii) = 1;
+% TrackingPort = (1/sum(TrackingPort))*TrackingPort;
+% 
+% q = setTrackingError(p, TrackingError, TrackingPort);
+% 
+% qwgt = estimateFrontier(q, 20);
+% [qrsk, qret] = estimatePortMoments(q, qwgt);
+% 
+% [trsk, tret] = estimatePortMoments(q, TrackingPort);
+% 
+% % Plot efficient frontier with tracking-error constraint
+% 
+% clf;
+% portfolioexamples_plot('Efficient Frontier with 5% Tracking-Error Constraint', ...
+% 	{'line', prsk, pret, {'Unconstrained'}, ':b'}, ...
+% 	{'line', qrsk, qret, {'Tracking'}}, ...
+% 	{'scatter', [mrsk, crsk], [mret, cret], {'Market', 'Cash'}}, ...
+% 	{'scatter', trsk, tret, {'Tracking'}, 'r'});
+
+
+%% Max Sharpe portfolio
+%
+
+p = setInitPort(p, 0);
+
+swgt = estimateMaxSharpeRatio(p);
+[srsk, sret] = estimatePortMoments(p, swgt);
+
+% Plot efficient frontier with portfolio that attains maximum Sharpe ratio
+
+clf;
+portfolioexamples_plot('Efficient Frontier with Maximum Sharpe Ratio Portfolio', ...
+	{'line', prsk, pret}, ...
+	{'scatter', srsk, sret, {'Sharpe'}}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio
+
+Blotter = dataset({100*swgt(swgt > 0),'Weight'}, 'obsnames', AssetList(swgt > 0));
+
+fprintf('Portfolio with Maximum Sharpe Ratio\n');
+disp(Blotter);
+
+%% Dollar Neutral
+%
+
+Exposure = 1;
+
+q = setBounds(p, -Exposure, Exposure);
+q = setBudget(q, 0, 0);
+q = setOneWayTurnover(q, Exposure, Exposure, 0);
+
+[qwgt, qlong, qshort] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+[qswgt, qslong, qsshort] = estimateMaxSharpeRatio(q);
+[qsrsk, qsret] = estimatePortMoments(q, qswgt);
+
+% Plot efficient frontier for a dollar-neutral fund structure with tangency portfolio
+
+clf;
+portfolioexamples_plot('Efficient Frontier with Dollar-Neutral Portfolio', ...
+	{'line', prsk, pret, {'Standard'}, 'b:'}, ...
+	{'line', qrsk, qret, {'Dollar-Neutral'}, 'b'}, ...
+	{'scatter', qsrsk, qsret, {'Sharpe'}}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio
+
+Blotter = dataset({100*qswgt(abs(qswgt) > 1.0e-4), 'Weight'}, ...
+	{100*qslong(abs(qswgt) > 1.0e-4), 'Long'}, ...
+	{100*qsshort(abs(qswgt) > 1.0e-4), 'Short'}, ...
+	'obsnames', AssetList(abs(qswgt) > 1.0e-4));
+
+fprintf('Dollar-Neutral Portfolio with Maximum Sharpe Ratio\n');
+disp(Blotter);
+
+fprintf('Confirm Dollar-Neutral Portfolio\n');
+fprintf('  (Net, Long, Short)\n');
+disp([ sum(Blotter.Weight), sum(Blotter.Long), sum(Blotter.Short) ]);
+
+%% 130-30
+%
+
+Leverage = 0.3;
+
+q = setBounds(p, -Leverage, 1 + Leverage);
+q = setBudget(q, 1, 1);
+q = setOneWayTurnover(q, 1 + Leverage, Leverage);
+
+[qwgt, qbuy, qsell] = estimateFrontier(q, 20);
+[qrsk, qret] = estimatePortMoments(q, qwgt);
+
+[qswgt, qslong, qsshort] = estimateMaxSharpeRatio(q);
+[qsrsk, qsret] = estimatePortMoments(q, qswgt);
+
+% Plot efficient frontier for a 130-30 fund structure with tangency portfolio
+
+clf;
+portfolioexamples_plot(sprintf('Efficient Frontier with %g-%g Portfolio', ...
+    100*(1 + Leverage),100*Leverage), ...
+	{'line', prsk, pret, {'Standard'}, 'b:'}, ...
+	{'line', qrsk, qret, {'130-30'}, 'b'}, ...
+	{'scatter', qsrsk, qsret, {'Sharpe'}}, ...
+	{'scatter', [mrsk, crsk, ersk], [mret, cret, eret], {'Market', 'Cash', 'Equal'}}, ...
+	{'scatter', sqrt(diag(p.AssetCovar)), p.AssetMean, p.AssetList, '.r'});
+
+% Set up a dataset object that contains the portfolio that maximizes the Sharpe ratio
+
+Blotter = dataset({100*qswgt(abs(qswgt) > 1.0e-4), 'Weight'}, ...
+	{100*qslong(abs(qswgt) > 1.0e-4), 'Long'}, ...
+	{100*qsshort(abs(qswgt) > 1.0e-4), 'Short'}, ...
+	'obsnames', AssetList(abs(qswgt) > 1.0e-4));
+
+fprintf('%g-%g Portfolio with Maximum Sharpe Ratio\n',100*(1 + Leverage),100*Leverage);
+disp(Blotter);
+
+fprintf('Confirm %g-%g Portfolio\n',100*(1 + Leverage),100*Leverage);
+fprintf('  (Net, Long, Short)\n');
+disp([ sum(Blotter.Weight), sum(Blotter.Long), sum(Blotter.Short) ]);
+
+
+##### SOURCE END #####
+--></body></html>
