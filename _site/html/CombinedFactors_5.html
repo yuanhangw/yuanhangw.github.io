@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Combined Factors - Policy Portfolios</title>
+    <title>Combined Factors - Fillts() or not Fillts(), That is the questoin</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactors_2.html">
+    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactors_5.html">
 </head>
 
 
@@ -254,7 +254,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Combined Factors - Policy Portfolios</h1>
+    <h1 class="post-title">Combined Factors - Fillts() or not Fillts(), That is the questoin</h1>
   </header>
 
   <article class="post-content">
@@ -265,7 +265,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Combined Factors  -  Combine scores</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-01"><meta name="DC.source" content="CombinedFactors_2.m"><style type="text/css">
+      --><title>Combined Factors  -  fillts or not fillts?</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-02"><meta name="DC.source" content="CombinedFactors_5.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -325,10 +325,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Combined Factors  -  Combine scores</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Preparation</a></li><li><a href="#7">Score weighted full</a></li><li><a href="#12">Topm Equal weighted</a></li><li><a href="#18">Equal weighted score.</a></li></ul></div><h2>Preparation<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Combined Factors  -  fillts or not fillts?</h1><!--introduction--><p>nan + int = nan, this will reduce the securities available for selection dramatically, e.g. 600-&gt;200. It gets even worse for market such as CN &amp; HK &amp; JP. Let's see what's the implication if we fillts(fints,0).</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Preparation</a></li><li><a href="#2">Withouth fillts</a></li><li><a href="#8">With fillts</a></li></ul></div><h2>Preparation<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
 load(<span class="string">'../data_historical_data_us.mat'</span>);
-</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+</pre><h2>Withouth fillts<a name="2"></a></h2><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
 px = fun_load_price(history_us, equity_list_us, index);
 px = fun_clean_data(px);
 list = equity_list_us(index,:);
@@ -375,7 +375,7 @@ portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combin
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
 benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
 benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
-</pre><h2>Score weighted full<a name="7"></a></h2><p>risk neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+</pre><p>without fillts</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
 portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
 
 corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
@@ -388,206 +388,69 @@ hold <span class="string">on</span>;
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000   -0.2808
-   -0.2808    1.0000
+    1.0000   -0.2545
+   -0.2545    1.0000
 
 
 ans =
 
-    1.0480
+    0.9722
 
 
 ans =
 
-    0.0498
+    0.0472
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_01.png" alt=""> <p>capital neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_5_01.png" alt=""> <h2>With fillts<a name="8"></a></h2><p>take data sample, load data &amp; the list</p><pre class="codeinput">px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
 
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
 
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
 
-    1.0000   -0.2605
-   -0.2605    1.0000
 
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
 
-ans =
 
-    1.1226
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
 
 
-ans =
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
 
-    0.0508
+score_mom_ts      = fillts(score_mom_ts,0);
+score_pb_ts       = fillts(score_pb_ts,0);
+score_cap_ts      = fillts(score_cap_ts,0);
+score_beta_ts     = fillts(score_beta_ts,0);
+score_quality_ts  = fillts(score_quality_ts,0);
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_02.png" alt=""> <p>market neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.92, portfolio_weight_ts,false);
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
 
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000    0.0495
-    0.0495    1.0000
-
-
-ans =
-
-    1.3787
-
-
-ans =
-
-    0.0491
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_03.png" alt=""> <p>mix with market long</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">off</span>;
-
-snapnow;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000    0.5886
-    0.5886    1.0000
-
-
-ans =
-
-    1.4898
-
-
-ans =
-
-    0.0607
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_04.png" alt=""> <h2>Topm Equal weighted<a name="12"></a></h2><p>risk neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.5);
-portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000   -0.3350
-   -0.3350    1.0000
-
-
-ans =
-
-    0.8413
-
-
-ans =
-
-    0.0936
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_05.png" alt=""> <p>capital neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.5);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000   -0.2403
-   -0.2403    1.0000
-
-
-ans =
-
-    1.0373
-
-
-ans =
-
-    0.0901
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_06.png" alt=""> <p>market neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.5);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.91, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000   -0.0462
-   -0.0462    1.0000
-
-
-ans =
-
-    1.2045
-
-
-ans =
-
-    0.0876
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_07.png" alt=""> <p>mix with market long</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.5);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">off</span>;
-
-snapnow;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000    0.2976
-    0.2976    1.0000
-
-
-ans =
-
-    1.3841
-
-
-ans =
-
-    0.0916
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_08.png" alt=""> <p>score weighted full is quite smooth. for top 0.5, the first 100 months looks odd..</p><h2>Equal weighted score.<a name="18"></a></h2><p>If I combined the score equally:</p><p>Combine score</p><pre class="codeinput">score_weight = [1 1 1 1 1];
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
 
 score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
 
@@ -597,7 +460,7 @@ portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combin
 portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
 benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
 benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
-</pre><p>risk neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+</pre><p>without fillts</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
 portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
 
 corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
@@ -610,102 +473,25 @@ hold <span class="string">on</span>;
 </pre><pre class="codeoutput">
 ans =
 
-    1.0000   -0.2996
-   -0.2996    1.0000
+    1.0000   -0.1345
+   -0.1345    1.0000
 
 
 ans =
 
-    0.8314
+    1.2766
 
 
 ans =
 
-    0.0445
+    0.0453
 
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_09.png" alt=""> <p>capital neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000   -0.5055
-   -0.5055    1.0000
-
-
-ans =
-
-    0.6260
-
-
-ans =
-
-    0.0511
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_10.png" alt=""> <p>market neutral</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.92, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">on</span>;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000   -0.2246
-   -0.2246    1.0000
-
-
-ans =
-
-    0.9430
-
-
-ans =
-
-    0.0452
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_11.png" alt=""> <p>mix with market long</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold <span class="string">off</span>;
-
-snapnow;
-</pre><pre class="codeoutput">
-ans =
-
-    1.0000    0.4645
-    0.4645    1.0000
-
-
-ans =
-
-    1.3127
-
-
-ans =
-
-    0.0498
-
-</pre><img vspace="5" hspace="5" src="CombinedFactors_2_12.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="CombinedFactors_5_02.png" alt=""> <p>look like make sense to fillts before combine the scores.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Combined Factors  -  Combine scores
+%% Combined Factors  -  fillts or not fillts?
+% nan + int = nan, this will reduce the securities available for selection
+% dramatically, e.g. 600->200. It gets even worse for market such as CN &
+% HK & JP. Let's see what's the implication if we fillts(fints,0). 
 
 %% Preparation
 % Let's load the data from ..
@@ -716,14 +502,14 @@ load('../data_historical_data_us.mat');
 
 
 
-%%
+%% Withouth fillts
 % take data sample, load data & the list
 index = datasample(1:1300,1000,'Replace',false); 
 px = fun_load_price(history_us, equity_list_us, index);
 px = fun_clean_data(px); 
 list = equity_list_us(index,:); 
 
-%%
+%% 
 % load observations
 
 mom_ts          = fun_calculate_mom(px); 
@@ -737,7 +523,7 @@ turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turno
 roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
 leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
 
-%%
+%% 
 % calculate score
 
 score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
@@ -785,10 +571,9 @@ benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
 benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
 
 
-%% Score weighted full 
 
 %%
-% risk neutral
+% without fillts 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
 portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
@@ -801,121 +586,78 @@ sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
 plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
 hold on; 
 
-%%
-% capital neutral
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
+%% With fillts
+% take data sample, load data & the list
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
 
 %%
-% market neutral
+% load observations
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.92, portfolio_weight_ts,false);
+mom_ts          = fun_calculate_mom(px); 
 
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
 
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
 
 
 %%
-% mix with market long
+% calculate score
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
 
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold off; 
-
-snapnow; 
-%% Topm Equal weighted
-
-%%
-% risk neutral
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.5); 
-portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
-
-%%
-% capital neutral
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.5); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
-
-%%
-% market neutral
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.5); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.91, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
 
 
-%%
-% mix with market long
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.5); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold off; 
+%%  
+% Trim
 
-snapnow; 
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
 
-%%
-% score weighted full is quite smooth. for top 0.5, the first 100 months
-% looks odd..
+score_mom_ts      = fillts(score_mom_ts,0); 
+score_pb_ts       = fillts(score_pb_ts,0); 
+score_cap_ts      = fillts(score_cap_ts,0); 
+score_beta_ts     = fillts(score_beta_ts,0); 
+score_quality_ts  = fillts(score_quality_ts,0); 
 
-%% Equal weighted score. 
-% If I combined the score equally:  
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
 
 %%
 % Combine score 
-score_weight = [1 1 1 1 1]; 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
 
 score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
 
@@ -927,8 +669,9 @@ benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
 benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
 
 
+
 %%
-% risk neutral
+% without fillts 
 
 portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
 portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
@@ -942,49 +685,13 @@ plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
 hold on; 
 
 %%
-% capital neutral
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 1, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+% look like make sense to fillts before combine the scores. 
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
-
-%%
-% market neutral
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.92, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
 
 
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold on; 
 
 
-%%
-% mix with market long
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
-portfolio_cap_ts = fun_sequential_backtest_partial(100, px, benchmark_ts, 0.75, portfolio_weight_ts,false);
-
-corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
-sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
-sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
-
-
-plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
-hold off; 
-
-snapnow; 
 ##### SOURCE END #####
 --></body></html>
   </article>
