@@ -1,0 +1,444 @@
+---
+layout: page
+title: Combined Factors - The Dark Force is Strong
+tag: post
+date: 2016-02-02 14:10:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  The Short Side</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-02"><meta name="DC.source" content="CombinedFactors_4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  The Short Side</h1><!--introduction--><p>so far I have been examing the long side of the factor portfolio, i.e. those securities with high score, while using equal weighted index as hedge to achieve market neutral. What was going on on the short side? Let's take a look..</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Preparation</a></li><li><a href="#7">Benchmark Performance</a></li><li><a href="#10">Factor Portfolios</a></li></ul></div><h2>Preparation<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><h2>Benchmark Performance<a name="7"></a></h2><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+
+portfolio_weight_longside_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_longside_ts);
+benchmark_longside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_longside_ts = fints(px.dates, benchmark_longside,<span class="string">'LongSideIndex'</span>);
+
+portfolio_weight_shortside_ts = fun_portfolio_weight_sector_neutral(-score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_shortside_ts);
+benchmark_shortside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_shortside_ts = fints(px.dates, benchmark_shortside,<span class="string">'ShortSideIndex'</span>);
+
+benchmark_all_ts = merge(benchmark_ts,benchmark_longside_ts,benchmark_shortside_ts,<span class="string">'sortcolumn'</span>,0);
+plot(log(benchmark_all_ts));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_01.png" alt=""> <p>sharpe, std &amp; return</p><pre class="codeinput">sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_all_ts)))
+
+sqrt(12)*nanstd(tick2ret(benchmark_all_ts))
+
+12*nanmean(tick2ret(benchmark_all_ts))
+</pre><pre class="codeoutput">Warning: No Cash return specified. Will assume return is
+0. 
+
+ans =
+
+    0.7009    1.0186    0.3855
+
+
+ans =
+
+    0.1900    0.1808    0.2016
+
+
+ans =
+
+    0.1329    0.1838    0.0776
+
+</pre><p>doesn't the short index looks like what people on the street call 'the market'.</p><h2>Factor Portfolios<a name="10"></a></h2><p>I use long - equal as proxy for long side factor portfolio, as equal - short for the short side factor portfolio. long - short represents the full long-short factor portfolio.</p><p>long side.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.2700
+   -0.2700    1.0000
+
+
+ans =
+
+    1.1398
+
+
+ans =
+
+    0.0439
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_02.png" alt=""> <p>short side</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.0022
+    0.0022    1.0000
+
+
+ans =
+
+    1.3629
+
+
+ans =
+
+    0.0427
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_03.png" alt=""> <p>long short</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.1483
+   -0.1483    1.0000
+
+
+ans =
+
+    1.3551
+
+
+ans =
+
+    0.0804
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_04.png" alt=""> <p>long short through weight*return</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longshort'</span>);
+portfolio_rt_ts  = fun_portfolio_return(px,portfolio_weight_ts);
+
+plot(cumsum(fts2mat(portfolio_rt_ts)));
+
+hold <span class="string">off</span>;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+sqrt(12)*std(fts2mat(portfolio_rt_ts))
+</pre><pre class="codeoutput">
+ans =
+
+    1.2185
+
+
+ans =
+
+    0.0841
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_05.png" alt=""> <p>Short side captured the crash post dotcom bubble, from the short. The dark force is strong.</p><pre class="codeinput">imshow(<span class="string">'darkforce.jpg'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  The Short Side
+% so far I have been examing the long side of the factor portfolio, i.e.
+% those securities with high score, while using equal weighted index as
+% hedge to achieve market neutral. What was going on on the short side?
+% Let's take a look.. 
+
+
+
+%% Preparation
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+
+%% Benchmark Performance
+%
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+portfolio_weight_longside_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_longside_ts); 
+benchmark_longside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_longside_ts = fints(px.dates, benchmark_longside,'LongSideIndex'); 
+
+portfolio_weight_shortside_ts = fun_portfolio_weight_sector_neutral(-score_combined_ts,'longonly'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_shortside_ts); 
+benchmark_shortside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_shortside_ts = fints(px.dates, benchmark_shortside,'ShortSideIndex'); 
+
+benchmark_all_ts = merge(benchmark_ts,benchmark_longside_ts,benchmark_shortside_ts,'sortcolumn',0);
+plot(log(benchmark_all_ts));
+
+%%
+% sharpe, std & return 
+
+sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_all_ts)))
+
+sqrt(12)*nanstd(tick2ret(benchmark_all_ts))
+
+12*nanmean(tick2ret(benchmark_all_ts))
+
+
+%%
+% doesn't the short index looks like what people on the street call 'the
+% market'. 
+
+%% Factor Portfolios
+
+%%
+% I use long - equal as proxy for long side factor portfolio, as equal -
+% short for the short side factor portfolio. long - short represents the
+% full long-short factor portfolio. 
+
+%%
+% long side.
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold on; 
+
+%%
+% short side
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold on; 
+
+%%
+% long short
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold on; 
+
+%%
+% long short through weight*return
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longshort'); 
+portfolio_rt_ts  = fun_portfolio_return(px,portfolio_weight_ts); 
+
+plot(cumsum(fts2mat(portfolio_rt_ts))); 
+
+hold off; 
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+sqrt(12)*std(fts2mat(portfolio_rt_ts))
+
+%%
+% Short side captured the crash post dotcom bubble, from the short. 
+% The dark force is strong. 
+
+imshow('darkforce.jpg'); 
+##### SOURCE END #####
+--></body></html>

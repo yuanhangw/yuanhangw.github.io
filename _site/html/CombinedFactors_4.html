@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Multiple Factors - Load Data</title>
+    <title>Combined Factors - The Dark Force is Strong</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://yuanhangw.github.com/html/MultipleFactors.html">
+    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactors_4.html">
 </head>
 
 
@@ -248,7 +248,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Multiple Factors - Load Data</h1>
+    <h1 class="post-title">Combined Factors - The Dark Force is Strong</h1>
   </header>
 
   <article class="post-content">
@@ -259,7 +259,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Multiple Factors - Load Data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-28"><meta name="DC.source" content="MultipleFactors.m"><style type="text/css">
+      --><title>Combined Factors  -  The Short Side</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-02"><meta name="DC.source" content="CombinedFactors_4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -319,126 +319,200 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Multiple Factors - Load Data</h1><!--introduction--><p>with what I build for simple MOM factor, I will now move on to other famous factors. I repeat the same procedure and then investigate the combined factor.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Procedures.</a></li><li><a href="#5">Load Data</a></li><li><a href="#18">Generate scores</a></li></ul></div><div><ol><li>MOM           (12-1 month return)</li><li>HML           (PB)</li><li>BAB           (Beta)</li><li>LMS           (Market Capitalization)</li><li>QUAL         ?Leverage(D/E), Gross Margin, Turnover, Roa)</li><li>Alternatives  (Low vol, Leverage(A/E),PE, Profit Margin, Roe, etc., etc. )</li></ol></div><h2>Procedures.<a name="2"></a></h2><p>I will repeat what I went through for MOM, and focus on 1300 US dataset.</p><div><ol><li>Check data quality, and clean it up.</li><li>Construct factor portfolio, and check the performance wrt to equal weighted benchmark, with respect to N.</li><li>Perform the Percentile analysis and identify where signal presents.</li><li>Perform the walkforward test</li><li>Perform sector neutral analysis</li><li>Perform large dataset analysis</li></ol></div><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+  </style></head><body><div class="content"><h1>Combined Factors  -  The Short Side</h1><!--introduction--><p>so far I have been examing the long side of the factor portfolio, i.e. those securities with high score, while using equal weighted index as hedge to achieve market neutral. What was going on on the short side? Let's take a look..</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Preparation</a></li><li><a href="#7">Benchmark Performance</a></li><li><a href="#10">Factor Portfolios</a></li></ul></div><h2>Preparation<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
 load(<span class="string">'../data_historical_data_us.mat'</span>);
-</pre><h2>Load Data<a name="5"></a></h2><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
 px = fun_load_price(history_us, equity_list_us, index);
 px = fun_clean_data(px);
 list = equity_list_us(index,:);
-</pre><p>load/generate the observation</p><pre class="codeinput">pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
-beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
 cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
 grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
 turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
 roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
 leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
-</pre><p>let's take a look at some of the data</p><p>PB ratio</p><pre class="codeinput">plot(pb_ts.dates,nanmedian(fts2mat(pb_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_01.png" alt=""> <p>risk is high in current market...</p><p>Beta</p><pre class="codeinput">plot(beta_ts.dates,nanmedian(fts2mat(beta_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_02.png" alt=""> <p>Gross Margin</p><pre class="codeinput">plot(grossmargin_ts.dates,nanmedian(fts2mat(grossmargin_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_03.png" alt=""> <p>there is some seasonality here, I can see the economic cycle as well.</p><p>Turnover</p><pre class="codeinput">plot(turnover_ts.dates,nanmedian(fts2mat(turnover_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_04.png" alt=""> <p>ROA is strongly affected by economic cycles.</p><pre class="codeinput">plot(roa_ts.dates,nanmedian(fts2mat(roa_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_05.png" alt=""> <p>Leverage</p><pre class="codeinput">plot(leverage_ts.dates,nanmedian(fts2mat(leverage_ts),2));
-datetick(<span class="string">'x'</span>);
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_06.png" alt=""> <p>I loaded the correct time series. ; P</p><h2>Generate scores<a name="18"></a></h2><p>Notice the sign I put before score_leverage_ts.</p><pre class="codeinput">score_leverage_ts = -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
-score_roa_ts = fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
-score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
-score_turnover_ts = fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
 
-score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
 
-plot(fts2mat(score_quality_ts));
-snapnow;
 
-score_quality_ts = fun_combine_score(score_quality_ts);
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
 
-plot(fts2mat(score_quality_ts));
-snapnow;
-</pre><img vspace="5" hspace="5" src="MultipleFactors_07.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_08.png" alt=""> <p>in this way, score_quality_ts is only not NAN when all constituent score are available. Alternatively, I can also fillts first, then combine the scores.</p><p>score_leverage_ts = fillts(score_leverage_ts,0); score_roa_ts = fillts(score_roa_ts,0); score_grossmargin_ts = fillts(score_grossmargin_ts,0); score_turnover_ts = fillts(score_turnover_ts,0);</p><p>score_quality_ts = -score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts; score_quality_ts = fun_combine_score(score_quality_ts);</p><p>Let's take a first peak at the result. calculate portfolio weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'longshort'</span>);
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
-portfolio_rt_ts = portfolio_rt_ts(70:end);
-plot(cumsum(portfolio_rt_ts));
-legend(<span class="string">'off'</span>);
-hold <span class="string">on</span>;
-snapnow;
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topm'</span>,0.4);
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
-portfolio_rt_ts = portfolio_rt_ts(70:end);
-plot(cumsum(portfolio_rt_ts));
-legend(<span class="string">'off'</span>);
-hold <span class="string">on</span>;
-snapnow;
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'equalweight'</span>);
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
-portfolio_rt_ts = portfolio_rt_ts(70:end);
-plot(cumsum(portfolio_rt_ts));
-legend(<span class="string">'off'</span>);
-snapnow;
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
 
-sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,<span class="string">'topmlongonly'</span>,0.4);
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts);
-portfolio_rt_ts = portfolio_rt_ts(70:end);
-plot(cumsum(portfolio_rt_ts));
-legend(<span class="string">'off'</span>);
-snapnow;
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><h2>Benchmark Performance<a name="7"></a></h2><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
 
-sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
-</pre><img vspace="5" hspace="5" src="MultipleFactors_09.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_10.png" alt=""> <img vspace="5" hspace="5" src="MultipleFactors_11.png" alt=""> <pre class="codeoutput">
+
+portfolio_weight_longside_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_longside_ts);
+benchmark_longside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_longside_ts = fints(px.dates, benchmark_longside,<span class="string">'LongSideIndex'</span>);
+
+portfolio_weight_shortside_ts = fun_portfolio_weight_sector_neutral(-score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_shortside_ts);
+benchmark_shortside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_shortside_ts = fints(px.dates, benchmark_shortside,<span class="string">'ShortSideIndex'</span>);
+
+benchmark_all_ts = merge(benchmark_ts,benchmark_longside_ts,benchmark_shortside_ts,<span class="string">'sortcolumn'</span>,0);
+plot(log(benchmark_all_ts));
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_01.png" alt=""> <p>sharpe, std &amp; return</p><pre class="codeinput">sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_all_ts)))
+
+sqrt(12)*nanstd(tick2ret(benchmark_all_ts))
+
+12*nanmean(tick2ret(benchmark_all_ts))
+</pre><pre class="codeoutput">Warning: No Cash return specified. Will assume return is
+0. 
+
 ans =
 
-    0.5750
+    0.7009    1.0186    0.3855
 
-</pre><img vspace="5" hspace="5" src="MultipleFactors_12.png" alt=""> <pre class="codeoutput">
+
 ans =
 
-    0.6974
+    0.1900    0.1808    0.2016
 
-</pre><p>Quality behaved as expected, i.e. when crisis hits, high quality securities outperformed low quality security. But overall the drift has been close to zero for the whole 25 years period, maybe because I'm using the large cap securities (1300 largest) where quality isn't a differentiating factor?</p><p>zero drift doesn't mean quality is useless, by including quality factor into consideration, I can expect to reduce overall portfolio risk.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+
+ans =
+
+    0.1329    0.1838    0.0776
+
+</pre><p>doesn't the short index looks like what people on the street call 'the market'.</p><h2>Factor Portfolios<a name="10"></a></h2><p>I use long - equal as proxy for long side factor portfolio, as equal - short for the short side factor portfolio. long - short represents the full long-short factor portfolio.</p><p>long side.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.2700
+   -0.2700    1.0000
+
+
+ans =
+
+    1.1398
+
+
+ans =
+
+    0.0439
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_02.png" alt=""> <p>short side</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000    0.0022
+    0.0022    1.0000
+
+
+ans =
+
+    1.3629
+
+
+ans =
+
+    0.0427
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_03.png" alt=""> <p>long short</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold <span class="string">on</span>;
+</pre><pre class="codeoutput">
+ans =
+
+    1.0000   -0.1483
+   -0.1483    1.0000
+
+
+ans =
+
+    1.3551
+
+
+ans =
+
+    0.0804
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_04.png" alt=""> <p>long short through weight*return</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longshort'</span>);
+portfolio_rt_ts  = fun_portfolio_return(px,portfolio_weight_ts);
+
+plot(cumsum(fts2mat(portfolio_rt_ts)));
+
+hold <span class="string">off</span>;
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+sqrt(12)*std(fts2mat(portfolio_rt_ts))
+</pre><pre class="codeoutput">
+ans =
+
+    1.2185
+
+
+ans =
+
+    0.0841
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_05.png" alt=""> <p>Short side captured the crash post dotcom bubble, from the short. The dark force is strong.</p><pre class="codeinput">imshow(<span class="string">'darkforce.jpg'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_4_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Multiple Factors - Load Data
-% with what I build for simple MOM factor, I will now move on to other famous
-% factors. I repeat the same procedure and then investigate the combined
-% factor. 
-
-%%
-% # MOM           (12-1 month return)
-% # HML           (PB)
-% # BAB           (Beta)
-% # LMS           (Market Capitalization)
-% # QUAL         ?Leverage(D/E), Gross Margin, Turnover, Roa)
-% # Alternatives  (Low vol, Leverage(A/E),PE, Profit Margin, Roe, etc., etc. )
-
-
-%% Procedures. 
-% I will repeat what I went through for MOM, and focus on 1300 US dataset. 
-
-%%
-% # Check data quality, and clean it up. 
-% # Construct factor portfolio, and check the performance wrt to equal
-% weighted benchmark, with respect to N. 
-% # Perform the Percentile analysis and identify where signal presents. 
-% # Perform the walkforward test
-% # Perform sector neutral analysis
-% # Perform large dataset analysis
+%% Combined Factors  -  The Short Side
+% so far I have been examing the long side of the factor portfolio, i.e.
+% those securities with high score, while using equal weighted index as
+% hedge to achieve market neutral. What was going on on the short side?
+% Let's take a look.. 
 
 
 
-%%
+%% Preparation
 % Let's load the data from ..
 
 load('../data_equity_list_us.mat'); 
@@ -446,9 +520,6 @@ load('../data_field_list.mat');
 load('../data_historical_data_us.mat'); 
 
 
-
-
-%% Load Data
 
 %%
 % take data sample, load data & the list
@@ -458,150 +529,163 @@ px = fun_clean_data(px);
 list = equity_list_us(index,:); 
 
 %%
-% load/generate the observation
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
 pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
-beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
 cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
-grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm'); 
-turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover'); 
-roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa'); 
-leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
 
 %%
-% let's take a look at some of the data
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
 
 %%
-% PB ratio 
-plot(pb_ts.dates,nanmedian(fts2mat(pb_ts),2));
-datetick('x'); 
-snapnow; 
-%%
-% risk is high in current market...
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
 
-%%
-% Beta 
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
 
-plot(beta_ts.dates,nanmedian(fts2mat(beta_ts),2));
-datetick('x'); 
-snapnow; 
+score_combined_ts = fun_combine_score(score_combined_ts); 
 
-%%
-% Gross Margin
 
-plot(grossmargin_ts.dates,nanmedian(fts2mat(grossmargin_ts),2));
-datetick('x'); 
-snapnow; 
-
-%%
-% there is some seasonality here, I can see the economic cycle as well. 
-
-%%
-% Turnover
-
-plot(turnover_ts.dates,nanmedian(fts2mat(turnover_ts),2));
-datetick('x'); 
-snapnow; 
-
-%%
-% ROA is strongly affected by economic cycles. 
-
-plot(roa_ts.dates,nanmedian(fts2mat(roa_ts),2));
-datetick('x'); 
-snapnow; 
-
-%%
-% Leverage
-plot(leverage_ts.dates,nanmedian(fts2mat(leverage_ts),2));
-datetick('x');
-snapnow; 
-
-%%
-% I loaded the correct time series. ; P
-
-%% Generate scores
-% Notice the sign I put before score_leverage_ts. 
-
-score_leverage_ts = -fun_calculate_score(leverage_ts,list,'sectorsort',px); 
-score_roa_ts = fun_calculate_score(roa_ts,list,'sectorsort',px); 
-score_grossmargin_ts = fun_calculate_score(grossmargin_ts,list,'sectorsort',px); 
-score_turnover_ts = fun_calculate_score(turnover_ts,list,'sectorsort',px); 
-
-score_quality_ts = score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
-
-plot(fts2mat(score_quality_ts)); 
-snapnow; 
-
-score_quality_ts = fun_combine_score(score_quality_ts); 
-
-plot(fts2mat(score_quality_ts)); 
-snapnow; 
-
-%% 
-% in this way, score_quality_ts is only not NAN when all constituent score are available. Alternatively, I can also fillts first, then combine the scores.  
-
-%%
+%% Benchmark Performance
 %
-% score_leverage_ts = fillts(score_leverage_ts,0); 
-% score_roa_ts = fillts(score_roa_ts,0); 
-% score_grossmargin_ts = fillts(score_grossmargin_ts,0); 
-% score_turnover_ts = fillts(score_turnover_ts,0); 
-% 
-% score_quality_ts = -score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
-% score_quality_ts = fun_combine_score(score_quality_ts); 
-% 
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+portfolio_weight_longside_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_longside_ts); 
+benchmark_longside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_longside_ts = fints(px.dates, benchmark_longside,'LongSideIndex'); 
+
+portfolio_weight_shortside_ts = fun_portfolio_weight_sector_neutral(-score_combined_ts,'longonly'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_shortside_ts); 
+benchmark_shortside = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_shortside_ts = fints(px.dates, benchmark_shortside,'ShortSideIndex'); 
+
+benchmark_all_ts = merge(benchmark_ts,benchmark_longside_ts,benchmark_shortside_ts,'sortcolumn',0);
+plot(log(benchmark_all_ts));
 
 %%
-% Let's take a first peak at the result. 
-% calculate portfolio weight
+% sharpe, std & return 
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'longshort'); 
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
-portfolio_rt_ts = portfolio_rt_ts(70:end); 
-plot(cumsum(portfolio_rt_ts));
-legend('off'); 
+sqrt(12)*sharpe(fts2mat(tick2ret(benchmark_all_ts)))
+
+sqrt(12)*nanstd(tick2ret(benchmark_all_ts))
+
+12*nanmean(tick2ret(benchmark_all_ts))
+
+
+%%
+% doesn't the short index looks like what people on the street call 'the
+% market'. 
+
+%% Factor Portfolios
+
+%%
+% I use long - equal as proxy for long side factor portfolio, as equal -
+% short for the short side factor portfolio. long - short represents the
+% full long-short factor portfolio. 
+
+%%
+% long side.
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
 hold on; 
-snapnow; 
 
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topm',0.4); 
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
-portfolio_rt_ts = portfolio_rt_ts(70:end); 
-plot(cumsum(portfolio_rt_ts));
-legend('off'); 
+%%
+% short side
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
 hold on; 
-snapnow; 
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'equalweight'); 
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
-portfolio_rt_ts = portfolio_rt_ts(70:end); 
-plot(cumsum(portfolio_rt_ts));
-legend('off'); 
-snapnow;
-
-sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
-
-portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_quality_ts,'topmlongonly',0.4); 
-portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_ts); 
-portfolio_rt_ts = portfolio_rt_ts(70:end); 
-plot(cumsum(portfolio_rt_ts));
-legend('off'); 
-snapnow;
-
-sqrt(12)*sharpe(fts2mat(portfolio_rt_ts(50:end)),0)
-
-
 
 %%
-% Quality behaved as expected, i.e. when crisis hits, high quality
-% securities outperformed low quality security. But overall the drift has
-% been close to zero for the whole 25 years period, maybe because I'm using
-% the large cap securities (1300 largest) where quality isn't a
-% differentiating factor? 
+% long short
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_cap_ts = fun_sequential_backtest_autoadjust(100, px, benchmark_shortside_ts, portfolio_weight_ts,false);
+
+corrcoef(fts2mat(tick2ret(portfolio_cap_ts)),fts2mat(tick2ret(benchmark_ts)))
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_cap_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_cap_ts)))
+
+
+plot(cumsum(fts2mat(tick2ret(portfolio_cap_ts))));
+hold on; 
 
 %%
-% zero drift doesn't mean quality is useless, by including quality factor
-% into consideration, I can expect to reduce overall portfolio risk. 
+% long short through weight*return
 
 
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longshort'); 
+portfolio_rt_ts  = fun_portfolio_return(px,portfolio_weight_ts); 
+
+plot(cumsum(fts2mat(portfolio_rt_ts))); 
+
+hold off; 
+
+sqrt(12)*sharpe(fts2mat(portfolio_rt_ts),0)
+sqrt(12)*std(fts2mat(portfolio_rt_ts))
+
+%%
+% Short side captured the crash post dotcom bubble, from the short. 
+% The dark force is strong. 
+
+imshow('darkforce.jpg'); 
 ##### SOURCE END #####
 --></body></html>
   </article>
