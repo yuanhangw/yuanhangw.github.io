@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Combined Factors - Detail! Detail! Detail!</title>
+    <meta name="description" content="keep it simple :: finish it off :: iterate
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactors_6.html">
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+  
+
+
+    
+    <a class="site-title" href="/"> 
+    <img class ="logo" src="/Mobius.jpg" alt="" height="50" width="50">nion</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      
+      <!--
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_1.html">Combined Factors - Theory mixed with a little bit of reality</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_2.html">Combined Factors - Policy Portfolios</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_3.html">Combined Factors - Policy Portfolios with large dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_4.html">Combined Factors - The Dark Force is Strong</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_5.html">Combined Factors - Fillts() or not Fillts(), That is the questoin</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_6.html">Combined Factors - Detail! Detail! Detail!</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_toolbox.html">Combined Factors - In theory ...</a>
+          
+        
+          
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
+          
+        
+          
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors.html">Multiple Factors - Load Data</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_1.html">Multiple Factors - HML updated with Risk adjustment</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_2.html">Multiple Factors - SML adjust for risk</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_3.html">Multiple Factors - BAB watch out for correlation</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_4.html">Multiple Factors - QUAL - Quality is underated</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_5.html">Multiple Factors - Revisit MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_6.html">Multiple Factors - Sanity Check</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_7.html">Multiple Factors - All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_8.html">Multiple Factors - Bigger All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor.html">Introducing Mother of all Factors - MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_1.html">MOM factor walkforward</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_2.html">MOM too good to be true?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_4.html">MOM short Cap weighted index?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_5.html">MOM walkforward with N securities</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_6.html">MOM sector neutral</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_7.html">MOM alternative MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_8.html">MOM the bigger the better?</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyDataSet.html">What's in my dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyEquityList.html">Equity List and Field List</a>
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      -->
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Combined Factors - Detail! Detail! Detail!</h1>
+  </header>
+
+  <article class="post-content">
+    <!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  Details Details Details</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-12"><meta name="DC.source" content="CombinedFactors_6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  Details Details Details</h1><!--introduction--><p>The advantage of sequential test is I can add a lot more observation and control points along the way and reveal the inner work of the factor portfolio.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">ToDos</a></li><li><a href="#5">Preparation</a></li><li><a href="#13">The usual approach</a></li><li><a href="#17">Let's go sequential</a></li><li><a href="#36">Audit Trail inspection</a></li></ul></div><h2>ToDos<a name="1"></a></h2><p>Here I'm going to add more practical considerations into fun_sequential_backtest(), to take into account of the followings:</p><div><ol><li>number of long securities    x</li><li>transaction cost             x</li><li>turnover consideration       x</li><li>rebalancing frequency        x</li><li>extreme movement</li><li>missing price data           x</li><li>penny stock                  x</li><li>margin requirement           x</li><li>funding cost                 x</li><li>hedging ratio                x</li><li>leverage ratios              x</li></ol></div><p>I will also insert a full audit trail in fun_sequential_backtest(), including:</p><div><ol><li>average portfolio factor loading</li><li>position                              x</li><li>transaction history                   x</li><li>margin                                x</li><li>anormaly handling history</li><li>transaction cost history              x</li><li>funding cost history                  x</li><li>round up of positions                 x</li></ol></div><pre class="codeinput">imshow(<span class="string">'details.jpg'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_01.png" alt=""> <h2>Preparation<a name="5"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_roa_ts            = score_roa_ts(75:end);
+score_leverage_ts       = score_leverage_ts(75:end);
+score_grossmargin_ts    = score_grossmargin_ts(75:end);
+score_turnover_ts       = score_turnover_ts(75:end);
+
+score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+score_mom_ts      = fillts(score_mom_ts,0);
+score_pb_ts       = fillts(score_pb_ts,0);
+score_cap_ts      = fillts(score_cap_ts,0);
+score_beta_ts     = fillts(score_beta_ts,0);
+score_quality_ts  = fillts(score_quality_ts,0);
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>There is much less securites than you expeced.</p><pre class="codeinput">score_mat = fts2mat(score_mom_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_pb_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_cap_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_beta_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_quality_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_combined_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_02.png" alt=""> <p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+</pre><h2>The usual approach<a name="13"></a></h2><p>risk neutral using equal weighted benchmark as hedge</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts);
+hold <span class="string">on</span>;
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_03.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.4157
+
+
+ans =
+
+    0.0442
+
+</pre><p>risk neutral using  SnP as hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, spx_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts);
+hold <span class="string">on</span>;
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_04.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.2332
+
+
+ans =
+
+    0.0704
+
+</pre><p>risk neutral using cap weighted benchmark as hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, cap_benchmark_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts);
+hold <span class="string">off</span>;
+snapnow;
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_05.png" alt=""> <pre class="codeoutput">
+ans =
+
+    1.1457
+
+
+ans =
+
+    0.0732
+
+</pre><h2>Let's go sequential<a name="17"></a></h2><p>I follow the actually steps to evaluate the strategy</p><div><ol><li>at a given date, I check the market to get current price, portfolio weight, benchmark index level and risk free interest rate.</li><li>I pick the top N securities according to their scores, and give them equal weight. The remaining are assigned 0 weight.</li><li>I decide the appropriate position for each securities. If it is rebalancing date, the position is calculated afresh, otherwise previous position is carried over. If carried over position has no price at current date, the position is set to zero. This means there is a certain portion of cash position. In case of 50 securites, the cash position could be 2%~6%, half of the time.</li><li>position is decided by taking leverage ratio &amp; current capital into consideration.</li><li>position is then rounded to whole number, this has minimum impact on the result.</li><li>hedge position is decided by taking volatility of long position &amp; index into consideration, and the partial hedge ratio. If partial hedge ratio is set to 1, the long short portfolio is 'risk neutral', although it is not market neutral, since the combined long portfolio has lower than 1 market beta.</li><li>transaction is decided by comparing position between two periods</li><li>transaction cost is calculated using IB's fixed transaction scheme, i.e. minimum $1, normal 0.005 per share, maximum 0.5% of transaction value. Start with 100k, the transaction cost 50bps ~ 100 bps a year, and gradually settle towards 10 bps per year. Rule of thumb is number_of_securities*1*12*0.5</li><li>increase leverage increase the transaction cost propertionally.</li><li>turnover is calculated as the amount of market value of securities transacted. At monthly rebalancing, the turnover is about 40% per month, so 5x per year. a 100k portfolio leveraged at 2x, assuming average securities price of $10 is 5x100,000/10x0.005 = 250 or 25bps per annual. if taxed at $1 minimum the transaction cost upper bound is 600 or 60 bps.</li><li>reduce rebalancing frequency reduce the transaction cost proportionally, but the scale of reduction is in 10~20 bps per year. Funding cost and futures rolling is much more significant, typically in the scale of 100~200 bps per year.</li><li>Margin is calculated using 30% of securities value and 10% of futures value. at 2x leverage it is dangerously close to full capital utilization. at 1x it's using about 40% of equity capital.</li><li>Funding cost is most tricky. The theoretical portfolio has good sharpe ratio as high as 1.5, but only 4% volatility. To double the risk I need to take a margin loan from IB charged at (benchmark rate + 100bps ~150 bps). In the past 20 years, the average margin loan rate is about 5%. That mean when I leverage 2x, even with 1.5 sharpe, I ended up with only (8%*1.5 - 5%) = 7% return while the risk double. The marginal improvement of return is only 1%. The sharpe decreased to 0.87. Many good look ~ 1 low volatility strategy become worthless in this case.</li><li>of course this is without taking any form of compensation into consideration. If I am able to short securities at will, the cash from the shorts should self-fund the long, and the only limitation is the margin requirement. If both long and short margin is charged separately @ 30%, the maximum long-short leverage I can take is 1.67x before broker call me margin.</li><li>if I use index futures as hedge, the marging requirement is lower. Beside, the rolling of index future has benchmark rate build-in, i.e. I am being compensated(at least for the benchmark rate part of the margin loan) through rolling up the equity index futures. @ 4% benchmark rate, with 2x leverage, I suppose to pay 5.5% per annual on the 1x margin loan, and get compensated for shorting and rolling 2x futures contract at 2x4.0%. On net basis my funding cost is just the 100~150bps interest spread IB charge. This make sense if I long 1x underlying securites and fully hedge with index futures, I should get risk free interest rate from rolling up the futures contracts.</li><li>if the futures contract is being rolled quarterly, @ 4% BM rate, the fair rolling should be at 1% at each roll. Anything above is my gain. At 1800 level, the 18 points switch at each roll is critial to portfolio success.</li><li>with position and cost sorted out the next step is to calculate the pnl and update portfolio value. The pnl is calculated by adding PnL from long securites, PnL from short index, transaction cost and funding cost togather. One small trick is to assign risk free return to positions where next_px is nan, but the impact seems miniscule.</li><li>the last step is to save the audit trail for postmortem.</li></ol></div><p>Initialize</p><pre class="codeinput">  index_ts = benchmark_ts;
+  initial_capital = 100000;
+
+  leverage_ratio = 1;
+  partial_hedge_ratio = 0.5;
+
+  number_of_securities = 50;
+
+  longonly = false;
+</pre><p>initialize volatility parameters</p><pre class="codeinput">  vol_index = 0.10;
+  vol_long = 0.10;
+  lambda = 0.85;
+
+  <span class="comment">% initialize minimum price admissible</span>
+
+  minmum_price = 0.5;
+
+
+  <span class="comment">% initialize record holders.</span>
+
+  history_dates = px.dates;
+  px_mat = fts2mat(px);
+
+  current_capital = initial_capital;
+  Record_portfolio_capital(1) = initial_capital;
+
+
+  i=1;
+
+  <span class="keyword">while</span> i &lt;= size(history_dates,1)-1
+</pre><p>on this day disp(sprintf('on %d %s', i,datestr(history_dates(i))));</p><p>I check the market</p><pre class="codeinput">    current_date = datestr(history_dates(i));
+    current_px = fts2mat(px(current_date));
+    current_pw = fts2mat(portfolio_weight_ts(current_date));
+    current_index = fts2mat(index_ts(current_date));
+    current_rate = 365*fts2mat(rfr_ts(current_date));
+</pre><p>and I decided to buy N securities, and assign equal weight to them. let's select</p><pre class="codeinput">    current_pw(isnan(current_pw)) = 0;
+    [sorted_pw, index_pw]  =sort(current_pw,<span class="string">'descend'</span>);
+
+    j = 1;
+    number_of_securities_selected = 0;
+
+    <span class="keyword">while</span> number_of_securities_selected &lt; number_of_securities
+
+      <span class="comment">% select when px is not NaN &amp; px is above a minimum value</span>
+      <span class="keyword">if</span> not(isnan(current_px(index_pw(j)))) &amp;&amp; current_px(index_pw(j))&gt; minmum_price
+
+        current_pw(index_pw(j)) = 1/number_of_securities;
+        number_of_securities_selected = number_of_securities_selected+1;
+        Record_name(i,number_of_securities_selected) = {equity_list_us(index(index_pw(j)),1)};
+        Record_index(i,number_of_securities_selected) = index(index_pw(j));
+      <span class="keyword">else</span>
+        current_pw(index_pw(j)) = 0;
+      <span class="keyword">end</span>
+      j = j+1;
+
+    <span class="keyword">end</span>
+    <span class="comment">% set the remaining weights to 0;</span>
+    current_pw(index_pw(j:end)) = 0;
+
+    <span class="comment">% all weight should sum up to 1.</span>
+    <span class="comment">% disp(sprintf('portfolio weight sum up to %d',nansum(current_pw)));</span>
+
+    Record_portfolio_weight(i,:) = current_pw;
+</pre><p>calculate the long position I take</p><pre class="codeinput">    <span class="keyword">if</span> i==1
+      current_position = leverage_ratio*current_capital*current_pw./current_px;
+    <span class="keyword">elseif</span> mod(month(history_dates(i)),3) ==0
+      current_position = leverage_ratio*current_capital*current_pw./current_px;
+      <span class="comment">% disp(sprintf('rebalancing the portfolio'));</span>
+    <span class="keyword">else</span>
+      current_position = Record_position(i-1,:);
+      current_positoin(isnan(current_px)) = 0;
+    <span class="keyword">end</span>
+
+    <span class="comment">%position has to be larger than 1, and a whole number.</span>
+    current_position = round(current_position);
+
+    <span class="comment">% calculate the hedge position I take</span>
+    current_hedge_ratio = partial_hedge_ratio*(vol_long(i)/vol_index(i));
+    current_hedge_position = partial_hedge_ratio*(vol_long(i)/vol_index(i))*current_capital/current_index;
+
+    Record_deployment_indicator(i) = (leverage_ratio*current_capital/nansum(current_position.*current_px));
+    Record_position(i,:) = current_position;
+    Record_portfolio_capital(i) = current_capital;
+    Record_deployed_capital(i) = nansum(current_position.*current_px);
+
+    Record_hedge_ratio(i) = current_hedge_ratio;
+    Record_hedge_position(i) = current_hedge_position;
+</pre><p>calculate transaction cost</p><pre class="codeinput">    Record_position(i,isnan(Record_position(i,:)))=0;
+
+    <span class="keyword">if</span> i ==1
+      current_transaction = Record_position(i,:);
+    <span class="keyword">else</span>
+      current_transaction = Record_position(i,:) - Record_position(i-1,:);
+    <span class="keyword">end</span>
+
+    current_capital_transaction = current_transaction.*current_px;
+    current_capital_transaction(isnan(current_capital_transaction))=0;
+    current_capital_transaction_checksum = nansum(current_capital_transaction);
+
+    <span class="comment">% using IB transaction cost schemes</span>
+    current_transaction_cost = abs(current_transaction)*0.005;
+    <span class="comment">% apply 0.5% maximum transaction cost ( if the cost is higher than $1</span>
+    <span class="comment">% and higher than 0.5% of total notinoal amount</span>
+    current_transaction_cost(current_transaction_cost&gt;abs(current_transaction).*current_px*0.005 &amp; current_transaction_cost&gt;1)=current_position(current_transaction_cost&gt;abs(current_transaction).*current_px*0.005 &amp; current_transaction_cost&gt;1).*current_px(current_transaction_cost&gt;abs(current_transaction).*current_px*0.005 &amp; current_transaction_cost&gt;1)*0.005;
+    <span class="comment">% apply minimum transaction cost of $1</span>
+    current_transaction_cost(current_transaction_cost&gt;0 &amp; current_transaction_cost&lt;1)=1;
+
+    current_transaction_cost_total = nansum(current_transaction_cost);
+
+    Record_transaction(i,:) = current_transaction;
+    Record_capital_transaction(i,:) = current_capital_transaction;
+    Record_capital_transaction_checksum(i) = current_capital_transaction_checksum;
+
+    Record_capital_turnover(i) = nansum(abs(current_capital_transaction));
+    Record_turnover(i)= nansum(abs(current_capital_transaction))/current_capital;
+
+    Record_transaction_cost(i,:) = current_transaction_cost;
+    Record_transaction_cost_prct(i,:) = current_transaction_cost./current_capital;
+
+    Record_transaction_cost_total(i) = current_transaction_cost_total;
+    Record_transaction_cost_total_prct(i) = nansum(current_transaction_cost)/current_capital;
+</pre><p>calculate margin requirement</p><pre class="codeinput">    current_margin = nansum(current_position.*current_px)*0.3+ current_hedge_position*current_index*0.1;
+
+    <span class="comment">% funding cost</span>
+    current_funding_cost = (leverage_ratio-1)*current_capital*(0.01)/12;
+    current_funding_cost_prct = current_funding_cost/current_capital;
+
+    Record_margin(i) = current_margin;
+    Record_margin_prct(i) = current_margin/current_capital;
+    Record_funding_cost(i) = current_funding_cost;
+    Record_funding_cost_prct(i) = current_funding_cost_prct;
+</pre><p>calculate pnl</p><pre class="codeinput">    next_date = datestr(history_dates(i+1));
+    next_px = fts2mat(px(next_date));
+    next_index = fts2mat(index_ts(next_date));
+
+    <span class="comment">% mend those NaN next_px, those are treated as if reinvested in risk</span>
+    <span class="comment">% free rate instruments.</span>
+    next_px(current_position&gt;0 &amp; isnan(next_px)) = current_px(current_position&gt;0 &amp; isnan(next_px)).*(1+current_rate/12);
+
+    <span class="comment">% calcualte long pnl</span>
+    current_pnl=current_position.*(next_px-current_px);
+    pnl_long = nansum(current_position.*(next_px-current_px));
+
+    <span class="comment">% calculate short pnl</span>
+    <span class="keyword">if</span> longonly
+      pnl_short = 0;
+    <span class="keyword">else</span>
+      pnl_short = -current_hedge_position*(next_index - current_index);
+    <span class="keyword">end</span>;
+
+    <span class="comment">% returns</span>
+    rt_index = (next_index - current_index)/current_index;
+    rt_long = (pnl_long)/current_capital;
+    rt_net = (pnl_long+pnl_short)/current_capital;
+    rt_individual = current_pnl./current_capital;
+
+    Record_pnl_long(i,:) = current_pnl;
+    Record_pnl_long_prct(i,:) = current_pnl./current_capital;
+
+    Record_pnl_long_total(i) = pnl_long;
+    Record_pnl_long_total_prct(i) = pnl_long/current_capital;
+
+    Record_pnl_short_total(i) = pnl_short;
+    Record_pnl_short_total_prct(i) = pnl_short/current_capital;
+
+    Record_rt_index(i) = rt_index;
+    Record_rt_long(i) = rt_long;
+    Record_rt_net(i)= rt_net;
+    Record_rt_individual(i,:) = rt_individual;
+</pre><p>update capital.</p><pre class="codeinput">    current_capital = current_capital + pnl_long + pnl_short - current_funding_cost - current_transaction_cost_total;
+</pre><p>turn the page</p><pre class="codeinput">    i = i+1;
+</pre><p>keep a record</p><pre class="codeinput">    Record_portfolio_capital(i) = current_capital;
+
+    vol_index(i) = sqrt(lambda*vol_index(i-1)^2+(1-lambda)*12*rt_index^2);
+    vol_long(i)  = sqrt(lambda*vol_long(i-1)^2+(1-lambda)*12*rt_long^2);
+</pre><pre class="codeinput">  <span class="keyword">end</span>
+
+
+portfolio_capital_ts = fints(px.dates,Record_portfolio_capital',<span class="string">'PortfolioCapitalWalkforward'</span>);
+</pre><p>Audit trail</p><pre class="codeinput"><span class="comment">% &lt;&lt;Portfolio Capital&gt;&gt;</span>
+<span class="comment">% Record_portfolio_capital</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Securities' name and position in Original Equity List&gt;&gt;</span>
+<span class="comment">% Record_name</span>
+<span class="comment">% Record_index</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Portfolio Weight, equal weight, will be used to calculate factor score loading&gt;&gt;</span>
+<span class="comment">% Record_portfolio_weight</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Current capital v.s. deployed capital&gt;&gt;</span>
+<span class="comment">% Record_deployment_indicator</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Postion taken&gt;&gt;</span>
+<span class="comment">% Record_position</span>
+<span class="comment">% Record_deployed_capital</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Hedge ratio &amp; position&gt;&gt;</span>
+<span class="comment">% Record_hedge_ratio</span>
+<span class="comment">% Record_hedge_position</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Transaction, Transaction Capital, Turnover capital and Turnover as a percentage&gt;&gt;</span>
+<span class="comment">% Record_transaction</span>
+<span class="comment">% Record_capital_transaction</span>
+<span class="comment">% Record_capital_transaction_checksum</span>
+<span class="comment">%</span>
+<span class="comment">% Record_capital_turnover</span>
+<span class="comment">% Record_turnover</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Transaction cost for individual and as a whole, in dollar and as percentage&gt;&gt;</span>
+<span class="comment">% Record_transaction_cost</span>
+<span class="comment">% Record_transaction_cost_prct</span>
+<span class="comment">%</span>
+<span class="comment">% Record_transaction_cost_total</span>
+<span class="comment">% Record_transaction_cost_total_prct</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Margins and Margin as a percentage of current capital&gt;&gt;</span>
+<span class="comment">% Record_margin</span>
+<span class="comment">% Record_margin_prct</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Funding cost&gt;&gt;</span>
+<span class="comment">% Record_funding_cost</span>
+<span class="comment">% Record_funding_cost_prct</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;Long Short PnL&gt;&gt;</span>
+<span class="comment">% Record_pnl_long</span>
+<span class="comment">% Record_pnl_long_prct</span>
+<span class="comment">%</span>
+<span class="comment">% Record_pnl_long_total</span>
+<span class="comment">% Record_pnl_long_total_prct</span>
+<span class="comment">%</span>
+<span class="comment">% Record_pnl_short_total</span>
+<span class="comment">% Record_pnl_short_total_prct</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt; Return record&gt;&gt;</span>
+<span class="comment">% Record_rt_index</span>
+<span class="comment">% Record_rt_long</span>
+<span class="comment">% Record_rt_net</span>
+<span class="comment">% Record_rt_individual</span>
+
+
+
+save(<span class="string">'Audit_Trail'</span>, <span class="string">'Record_portfolio_capital'</span>,<span class="string">'Record_name'</span>,<span class="string">'Record_index'</span>,<span class="string">'Record_portfolio_weight'</span>,<span class="string">'Record_deployment_indicator'</span>,<span class="string">'Record_position'</span>,<span class="string">'Record_portfolio_capital'</span>,<span class="string">'Record_deployed_capital'</span>,<span class="string">'Record_hedge_ratio'</span>,<span class="string">'Record_hedge_position'</span>,<span class="string">'Record_transaction'</span>,<span class="string">'Record_capital_transaction'</span>,<span class="string">'Record_capital_transaction_checksum'</span>,<span class="string">'Record_capital_turnover'</span>,<span class="string">'Record_turnover'</span>,<span class="string">'Record_transaction_cost'</span>,<span class="string">'Record_transaction_cost_prct'</span>,<span class="string">'Record_transaction_cost_total'</span>,<span class="string">'Record_transaction_cost_total_prct'</span>,<span class="string">'Record_margin'</span>,<span class="string">'Record_margin_prct'</span>,<span class="string">'Record_funding_cost'</span>,<span class="string">'Record_funding_cost_prct'</span>,<span class="string">'Record_pnl_long'</span>,<span class="string">'Record_pnl_long_prct'</span>,<span class="string">'Record_pnl_long_total'</span>,<span class="string">'Record_pnl_long_total_prct'</span>,<span class="string">'Record_pnl_short_total'</span>,<span class="string">'Record_pnl_short_total_prct'</span>,<span class="string">'Record_rt_index'</span>,<span class="string">'Record_rt_long'</span>,<span class="string">'Record_rt_net'</span>,<span class="string">'Record_rt_individual'</span>);
+
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+
+
+plot(log(portfolio_capital_ts));
+</pre><pre class="codeoutput">
+ans =
+
+    1.2923
+
+
+ans =
+
+    0.1034
+
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_06.png" alt=""> <p>Not to shabby</p><h2>Audit Trail inspection<a name="36"></a></h2><p>Portfolio Weight</p><pre class="codeinput">plot(Record_portfolio_weight);
+snapnow;
+plot(Record_portfolio_weight(1,:));
+snapnow;
+plot(Record_portfolio_weight(2,:));
+snapnow;
+plot(nansum(Record_portfolio_weight,2))
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_07.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_08.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_09.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_10.png" alt=""> <p>all sum up to 1 nicely...</p><p>Capital deployment target v.s. actual deployed capital</p><pre class="codeinput">plot(Record_deployment_indicator);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_11.png" alt=""> <p>Position Taken</p><pre class="codeinput">plot(Record_position);
+snapnow;
+
+plot(Record_position(:,1:10));
+snapnow;
+
+plot(Record_position(2,:));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_12.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_13.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_14.png" alt=""> <p>Deployed capital</p><pre class="codeinput">plot(Record_deployed_capital);
+hold <span class="string">on</span>;
+plot(Record_portfolio_capital);
+hold <span class="string">off</span>;
+snapnow;
+plot(log(Record_deployed_capital));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_15.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_16.png" alt=""> <p>so good?</p><p>Hedge Ratio</p><pre class="codeinput">plot(Record_hedge_ratio);
+snapnow;
+plot(Record_hedge_position);
+snapnow;
+
+index_mat = fts2mat(index_ts);
+index_mat = index_mat(1:end-1);
+plot(Record_hedge_position.*index_mat');
+hold <span class="string">on</span>;
+plot(Record_portfolio_capital);
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_17.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_18.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_19.png" alt=""> <p>hedge ratio is partial_hedge_ratio*(vol_long(i)/vol_index(i)) hedge position is hedge ratio*current_capital/current_index; if I put partial_hedge_ratio to 1, I would be over hedging.</p><p>Transaction</p><pre class="codeinput">plot(Record_transaction);
+snapnow;
+plot(Record_transaction(:,1:5));
+snapnow;
+plot(Record_transaction(1,:));
+snapnow;
+plot(Record_transaction(2,:));
+snapnow;
+plot(Record_transaction(3,:));
+snapnow;
+plot(Record_transaction(4,:));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_20.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_21.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_22.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_23.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_24.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_25.png" alt=""> <p>Transaction capital;</p><pre class="codeinput">plot(Record_capital_transaction);
+snapnow;
+plot(Record_capital_transaction(1,:));
+snapnow;
+plot(Record_capital_transaction(4,:));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_26.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_27.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_28.png" alt=""> <p>Turnover capital</p><pre class="codeinput">plot(Record_capital_turnover);
+hold <span class="string">on</span>;
+plot(Record_portfolio_capital)
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_29.png" alt=""> <p>Turnover as a percentage</p><pre class="codeinput">plot(Record_turnover);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_30.png" alt=""> <p>Transaction cost</p><pre class="codeinput">plot(Record_transaction_cost);
+snapnow;
+plot(Record_transaction_cost(:,1:5));
+snapnow;
+plot(Record_transaction_cost(1,:));
+snapnow;
+plot(Record_transaction_cost(10,:));
+snapnow;
+plot(cumsum(Record_transaction_cost_prct)*10000);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_31.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_32.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_33.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_34.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_35.png" alt=""> <p>Transaction cost total and bps per month</p><pre class="codeinput">plot(Record_transaction_cost_total);
+snapnow;
+plot(Record_transaction_cost_total_prct*10000);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_36.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_37.png" alt=""> <p>Margin v.s. equity capital</p><pre class="codeinput">plot(Record_margin);
+hold <span class="string">on</span>;
+plot(Record_portfolio_capital);
+hold <span class="string">off</span>;
+snapnow;
+
+plot(Record_margin_prct);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_38.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_39.png" alt=""> <p>Funding cost</p><pre class="codeinput">plot(Record_funding_cost_prct*10000);
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_40.png" alt=""> <p>PnL long side:</p><pre class="codeinput">plot(Record_pnl_long);
+snapnow;
+plot(Record_pnl_long(1,:));
+snapnow;
+plot(Record_pnl_long(:,1:5));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_41.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_42.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_43.png" alt=""> <p>accumulated pnl</p><pre class="codeinput">temp = Record_pnl_long;
+temp(isnan(temp))=0;
+temp_cumsum = cumsum(temp);
+plot(temp_cumsum);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_44.png" alt=""> <p>top contributor is:</p><pre class="codeinput">[sorted_temp, index_temp]  =sort(temp_cumsum(end,:),<span class="string">'descend'</span>);
+plot(temp_cumsum(:,index_temp(1:3)));
+snapnow;
+plot(px_mat(:,index_temp(1:3)));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_45.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_46.png" alt=""> <p>and they are:</p><pre class="codeinput">list(index_temp(1:3),1)
+</pre><pre class="codeoutput">
+ans = 
+
+    'ALXN US Equity'
+    'FSLR US Equity'
+    'REGN US Equity'
+
+</pre><p>it's nice to see I captured some unicorn</p><p>let's check the percentage</p><pre class="codeinput">plot(Record_pnl_long_prct);
+snapnow;
+
+temp = Record_pnl_long_prct;
+temp(isnan(temp))=0;
+plot(temp);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_47.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_48.png" alt=""> <p>let's check those large spikes</p><pre class="codeinput">temp_max = max(temp);
+[sorted_temp, index_temp]  =sort(temp_max,<span class="string">'descend'</span>);
+
+plot(Record_pnl_long_prct(:,index_temp(1:3)))
+snapnow;
+plot(px_mat(:,index_temp(1:3)))
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_49.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_50.png" alt=""> <p>nothing overly freakish here. good.</p><p>total long pnl</p><pre class="codeinput">plot(Record_pnl_long_total_prct);
+hold <span class="string">on</span>;
+plot(Record_pnl_short_total_prct);
+plot(Record_pnl_long_total_prct+Record_pnl_short_total_prct);
+hold <span class="string">off</span>;
+snapnow;
+
+disp([mean(Record_pnl_long_total_prct)*12 std(Record_pnl_long_total_prct)*sqrt(12)]);
+
+disp([mean(Record_pnl_short_total_prct)*12 std(Record_pnl_short_total_prct)*sqrt(12)]);
+
+disp([mean(Record_pnl_long_total_prct+Record_pnl_short_total_prct)*12 std(Record_pnl_long_total_prct+Record_pnl_short_total_prct)*sqrt(12)]);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_51.png" alt=""> <pre class="codeoutput">    0.2086    0.1834
+
+   -0.0740    0.0958
+
+    0.1347    0.1034
+
+</pre><p>return recored</p><pre class="codeinput">sqrt(12)*sharpe(Record_rt_index,0)
+sqrt(12)*sharpe(Record_rt_long,0)
+sqrt(12)*sharpe(Record_rt_net,0)
+</pre><pre class="codeoutput">
+ans =
+
+    0.6724
+
+
+ans =
+
+    1.1397
+
+
+ans =
+
+    1.3052
+
+</pre><p>Factor loadings</p><pre class="codeinput">score_mom_mat = fts2mat(score_mom_ts(1:end-1));
+score_pb_mat = fts2mat(score_pb_ts(1:end-1));
+score_beta_mat = fts2mat(score_beta_ts(1:end-1));
+score_cap_mat = fts2mat(score_cap_ts(1:end-1));
+score_quality_mat = fts2mat(score_quality_ts(1:end-1));
+
+score_roa_mat = fts2mat(score_roa_ts(1:end-1));
+score_leverage_mat = fts2mat(score_leverage_ts(1:end-1));
+score_grossmargin_mat = fts2mat(score_grossmargin_ts(1:end-1));
+score_turnover_mat = fts2mat(score_turnover_ts(1:end-1));
+
+score_combined_mat = fts2mat(score_combined_ts(1:end-1));
+
+
+mom_loading = nansum(Record_portfolio_weight.*score_mom_mat,2);
+pb_loading = nansum(Record_portfolio_weight.*score_pb_mat,2);
+cap_loading = nansum(Record_portfolio_weight.*score_cap_mat,2);
+beta_loading = nansum(Record_portfolio_weight.*score_beta_mat,2);
+quality_loading = nansum(Record_portfolio_weight.*score_quality_mat,2);
+
+combined_loading = nansum(Record_portfolio_weight.*score_combined_mat,2);
+
+plot(mom_loading);
+snapnow;
+hold <span class="string">on</span>;
+plot(pb_loading);
+snapnow;
+plot(cap_loading);
+snapnow;
+plot(beta_loading);
+snapnow;
+plot(quality_loading);
+snapnow;
+plot(combined_loading);
+snapnow;
+hold <span class="string">off</span>;
+
+legend(<span class="string">'mom'</span>,<span class="string">'pb'</span>,<span class="string">'cap'</span>,<span class="string">'beta'</span>,<span class="string">'quality'</span>,<span class="string">'combined'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_52.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_53.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_54.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_55.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_56.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_57.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_58.png" alt=""> <p>score_weight = [0.2 0 0.4 0.1 0.3]; mom/pb/cap/beta/quality in that order.</p><p>quality loading</p><pre class="codeinput">roa_loading = nansum(Record_portfolio_weight.*score_roa_mat,2);
+leverage_loading = nansum(Record_portfolio_weight.*score_leverage_mat,2);
+grossmargin_loading = nansum(Record_portfolio_weight.*score_grossmargin_mat,2);
+turnover_loading = nansum(Record_portfolio_weight.*score_turnover_mat,2);
+
+quality_loading = nansum(Record_portfolio_weight.*score_quality_mat,2);
+
+plot(roa_loading);
+snapnow;
+hold <span class="string">on</span>;
+plot(leverage_loading);
+snapnow;
+plot(grossmargin_loading);
+snapnow;
+plot(turnover_loading);
+snapnow;
+plot(quality_loading);
+snapnow;
+hold <span class="string">off</span>;
+legend(<span class="string">'roa'</span>,<span class="string">'leverage'</span>,<span class="string">'gm'</span>,<span class="string">'turnover'</span>,<span class="string">'quality'</span>);
+</pre><img vspace="5" hspace="5" src="CombinedFactors_6_59.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_60.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_61.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_62.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_63.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactors_6_64.png" alt=""> <p>why is grossmargin loading extra low??</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  Details Details Details
+% The advantage of sequential test is I can add a lot more observation and
+% control points along the way and reveal the inner work of the factor
+% portfolio. 
+
+
+%% ToDos
+% Here I'm going to add more practical considerations into
+% fun_sequential_backtest(), to take into account of the followings:
+
+%%
+% # number of long securities    x
+% # transaction cost             x
+% # turnover consideration       x
+% # rebalancing frequency        x
+% # extreme movement 
+% # missing price data           x
+% # penny stock                  x
+% # margin requirement           x
+% # funding cost                 x
+% # hedging ratio                x
+% # leverage ratios              x
+
+%%
+% I will also insert a full audit trail in fun_sequential_backtest(),
+% including:
+
+%%
+% # average portfolio factor loading
+% # position                              x
+% # transaction history                   x
+% # margin                                x
+% # anormaly handling history     
+% # transaction cost history              x
+% # funding cost history                  x
+% # round up of positions                 x
+
+
+imshow('details.jpg');
+
+
+
+%% Preparation
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+score_roa_ts            = score_roa_ts(75:end); 
+score_leverage_ts       = score_leverage_ts(75:end); 
+score_grossmargin_ts    = score_grossmargin_ts(75:end); 
+score_turnover_ts       = score_turnover_ts(75:end); 
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+score_mom_ts      = fillts(score_mom_ts,0); 
+score_pb_ts       = fillts(score_pb_ts,0); 
+score_cap_ts      = fillts(score_cap_ts,0); 
+score_beta_ts     = fillts(score_beta_ts,0); 
+score_quality_ts  = fillts(score_quality_ts,0); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+%%
+% There is much less securites than you expeced. 
+
+score_mat = fts2mat(score_mom_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_pb_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_cap_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_beta_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_quality_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_combined_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold off; 
+
+
+
+%%
+% Benchmark
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+%% The usual approach
+
+%%
+% risk neutral using equal weighted benchmark as hedge
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts); 
+hold on; 
+snapnow; 
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+
+%%
+% risk neutral using  SnP as hedge
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, spx_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts); 
+hold on; 
+snapnow; 
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+
+%%
+% risk neutral using cap weighted benchmark as hedge
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, cap_benchmark_ts, portfolio_weight_ts,false);
+
+plot(portfolio_capital_ts); 
+hold off; 
+snapnow; 
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+  
+%% Let's go sequential  
+
+
+%%
+% I follow the actually steps to evaluate the strategy
+
+%%
+% # at a given date, I check the market to get current price, portfolio
+% weight, benchmark index level and risk free interest rate. 
+% # I pick the top N securities according to their scores, and give them
+% equal weight. The remaining are assigned 0 weight. 
+% # I decide the appropriate position for each securities. If it is
+% rebalancing date, the position is calculated afresh, otherwise previous
+% position is carried over. If carried over position has no price at
+% current date, the position is set to zero. This means there is a certain
+% portion of cash position. In case of 50 securites, the cash position
+% could be 2%~6%, half of the time. 
+% # position is decided by taking leverage ratio & current capital into
+% consideration. 
+% # position is then rounded to whole number, this has minimum impact on
+% the result. 
+% # hedge position is decided by taking volatility of long position & index
+% into consideration, and the partial hedge ratio. If partial hedge ratio
+% is set to 1, the long short portfolio is 'risk neutral', although it is
+% not market neutral, since the combined long portfolio has lower than 1
+% market beta. 
+% # transaction is decided by comparing position between two periods
+% # transaction cost is calculated using IB's fixed transaction scheme,
+% i.e. minimum $1, normal 0.005 per share, maximum 0.5% of transaction
+% value. Start with 100k, the transaction cost 50bps ~ 100 bps a year, and
+% gradually settle towards 10 bps per year. 
+% Rule of thumb is number_of_securities*1*12*0.5 
+% # increase leverage increase the transaction cost propertionally.
+% # turnover is calculated as the amount of market value of securities
+% transacted. At monthly rebalancing, the turnover is about 40% per month,
+% so 5x per year. a 100k portfolio leveraged at 2x, assuming average
+% securities price of $10 is 5x100,000/10x0.005 = 250 or 25bps per annual.
+% if taxed at $1 minimum the transaction cost upper bound is 600 or 60 bps.
+% # reduce rebalancing frequency reduce the transaction cost
+% proportionally, but the scale of reduction is in 10~20 bps per year.
+% Funding cost and futures rolling is much more significant, typically in
+% the scale of 100~200 bps per year. 
+% # Margin is calculated using 30% of securities value and 10% of futures
+% value. at 2x leverage it is dangerously close to full capital
+% utilization. at 1x it's using about 40% of equity capital. 
+% # Funding cost is most tricky. The theoretical portfolio has good sharpe
+% ratio as high as 1.5, but only 4% volatility. To double the risk I need
+% to take a margin loan from IB charged at (benchmark rate + 100bps ~150
+% bps). In the past 20 years, the average margin loan rate is about 5%.
+% That mean when I leverage 2x, even with 1.5 sharpe, I ended up with only
+% (8%*1.5 - 5%) = 7% return while the risk double. The marginal improvement
+% of return is only 1%. The sharpe decreased to 0.87. Many good look ~ 1
+% low volatility strategy become worthless in this case. 
+% # of course this is without taking any form of compensation into
+% consideration. If I am able to short securities at will, the cash from
+% the shorts should self-fund the long, and the only limitation is the
+% margin requirement. If both long and short margin is charged separately @
+% 30%, the maximum long-short leverage I can take is 1.67x before broker
+% call me margin. 
+% # if I use index futures as hedge, the marging requirement is lower.
+% Beside, the rolling of index future has benchmark rate build-in, i.e. I
+% am being compensated(at least for the benchmark rate part of the margin
+% loan) through rolling up the equity index futures. @ 4% benchmark rate,
+% with 2x leverage, I suppose to pay 5.5% per annual on the 1x margin loan,
+% and get compensated for shorting and rolling 2x futures contract at
+% 2x4.0%. On net basis my funding cost is just the 100~150bps interest
+% spread IB charge. This make sense if I long 1x underlying securites and
+% fully hedge with index futures, I should get risk free interest rate from
+% rolling up the futures contracts. 
+% # if the futures contract is being rolled quarterly, @ 4% BM rate, the
+% fair rolling should be at 1% at each roll. Anything above is my gain. At
+% 1800 level, the 18 points switch at each roll is critial to portfolio success. 
+% # with position and cost sorted out the next step is to calculate the pnl
+% and update portfolio value. The pnl is calculated by adding PnL from long
+% securites, PnL from short index, transaction cost and funding cost
+% togather. One small trick is to assign risk free return to positions
+% where next_px is nan, but the impact seems miniscule. 
+% # the last step is to save the audit trail for postmortem. 
+
+
+  %% 
+  % Initialize
+
+  index_ts = benchmark_ts; 
+  initial_capital = 100000; 
+  
+  leverage_ratio = 1; 
+  partial_hedge_ratio = 0.5; 
+  
+  number_of_securities = 50;
+  
+  longonly = false; 
+  
+  %%
+  % initialize volatility parameters
+  
+  vol_index = 0.10; 
+  vol_long = 0.10; 
+  lambda = 0.85; 
+  
+  % initialize minimum price admissible 
+
+  minmum_price = 0.5;
+  
+  
+  % initialize record holders. 
+  
+  history_dates = px.dates; 
+  px_mat = fts2mat(px); 
+  
+  current_capital = initial_capital; 
+  Record_portfolio_capital(1) = initial_capital;
+  
+
+  i=1; 
+
+  while i <= size(history_dates,1)-1
+
+    %%
+    % on this day
+    % disp(sprintf('on %d %s', i,datestr(history_dates(i))));
+
+    %%
+    % I check the market
+    current_date = datestr(history_dates(i));
+    current_px = fts2mat(px(current_date));
+    current_pw = fts2mat(portfolio_weight_ts(current_date));
+    current_index = fts2mat(index_ts(current_date));
+    current_rate = 365*fts2mat(rfr_ts(current_date));
+
+    %%
+    % and I decided to buy N securities, and assign equal weight to them. let's select 
+    current_pw(isnan(current_pw)) = 0;
+    [sorted_pw, index_pw]  =sort(current_pw,'descend'); 
+    
+    j = 1; 
+    number_of_securities_selected = 0; 
+    
+    while number_of_securities_selected < number_of_securities
+      
+      % select when px is not NaN & px is above a minimum value
+      if not(isnan(current_px(index_pw(j)))) && current_px(index_pw(j))> minmum_price
+    
+        current_pw(index_pw(j)) = 1/number_of_securities; 
+        number_of_securities_selected = number_of_securities_selected+1; 
+        Record_name(i,number_of_securities_selected) = {equity_list_us(index(index_pw(j)),1)}; 
+        Record_index(i,number_of_securities_selected) = index(index_pw(j)); 
+      else
+        current_pw(index_pw(j)) = 0; 
+      end
+      j = j+1; 
+      
+    end 
+    % set the remaining weights to 0;
+    current_pw(index_pw(j:end)) = 0; 
+    
+    % all weight should sum up to 1. 
+    % disp(sprintf('portfolio weight sum up to %d',nansum(current_pw))); 
+    
+    Record_portfolio_weight(i,:) = current_pw;
+    
+    %%
+    % calculate the long position I take 
+    if i==1
+      current_position = leverage_ratio*current_capital*current_pw./current_px;
+    elseif mod(month(history_dates(i)),3) ==0
+      current_position = leverage_ratio*current_capital*current_pw./current_px;
+      % disp(sprintf('rebalancing the portfolio')); 
+    else
+      current_position = Record_position(i-1,:); 
+      current_positoin(isnan(current_px)) = 0; 
+    end 
+    
+    %position has to be larger than 1, and a whole number. 
+    current_position = round(current_position); 
+     
+    % calculate the hedge position I take 
+    current_hedge_ratio = partial_hedge_ratio*(vol_long(i)/vol_index(i)); 
+    current_hedge_position = partial_hedge_ratio*(vol_long(i)/vol_index(i))*current_capital/current_index; 
+    
+    Record_deployment_indicator(i) = (leverage_ratio*current_capital/nansum(current_position.*current_px)); 
+    Record_position(i,:) = current_position; 
+    Record_portfolio_capital(i) = current_capital; 
+    Record_deployed_capital(i) = nansum(current_position.*current_px); 
+    
+    Record_hedge_ratio(i) = current_hedge_ratio; 
+    Record_hedge_position(i) = current_hedge_position; 
+    %%
+    % calculate transaction cost 
+    
+    Record_position(i,isnan(Record_position(i,:)))=0;
+    
+    if i ==1
+      current_transaction = Record_position(i,:); 
+    else
+      current_transaction = Record_position(i,:) - Record_position(i-1,:); 
+    end 
+    
+    current_capital_transaction = current_transaction.*current_px; 
+    current_capital_transaction(isnan(current_capital_transaction))=0; 
+    current_capital_transaction_checksum = nansum(current_capital_transaction); 
+    
+    % using IB transaction cost schemes
+    current_transaction_cost = abs(current_transaction)*0.005; 
+    % apply 0.5% maximum transaction cost ( if the cost is higher than $1
+    % and higher than 0.5% of total notinoal amount
+    current_transaction_cost(current_transaction_cost>abs(current_transaction).*current_px*0.005 & current_transaction_cost>1)=current_position(current_transaction_cost>abs(current_transaction).*current_px*0.005 & current_transaction_cost>1).*current_px(current_transaction_cost>abs(current_transaction).*current_px*0.005 & current_transaction_cost>1)*0.005; 
+    % apply minimum transaction cost of $1
+    current_transaction_cost(current_transaction_cost>0 & current_transaction_cost<1)=1; 
+    
+    current_transaction_cost_total = nansum(current_transaction_cost); 
+    
+    Record_transaction(i,:) = current_transaction; 
+    Record_capital_transaction(i,:) = current_capital_transaction; 
+    Record_capital_transaction_checksum(i) = current_capital_transaction_checksum; 
+    
+    Record_capital_turnover(i) = nansum(abs(current_capital_transaction)); 
+    Record_turnover(i)= nansum(abs(current_capital_transaction))/current_capital; 
+    
+    Record_transaction_cost(i,:) = current_transaction_cost; 
+    Record_transaction_cost_prct(i,:) = current_transaction_cost./current_capital; 
+    
+    Record_transaction_cost_total(i) = current_transaction_cost_total; 
+    Record_transaction_cost_total_prct(i) = nansum(current_transaction_cost)/current_capital; 
+    
+    
+    
+    
+    %%
+    % calculate margin requirement 
+    
+    current_margin = nansum(current_position.*current_px)*0.3+ current_hedge_position*current_index*0.1; 
+    
+    % funding cost
+    current_funding_cost = (leverage_ratio-1)*current_capital*(0.01)/12; 
+    current_funding_cost_prct = current_funding_cost/current_capital; 
+    
+    Record_margin(i) = current_margin; 
+    Record_margin_prct(i) = current_margin/current_capital; 
+    Record_funding_cost(i) = current_funding_cost; 
+    Record_funding_cost_prct(i) = current_funding_cost_prct; 
+    
+    
+    %%
+    % calculate pnl
+    next_date = datestr(history_dates(i+1));
+    next_px = fts2mat(px(next_date)); 
+    next_index = fts2mat(index_ts(next_date));
+    
+    % mend those NaN next_px, those are treated as if reinvested in risk
+    % free rate instruments. 
+    next_px(current_position>0 & isnan(next_px)) = current_px(current_position>0 & isnan(next_px)).*(1+current_rate/12); 
+    
+    % calcualte long pnl 
+    current_pnl=current_position.*(next_px-current_px); 
+    pnl_long = nansum(current_position.*(next_px-current_px)); 
+        
+    % calculate short pnl 
+    if longonly
+      pnl_short = 0; 
+    else
+      pnl_short = -current_hedge_position*(next_index - current_index); 
+    end; 
+    
+    % returns
+    rt_index = (next_index - current_index)/current_index; 
+    rt_long = (pnl_long)/current_capital; 
+    rt_net = (pnl_long+pnl_short)/current_capital; 
+    rt_individual = current_pnl./current_capital; 
+    
+    Record_pnl_long(i,:) = current_pnl; 
+    Record_pnl_long_prct(i,:) = current_pnl./current_capital; 
+    
+    Record_pnl_long_total(i) = pnl_long; 
+    Record_pnl_long_total_prct(i) = pnl_long/current_capital; 
+    
+    Record_pnl_short_total(i) = pnl_short; 
+    Record_pnl_short_total_prct(i) = pnl_short/current_capital; 
+    
+    Record_rt_index(i) = rt_index; 
+    Record_rt_long(i) = rt_long; 
+    Record_rt_net(i)= rt_net; 
+    Record_rt_individual(i,:) = rt_individual; 
+    
+    %%
+    % update capital. 
+    current_capital = current_capital + pnl_long + pnl_short - current_funding_cost - current_transaction_cost_total;
+
+    
+    %%
+    % turn the page
+    i = i+1; 
+
+    %%
+    % keep a record
+    Record_portfolio_capital(i) = current_capital;
+    
+    vol_index(i) = sqrt(lambda*vol_index(i-1)^2+(1-lambda)*12*rt_index^2); 
+    vol_long(i)  = sqrt(lambda*vol_long(i-1)^2+(1-lambda)*12*rt_long^2); 
+    
+    
+    
+  end
+  
+  
+portfolio_capital_ts = fints(px.dates,Record_portfolio_capital','PortfolioCapitalWalkforward');
+    
+  
+%% 
+% Audit trail
+
+% <<Portfolio Capital>>
+% Record_portfolio_capital
+% 
+% <<Securities' name and position in Original Equity List>>
+% Record_name
+% Record_index
+% 
+% <<Portfolio Weight, equal weight, will be used to calculate factor score loading>>
+% Record_portfolio_weight
+% 
+% <<Current capital v.s. deployed capital>>
+% Record_deployment_indicator
+% 
+% <<Postion taken>>
+% Record_position
+% Record_deployed_capital
+% 
+% <<Hedge ratio & position>>
+% Record_hedge_ratio
+% Record_hedge_position
+% 
+% <<Transaction, Transaction Capital, Turnover capital and Turnover as a percentage>>
+% Record_transaction
+% Record_capital_transaction
+% Record_capital_transaction_checksum
+% 
+% Record_capital_turnover
+% Record_turnover
+% 
+% <<Transaction cost for individual and as a whole, in dollar and as percentage>>
+% Record_transaction_cost
+% Record_transaction_cost_prct
+% 
+% Record_transaction_cost_total
+% Record_transaction_cost_total_prct
+% 
+% <<Margins and Margin as a percentage of current capital>>
+% Record_margin
+% Record_margin_prct
+% 
+% <<Funding cost>>
+% Record_funding_cost
+% Record_funding_cost_prct
+% 
+% <<Long Short PnL>>
+% Record_pnl_long
+% Record_pnl_long_prct
+% 
+% Record_pnl_long_total
+% Record_pnl_long_total_prct
+% 
+% Record_pnl_short_total
+% Record_pnl_short_total_prct
+% 
+% << Return record>>
+% Record_rt_index
+% Record_rt_long
+% Record_rt_net
+% Record_rt_individual
+
+
+
+save('Audit_Trail', 'Record_portfolio_capital','Record_name','Record_index','Record_portfolio_weight','Record_deployment_indicator','Record_position','Record_portfolio_capital','Record_deployed_capital','Record_hedge_ratio','Record_hedge_position','Record_transaction','Record_capital_transaction','Record_capital_transaction_checksum','Record_capital_turnover','Record_turnover','Record_transaction_cost','Record_transaction_cost_prct','Record_transaction_cost_total','Record_transaction_cost_total_prct','Record_margin','Record_margin_prct','Record_funding_cost','Record_funding_cost_prct','Record_pnl_long','Record_pnl_long_prct','Record_pnl_long_total','Record_pnl_long_total_prct','Record_pnl_short_total','Record_pnl_short_total_prct','Record_rt_index','Record_rt_long','Record_rt_net','Record_rt_individual'); 
+
+
+sqrt(12)*sharpe(fts2mat(tick2ret(portfolio_capital_ts)),0)
+sqrt(12)*std(fts2mat(tick2ret(portfolio_capital_ts)))
+
+  
+plot(log(portfolio_capital_ts)); 
+
+%%
+% Not to shabby 
+
+%% Audit Trail inspection 
+
+%%
+% Portfolio Weight 
+
+plot(Record_portfolio_weight);
+snapnow; 
+plot(Record_portfolio_weight(1,:)); 
+snapnow; 
+plot(Record_portfolio_weight(2,:)); 
+snapnow; 
+plot(nansum(Record_portfolio_weight,2))
+snapnow; 
+
+%%
+% all sum up to 1 nicely...
+
+%%
+% Capital deployment target v.s. actual deployed capital
+
+plot(Record_deployment_indicator); 
+snapnow; 
+
+%%
+% Position Taken
+
+plot(Record_position); 
+snapnow; 
+
+plot(Record_position(:,1:10));
+snapnow; 
+
+plot(Record_position(2,:));
+snapnow; 
+
+%%
+% Deployed capital
+plot(Record_deployed_capital); 
+hold on; 
+plot(Record_portfolio_capital);
+hold off; 
+snapnow;
+plot(log(Record_deployed_capital)); 
+snapnow; 
+
+%%
+% so good?
+
+%%
+% Hedge Ratio
+
+plot(Record_hedge_ratio); 
+snapnow; 
+plot(Record_hedge_position); 
+snapnow; 
+
+index_mat = fts2mat(index_ts); 
+index_mat = index_mat(1:end-1); 
+plot(Record_hedge_position.*index_mat'); 
+hold on; 
+plot(Record_portfolio_capital);
+hold off; 
+
+%%
+% hedge ratio is partial_hedge_ratio*(vol_long(i)/vol_index(i))
+% hedge position is hedge ratio*current_capital/current_index; 
+% if I put partial_hedge_ratio to 1, I would be over hedging.
+
+%%
+% Transaction
+
+plot(Record_transaction);
+snapnow; 
+plot(Record_transaction(:,1:5)); 
+snapnow; 
+plot(Record_transaction(1,:)); 
+snapnow; 
+plot(Record_transaction(2,:)); 
+snapnow;
+plot(Record_transaction(3,:)); 
+snapnow;
+plot(Record_transaction(4,:)); 
+snapnow;
+
+%%
+% Transaction capital; 
+
+plot(Record_capital_transaction); 
+snapnow; 
+plot(Record_capital_transaction(1,:)); 
+snapnow; 
+plot(Record_capital_transaction(4,:)); 
+snapnow; 
+
+%%
+% Turnover capital
+plot(Record_capital_turnover);
+hold on; 
+plot(Record_portfolio_capital)
+hold off; 
+
+%%
+% Turnover as a percentage
+plot(Record_turnover); 
+snapnow; 
+
+%%
+% Transaction cost
+
+plot(Record_transaction_cost); 
+snapnow; 
+plot(Record_transaction_cost(:,1:5));
+snapnow; 
+plot(Record_transaction_cost(1,:));
+snapnow; 
+plot(Record_transaction_cost(10,:));
+snapnow; 
+plot(cumsum(Record_transaction_cost_prct)*10000); 
+snapnow; 
+
+%%
+% Transaction cost total and bps per month
+plot(Record_transaction_cost_total); 
+snapnow;
+plot(Record_transaction_cost_total_prct*10000); 
+snapnow;
+
+%%
+% Margin v.s. equity capital
+
+plot(Record_margin); 
+hold on; 
+plot(Record_portfolio_capital); 
+hold off; 
+snapnow; 
+
+plot(Record_margin_prct); 
+snapnow; 
+
+%%
+% Funding cost
+
+plot(Record_funding_cost_prct*10000);
+snapnow; 
+
+%%
+% PnL
+% long side: 
+plot(Record_pnl_long); 
+snapnow; 
+plot(Record_pnl_long(1,:));
+snapnow; 
+plot(Record_pnl_long(:,1:5));
+snapnow; 
+%%
+% accumulated pnl
+temp = Record_pnl_long; 
+temp(isnan(temp))=0; 
+temp_cumsum = cumsum(temp); 
+plot(temp_cumsum);
+%%
+% top contributor is:
+
+[sorted_temp, index_temp]  =sort(temp_cumsum(end,:),'descend'); 
+plot(temp_cumsum(:,index_temp(1:3))); 
+snapnow; 
+plot(px_mat(:,index_temp(1:3)));
+snapnow; 
+
+%%
+% and they are: 
+list(index_temp(1:3),1)
+
+%%
+% it's nice to see I captured some unicorn 
+
+%%
+% let's check the percentage 
+plot(Record_pnl_long_prct); 
+snapnow; 
+
+temp = Record_pnl_long_prct; 
+temp(isnan(temp))=0; 
+plot(temp);
+
+%%
+% let's check those large spikes
+
+temp_max = max(temp);
+[sorted_temp, index_temp]  =sort(temp_max,'descend'); 
+
+plot(Record_pnl_long_prct(:,index_temp(1:3)))
+snapnow; 
+plot(px_mat(:,index_temp(1:3)))
+snapnow; 
+
+%%
+% nothing overly freakish here. good. 
+
+%%
+% total long pnl
+
+plot(Record_pnl_long_total_prct); 
+hold on; 
+plot(Record_pnl_short_total_prct); 
+plot(Record_pnl_long_total_prct+Record_pnl_short_total_prct); 
+hold off; 
+snapnow; 
+
+disp([mean(Record_pnl_long_total_prct)*12 std(Record_pnl_long_total_prct)*sqrt(12)]);
+
+disp([mean(Record_pnl_short_total_prct)*12 std(Record_pnl_short_total_prct)*sqrt(12)]);
+
+disp([mean(Record_pnl_long_total_prct+Record_pnl_short_total_prct)*12 std(Record_pnl_long_total_prct+Record_pnl_short_total_prct)*sqrt(12)]);
+
+
+%%
+% return recored
+
+sqrt(12)*sharpe(Record_rt_index,0)
+sqrt(12)*sharpe(Record_rt_long,0)
+sqrt(12)*sharpe(Record_rt_net,0)
+
+%%
+% Factor loadings
+
+score_mom_mat = fts2mat(score_mom_ts(1:end-1)); 
+score_pb_mat = fts2mat(score_pb_ts(1:end-1)); 
+score_beta_mat = fts2mat(score_beta_ts(1:end-1)); 
+score_cap_mat = fts2mat(score_cap_ts(1:end-1)); 
+score_quality_mat = fts2mat(score_quality_ts(1:end-1)); 
+
+score_roa_mat = fts2mat(score_roa_ts(1:end-1)); 
+score_leverage_mat = fts2mat(score_leverage_ts(1:end-1)); 
+score_grossmargin_mat = fts2mat(score_grossmargin_ts(1:end-1)); 
+score_turnover_mat = fts2mat(score_turnover_ts(1:end-1)); 
+
+score_combined_mat = fts2mat(score_combined_ts(1:end-1)); 
+
+
+mom_loading = nansum(Record_portfolio_weight.*score_mom_mat,2);
+pb_loading = nansum(Record_portfolio_weight.*score_pb_mat,2);
+cap_loading = nansum(Record_portfolio_weight.*score_cap_mat,2);
+beta_loading = nansum(Record_portfolio_weight.*score_beta_mat,2);
+quality_loading = nansum(Record_portfolio_weight.*score_quality_mat,2);
+
+combined_loading = nansum(Record_portfolio_weight.*score_combined_mat,2);
+
+plot(mom_loading); 
+snapnow;
+hold on; 
+plot(pb_loading); 
+snapnow;
+plot(cap_loading);
+snapnow;
+plot(beta_loading);
+snapnow;
+plot(quality_loading); 
+snapnow;
+plot(combined_loading); 
+snapnow;
+hold off; 
+
+legend('mom','pb','cap','beta','quality','combined');
+%%
+% score_weight = [0.2 0 0.4 0.1 0.3]; mom/pb/cap/beta/quality in that
+% order.
+
+%%
+% quality loading
+roa_loading = nansum(Record_portfolio_weight.*score_roa_mat,2);
+leverage_loading = nansum(Record_portfolio_weight.*score_leverage_mat,2);
+grossmargin_loading = nansum(Record_portfolio_weight.*score_grossmargin_mat,2);
+turnover_loading = nansum(Record_portfolio_weight.*score_turnover_mat,2);
+
+quality_loading = nansum(Record_portfolio_weight.*score_quality_mat,2);
+
+plot(roa_loading); 
+snapnow;
+hold on; 
+plot(leverage_loading); 
+snapnow;
+plot(grossmargin_loading);
+snapnow;
+plot(turnover_loading);
+snapnow;
+plot(quality_loading); 
+snapnow;
+hold off; 
+legend('roa','leverage','gm','turnover','quality'); 
+%%
+% why is grossmargin loading extra low??
+##### SOURCE END #####
+--></body></html>
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nion</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>nion</li>
+          <li><a href="mailto:iam@here.now">iam@here.now</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/yuanhangw">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">yuanhangw</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/large">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">large</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">keep it simple :: finish it off :: iterate
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
