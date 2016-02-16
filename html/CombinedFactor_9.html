@@ -1,0 +1,1471 @@
+---
+layout: page
+title: Combined Factors - First Descend (Long only)
+tag: post
+date: 2016-02-16 23:30:18
+categories: matlab
+---
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  descend from extraordinary to decent reality (Long only)</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-16"><meta name="DC.source" content="CombinedFactor_9.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  descend from extraordinary to decent reality (Long only)</h1><!--introduction--><p>In this post I will exam what happens when reality kicks in. For simplicity I will only compare long only portfolios.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Preparation</a></li><li><a href="#9">Long only descend</a></li><li><a href="#30">The effect of rebalancing frequency &amp; number of securities.</a></li><li><a href="#44">Sanity check</a></li><li><a href="#58">Conclusion</a></li></ul></div><h2>Preparation<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+<span class="comment">% score_leverage_ts     =   fillts(score_leverage_ts,0);</span>
+<span class="comment">% score_roa_ts          =   fillts(score_roa_ts,0);</span>
+<span class="comment">% score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);</span>
+<span class="comment">% score_turnover_ts     =   fillts(score_turnover_ts,0);</span>
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_roa_ts            = score_roa_ts(75:end);
+score_leverage_ts       = score_leverage_ts(75:end);
+score_grossmargin_ts    = score_grossmargin_ts(75:end);
+score_turnover_ts       = score_turnover_ts(75:end);
+
+score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+<span class="comment">% score_mom_ts      = fillts(score_mom_ts,0);</span>
+<span class="comment">% score_pb_ts       = fillts(score_pb_ts,0);</span>
+<span class="comment">% score_cap_ts      = fillts(score_cap_ts,0);</span>
+<span class="comment">% score_beta_ts     = fillts(score_beta_ts,0);</span>
+<span class="comment">% score_quality_ts  = fillts(score_quality_ts,0);</span>
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>There is much less securites than you expeced.</p><pre class="codeinput">score_mat = fts2mat(score_mom_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_pb_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_cap_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_beta_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_quality_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_combined_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_01.png" alt=""> <p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+
+
+figure
+plot(log(benchmark_ts));
+hold <span class="string">on</span>;
+plot(log(cap_benchmark_ts));
+plot(log(spx_ts));
+hold <span class="string">off</span>;
+legend(<span class="string">'off'</span>);
+snapnow;
+title(<span class="string">'Benchmark comparison'</span>);
+
+fun_performance_meansure(benchmark_ts,benchmark_ts,false);
+
+fun_performance_meansure(cap_benchmark_ts,benchmark_ts,false);
+
+fun_performance_meansure(spx_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_02.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.70
+vol is 			 0.19
+return is 		 0.13
+sharpe ratio is 	 0.57
+vol is 			 0.17
+return is 		 0.09
+sharpe ratio is 	 0.57
+vol is 			 0.17
+return is 		 0.09
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_03.png" alt=""> <h2>Long only descend<a name="9"></a></h2><p>score weighted long only</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_04.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.04
+vol is 			 0.18
+return is 		 0.19
+correlation with benchmark_ts is
+    1.0000    0.9674
+    0.9674    1.0000
+
+</pre><p>equal weighted top half</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlyeq'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_05.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.87
+vol is 			 0.19
+return is 		 0.16
+correlation with benchmark_ts is
+    1.0000    0.9875
+    0.9875    1.0000
+
+</pre><p>equal weighted all the securities</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_06.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.70
+vol is 			 0.19
+return is 		 0.13
+correlation with benchmark_ts is
+     1     1
+     1     1
+
+</pre><p>score weighted above 0.5</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.5);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_07.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.15
+vol is 			 0.19
+return is 		 0.22
+correlation with benchmark_ts is
+    1.0000    0.8991
+    0.8991    1.0000
+
+</pre><p>equal weighted above 0.5</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.5);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_08.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.10
+vol is 			 0.19
+return is 		 0.20
+correlation with benchmark_ts is
+    1.0000    0.9055
+    0.9055    1.0000
+
+</pre><p>number of securities contained at each score level, 1/0.7/0.5/0.2</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,1);
+
+temp = fts2mat(portfolio_weight_ts);
+
+temp(temp&gt;0)=1;
+plot(nansum(temp,2))
+hold <span class="string">on</span>;
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.85);
+
+temp = fts2mat(portfolio_weight_ts);
+
+temp(temp&gt;0)=1;
+plot(nansum(temp,2))
+hold <span class="string">on</span>;
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.7);
+
+temp = fts2mat(portfolio_weight_ts);
+
+temp(temp&gt;0)=1;
+plot(nansum(temp,2))
+hold <span class="string">on</span>;
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.5);
+
+temp = fts2mat(portfolio_weight_ts);
+
+temp(temp&gt;0)=1;
+plot(nansum(temp,2))
+hold <span class="string">on</span>;
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.2);
+
+temp = fts2mat(portfolio_weight_ts);
+
+temp(temp&gt;0)=1;
+plot(nansum(temp,2))
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_09.png" alt=""> <p>performance at each percentile</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,1);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmnlongonly'</span>,1,0.1);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.2);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_10.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.87
+vol is 			 0.19
+return is 		 0.16
+correlation with benchmark_ts is
+    1.0000    0.9875
+    0.9875    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_11.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.85
+vol is 			 0.19
+return is 		 0.16
+correlation with benchmark_ts is
+    1.0000    0.9873
+    0.9873    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_12.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.29
+vol is 			 0.26
+return is 		 0.34
+correlation with benchmark_ts is
+    1.0000    0.7006
+    0.7006    1.0000
+
+</pre><p>the run up to dotcom bubble contributed a lot to the extraordinary performance in the 90s. But notice that to 0.2 only contains signle digit number of securities. And the extraordinary momentum stock only happened in the top 1% for the period.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmnlongonly'</span>,0.5,0.2);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_13.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.98
+vol is 			 0.18
+return is 		 0.18
+correlation with benchmark_ts is
+    1.0000    0.9069
+    0.9069    1.0000
+
+</pre><p>notice how even with 30 securities, the portfolio volatility is very close to the one with 150 securities. The outperformance is again mainly due to the 90s, post dotcom bubble period, there are very little visible outperformance compare to full long only.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmnlongonly'</span>,0.7,0.5);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmnlongonly'</span>,0.85,0.7);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmnlongonly'</span>,1,0.85);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_14.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.00
+vol is 			 0.19
+return is 		 0.19
+correlation with benchmark_ts is
+    1.0000    0.9513
+    0.9513    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_15.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.75
+vol is 			 0.20
+return is 		 0.15
+correlation with benchmark_ts is
+    1.0000    0.9578
+    0.9578    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_16.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.57
+vol is 			 0.21
+return is 		 0.12
+correlation with benchmark_ts is
+    1.0000    0.9687
+    0.9687    1.0000
+
+</pre><p>performance decreased quiet a lot when we move to the middle(signal-less tier) of the scores. 0.62 sharpe is not any better than cap weighted index.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_17.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.70
+vol is 			 0.19
+return is 		 0.13
+correlation with benchmark_ts is
+     1     1
+     1     1
+
+</pre><p>This walk through shows that:</p><div><ol><li>scores do differentiate the portfolio performance</li><li>number of securites has surprisingly little to do with portfolio volatility, 30 securities portfolio has 18% long term volatility.</li><li>extra performance for past 25 years has a lot to do with a few stocks in the 90s.</li></ol></div><p>let's compare with surgical, topm 0.6 contains about 50 securities. let's compare surgical 50 with this one.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_rt_ts = fun_portfolio_return(px,portfolio_weight_ts);
+portfolio_capital_ts = 100000*exp(cumsum(portfolio_rt_ts));
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_18.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.04
+vol is 			 0.18
+return is 		 0.19
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_19.png" alt=""> <p>weight * rt match up perfectly with walkforward test, nice ~</p><p>topmlongonly 0.6, that's equal weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'topmlongonly'</span>,0.6);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_20.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.06
+vol is 			 0.18
+return is 		 0.19
+</pre><p>longonlym 0.6, that's score weight</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonlym'</span>,0.6);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_21.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.11
+vol is 			 0.18
+return is 		 0.20
+</pre><p>topmlongonly 0.6 select about 50 securities and equal weight them, this should be very close to surgical 50</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_22.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.08
+vol is 			 0.18
+return is 		 0.20
+</pre><p>as expected! notice that if I use topmlongonly 0.6 to generate portfolio_weight_ts input for surgical, it will give me bogus result. Since portfolio_weight_ts will already be equal weight in that case, and top 50 securities would be selected almost randomly...</p><p>since score weight and equal weight cause 1% per annual return difference. Let's amend surgical to make it score weighted as well.</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_23.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.13
+vol is 			 0.18
+return is 		 0.21
+</pre><p>B-E-A-U-tiful, we get 1% extra from shift surgical to score weight instead of equal weight. More importantly it shows that surgical procedure ties up with normal walkforward routine &amp; basic weight*return!</p><h2>The effect of rebalancing frequency &amp; number of securities.<a name="30"></a></h2><p>Rebalancing frequency</p><p>monthly</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_24.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.12
+vol is 			 0.18
+return is 		 0.21
+</pre><p>quarterly</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,3,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_25.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.08
+vol is 			 0.18
+return is 		 0.20
+</pre><p>annually</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,12,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_26.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.06
+vol is 			 0.18
+return is 		 0.19
+</pre><p>the performance decrease as we rebalance less frequently. But most of the outperformance is in late 90s, when more frequent rebalancing does matters. The situation would be very different when I go market neutral...</p><pre>number of securities</pre><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+plot(fts2mat(portfolio_weight_ts));
+snapnow;
+
+temp = fts2mat(portfolio_weight_ts);
+temp(not(isnan(temp)))=1;
+
+plot(nansum(temp,2));
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_27.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_9_28.png" alt=""> <p>I have this many securities to choose...</p><p>5 securities</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,5,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_29.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.24
+vol is 			 0.27
+return is 		 0.34
+</pre><p>20 securities</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,20,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_30.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.22
+vol is 			 0.20
+return is 		 0.24
+</pre><p>50 securities</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_31.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.12
+vol is 			 0.18
+return is 		 0.21
+</pre><p>100 securities</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,100,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_32.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.05
+vol is 			 0.18
+return is 		 0.19
+</pre><p>200 securities</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,200,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_33.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.01
+vol is 			 0.18
+return is 		 0.19
+</pre><p>notice that the portfolio volatility decrease very little as I increase number of securities... good and bad...</p><h2>Sanity check<a name="44"></a></h2><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+</pre><p>50 securities no cost, score weight</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_34.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.13
+vol is 			 0.18
+return is 		 0.21
+</pre><p>50 securities with cost, score weight</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_35.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.12
+vol is 			 0.18
+return is 		 0.21
+</pre><p>50 securities with cost, equal weight</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,false);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_36.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.08
+vol is 			 0.18
+return is 		 0.20
+</pre><p>50 securities without cost, score weight, 2x leverage</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_37.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.13
+vol is 			 0.37
+return is 		 0.42
+</pre><p>crazy drawdown...</p><p>50 securities with cost, score weight, 2x leverage</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,false,false,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_38.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.10
+vol is 			 0.37
+return is 		 0.40
+</pre><p>50 securities with cost, with full interest charge, score weight, 2x leverage</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_39.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.99
+vol is 			 0.37
+return is 		 0.36
+</pre><p>equal weight long, score weight off</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,false);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_40.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.64
+vol is 			 0.21
+return is 		 0.13
+</pre><p>equal weight long, score weight on.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_41.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.64
+vol is 			 0.21
+return is 		 0.13
+</pre><p>as expected.</p><p>equal weight long, and short, no cost. 200 security v.s. full universe.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,200,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_42.png" alt=""> <p>equal weight long, and short, with cost. 200 security v.s. full universe.</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,200,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_9_43.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 -1.79
+vol is 			 0.01
+return is 		 -0.02
+</pre><p>the constant drift is transaction cost.</p><h2>Conclusion<a name="58"></a></h2><p>The result is SOLID.</p><p><img vspace="5" hspace="5" src="Solid.gif" alt=""> </p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  descend from extraordinary to decent reality (Long only) 
+% In this post I will exam what happens when reality kicks in. For
+% simplicity I will only compare long only portfolios. 
+
+
+
+%% Preparation
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+% score_leverage_ts     =   fillts(score_leverage_ts,0);
+% score_roa_ts          =   fillts(score_roa_ts,0);
+% score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+% score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+score_roa_ts            = score_roa_ts(75:end); 
+score_leverage_ts       = score_leverage_ts(75:end); 
+score_grossmargin_ts    = score_grossmargin_ts(75:end); 
+score_turnover_ts       = score_turnover_ts(75:end); 
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+% score_mom_ts      = fillts(score_mom_ts,0); 
+% score_pb_ts       = fillts(score_pb_ts,0); 
+% score_cap_ts      = fillts(score_cap_ts,0); 
+% score_beta_ts     = fillts(score_beta_ts,0); 
+% score_quality_ts  = fillts(score_quality_ts,0); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+%%
+% There is much less securites than you expeced. 
+
+score_mat = fts2mat(score_mom_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_pb_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_cap_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_beta_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_quality_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_combined_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold off; 
+
+
+
+%%
+% Benchmark
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+figure
+plot(log(benchmark_ts)); 
+hold on;
+plot(log(cap_benchmark_ts)); 
+plot(log(spx_ts)); 
+hold off; 
+legend('off'); 
+snapnow; 
+title('Benchmark comparison'); 
+
+fun_performance_meansure(benchmark_ts,benchmark_ts,false); 
+
+fun_performance_meansure(cap_benchmark_ts,benchmark_ts,false); 
+
+fun_performance_meansure(spx_ts,benchmark_ts,false); 
+
+
+
+%% Long only descend
+
+%%
+% score weighted long only
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%%
+% equal weighted top half
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlyeq'); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%%
+% equal weighted all the securities
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%%
+% score weighted above 0.5
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.5); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%%
+% equal weighted above 0.5
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.5); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold off; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%%
+% number of securities contained at each score level, 1/0.7/0.5/0.2
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',1); 
+
+temp = fts2mat(portfolio_weight_ts); 
+
+temp(temp>0)=1; 
+plot(nansum(temp,2))
+hold on; 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.85); 
+
+temp = fts2mat(portfolio_weight_ts); 
+
+temp(temp>0)=1; 
+plot(nansum(temp,2))
+hold on; 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.7); 
+
+temp = fts2mat(portfolio_weight_ts); 
+
+temp(temp>0)=1; 
+plot(nansum(temp,2))
+hold on; 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.5); 
+
+temp = fts2mat(portfolio_weight_ts); 
+
+temp(temp>0)=1; 
+plot(nansum(temp,2))
+hold on; 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.2); 
+
+temp = fts2mat(portfolio_weight_ts); 
+
+temp(temp>0)=1; 
+plot(nansum(temp,2))
+hold off; 
+
+%%
+% performance at each percentile
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',1); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmnlongonly',1,0.1); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.2); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+%%
+% the run up to dotcom bubble contributed a lot to the extraordinary
+% performance in the 90s. But notice that to 0.2 only contains signle digit
+% number of securities. And the extraordinary momentum stock only happened
+% in the top 1% for the period. 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmnlongonly',0.5,0.2); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+%%
+% notice how even with 30 securities, the portfolio volatility is very
+% close to the one with 150 securities. The outperformance is again mainly
+% due to the 90s, post dotcom bubble period, there are very little visible
+% outperformance compare to full long only. 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmnlongonly',0.7,0.5); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmnlongonly',0.85,0.7); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmnlongonly',1,0.85); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+%%
+% performance decreased quiet a lot when we move to the middle(signal-less
+% tier) of the scores. 0.62 sharpe is not any better than cap weighted
+% index. 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts)); 
+hold off; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+%%
+% This walk through shows that:
+%%
+% # scores do differentiate the portfolio performance
+% # number of securites has surprisingly little to do with portfolio
+% volatility, 30 securities portfolio has 18% long term volatility. 
+% # extra performance for past 25 years has a lot to do with a few stocks
+% in the 90s. 
+
+%%
+% let's compare with surgical, topm 0.6 contains about 50 securities. let's
+% compare surgical 50 with this one. 
+
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_rt_ts = fun_portfolio_return(px,portfolio_weight_ts); 
+portfolio_capital_ts = 100000*exp(cumsum(portfolio_rt_ts)); 
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% weight * rt match up perfectly with walkforward test, nice ~
+
+%%
+% topmlongonly 0.6, that's equal weight
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'topmlongonly',0.6); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% longonlym 0.6, that's score weight 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonlym',0.6); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000, px, benchmark_ts,portfolio_weight_ts,true);
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+
+%% 
+% topmlongonly 0.6 select about 50 securities and equal weight them, this should be very close to surgical 50 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% as expected! notice that if I use topmlongonly 0.6 to generate
+% portfolio_weight_ts input for surgical, it will give me bogus result.
+% Since portfolio_weight_ts will already be equal weight in that case, and
+% top 50 securities would be selected almost randomly... 
+
+
+%%
+% since score weight and equal weight cause 1% per annual return
+% difference. Let's amend surgical to make it score weighted as well. 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold off; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% B-E-A-U-tiful, we get 1% extra from shift surgical to score weight
+% instead of equal weight. More importantly it shows that surgical
+% procedure ties up with normal walkforward routine & basic weight*return!
+
+%% The effect of rebalancing frequency & number of securities. 
+
+%%
+% Rebalancing frequency 
+
+%%
+% monthly 
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% quarterly
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,3,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% annually 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,12,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold off; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% the performance decrease as we rebalance less frequently. But most of the
+% outperformance is in late 90s, when more frequent rebalancing does
+% matters. The situation would be very different when I go market
+% neutral... 
+
+
+%%
+%  number of securities
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+plot(fts2mat(portfolio_weight_ts));
+snapnow; 
+
+temp = fts2mat(portfolio_weight_ts); 
+temp(not(isnan(temp)))=1; 
+
+plot(nansum(temp,2)); 
+snapnow; 
+
+%%
+% I have this many securities to choose... 
+
+
+%%
+% 5 securities
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,5,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+
+
+%%
+% 20 securities
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,20,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+
+%%
+% 50 securities
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% 100 securities
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,100,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% 200 securities
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,200,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold off; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% notice that the portfolio volatility decrease very little as I increase
+% number of securities... good and bad... 
+
+%% Sanity check 
+% 
+  
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+%%
+% 50 securities no cost, score weight 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% 50 securities with cost, score weight 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% 50 securities with cost, equal weight 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,false);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% 50 securities without cost, score weight, 2x leverage
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% crazy drawdown... 
+
+%%
+% 50 securities with cost, score weight, 2x leverage
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,false,false,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+
+%%
+% 50 securities with cost, with full interest charge, score weight, 2x leverage
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,2, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold off; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% equal weight long, score weight off
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,false);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% equal weight long, score weight on. 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, true,50,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+%%
+% as expected. 
+
+%%
+% equal weight long, and short, no cost. 200 security v.s. full universe. 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,200,1,true,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+%%
+% equal weight long, and short, with cost. 200 security v.s. full universe. 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,200,1,false,true,true);
+
+plot(log(portfolio_capital_ts));
+hold on; 
+snapnow; 
+
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,false); 
+
+%%
+% the constant drift is transaction cost. 
+
+
+%% Conclusion 
+% The result is SOLID. 
+
+%%
+% <<Solid.gif>>
+%
+
+##### SOURCE END #####
+--></body></html>
