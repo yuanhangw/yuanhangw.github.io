@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Combined Factors - Citius, Altius, Fortius</title>
+    <meta name="description" content="keep it simple :: finish it off :: iterate
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactor_14.html">
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+  
+
+
+    
+    <a class="site-title" href="/"> 
+    <img class ="logo" src="/Mobius.jpg" alt="" height="50" width="50">nion</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      
+      <!--
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_10.html">Combined Factors - Second Descend (neutral)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_11.html">Combined Factors - Minor choices (with leverage)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_12.html">Combined Factors - Minor choices (without leverage)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_13.html">Combined Factors Summary</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_14.html">Combined Factors - Citius, Altius, Fortius</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_7.html">Combined Factors - Constant dripping wears away a stone.</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_8.html">Combined Factors - Portfolio Animation</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_9.html">Combined Factors - First Descend (Long only)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_1.html">Combined Factors - Theory mixed with a little bit of reality</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_2.html">Combined Factors - Policy Portfolios</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_3.html">Combined Factors - Policy Portfolios with large dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_4.html">Combined Factors - The Dark Force is Strong</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_5.html">Combined Factors - Fillts() or not Fillts(), That is the questoin</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_6.html">Combined Factors - Detail! Detail! Detail!</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_toolbox.html">Combined Factors - In theory ...</a>
+          
+        
+          
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
+          
+        
+          
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors.html">Multiple Factors - Load Data</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_1.html">Multiple Factors - HML updated with Risk adjustment</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_2.html">Multiple Factors - SML adjust for risk</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_3.html">Multiple Factors - BAB watch out for correlation</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_4.html">Multiple Factors - QUAL - Quality is underated</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_5.html">Multiple Factors - Revisit MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_6.html">Multiple Factors - Sanity Check</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_7.html">Multiple Factors - All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_8.html">Multiple Factors - Bigger All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor.html">Introducing Mother of all Factors - MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_1.html">MOM factor walkforward</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_2.html">MOM too good to be true?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_4.html">MOM short Cap weighted index?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_5.html">MOM walkforward with N securities</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_6.html">MOM sector neutral</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_7.html">MOM alternative MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_8.html">MOM the bigger the better?</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyDataSet.html">What's in my dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyEquityList.html">Equity List and Field List</a>
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      -->
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Combined Factors - Citius, Altius, Fortius</h1>
+  </header>
+
+  <article class="post-content">
+    <!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  Large dataset</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-18"><meta name="DC.source" content="CombinedFactor_14.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  Large dataset</h1><!--introduction--><p>Let's check out what happens when I use a much larger dataset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">1000 securities</a></li><li><a href="#3">Baseline case - no momentum normalization, no fillts</a></li><li><a href="#10">8000 securities</a></li><li><a href="#19">8000 securities with fillts</a></li><li><a href="#30">Conclusion</a></li></ul></div><h2>1000 securities<a name="1"></a></h2><p>Let's load the data from ..</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><h2>Baseline case - no momentum normalization, no fillts<a name="3"></a></h2><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+<span class="comment">% score_leverage_ts     =   fillts(score_leverage_ts,0);</span>
+<span class="comment">% score_roa_ts          =   fillts(score_roa_ts,0);</span>
+<span class="comment">% score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);</span>
+<span class="comment">% score_turnover_ts     =   fillts(score_turnover_ts,0);</span>
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_roa_ts            = score_roa_ts(75:end);
+score_leverage_ts       = score_leverage_ts(75:end);
+score_grossmargin_ts    = score_grossmargin_ts(75:end);
+score_turnover_ts       = score_turnover_ts(75:end);
+
+score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+<span class="comment">% score_mom_ts      = fillts(score_mom_ts,0);</span>
+<span class="comment">% score_pb_ts       = fillts(score_pb_ts,0);</span>
+<span class="comment">% score_cap_ts      = fillts(score_cap_ts,0);</span>
+<span class="comment">% score_beta_ts     = fillts(score_beta_ts,0);</span>
+<span class="comment">% score_quality_ts  = fillts(score_quality_ts,0);</span>
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>There is much less securites than you expeced.</p><pre class="codeinput">figure(2);
+
+score_mat = fts2mat(score_mom_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_pb_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_cap_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_beta_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_quality_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_combined_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_01.png" alt=""> <p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+</pre><p>Performance</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+figure
+show_audit_trail(px,benchmark_ts,list);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_02.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 0.98
+vol is 			 0.19
+return is 		 0.18
+correlation with benchmark_ts is
+    1.0000    0.9676
+    0.9676    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_03.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.13
+vol is 			 0.10
+return is 		 0.11
+correlation with benchmark_ts is
+    1.0000    0.8870
+    0.8870    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_04.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_05.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_06.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_07.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_08.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_09.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_10.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_11.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_12.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_13.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_14.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_15.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_16.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_17.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_18.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_19.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_20.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_21.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_22.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_23.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_24.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_25.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_26.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_27.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_28.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_29.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_30.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_31.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_32.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_33.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_34.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_35.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_36.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_37.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_38.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_39.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_40.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_41.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_42.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_43.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_44.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'NEU US Equity'
+    'REGN US Equity'
+    'PCLN US Equity'
+    'CBRL US Equity'
+    'SIAL US Equity'
+    'CHKP US Equity'
+    'ALXN US Equity'
+    'DDS US Equity'
+    'MFE US Equity'
+    'SHW US Equity'
+    'FDO US Equity'
+    'NVDA US Equity'
+    'SANM US Equity'
+    'PCP US Equity'
+    'AN US Equity'
+    'PLL US Equity'
+    'FMC US Equity'
+    'IFF US Equity'
+    'PRGO US Equity'
+    'BCR US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_45.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_46.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_47.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'AN US Equity'
+    'NVDA US Equity'
+    'REGN US Equity'
+    'KG US Equity'
+    '2724Q US Equity'
+    'CKFR US Equity'
+    '3424335Q US Equity'
+    'MFE US Equity'
+    'EDCI US Equity'
+    'WOR US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_48.png" alt=""> <pre class="codeoutput">    0.1868    0.1863
+
+   -0.0729    0.0959
+
+    0.1139    0.0961
+
+
+ans =
+
+    0.6986
+
+
+ans =
+
+    1.0043
+
+
+ans =
+
+    1.1863
+
+</pre><h2>8000 securities<a name="10"></a></h2><p>Retrieve the big data</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
+load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
+
+equity_list = equity_list(1:size(storage0,1),:);
+
+equity_list_large = equity_list(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+history_large = storage0(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+
+clear <span class="string">storage0</span>;
+clear <span class="string">equity_list</span>;
+
+equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:);
+history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index_large = datasample(1:length(equity_list_large),length(equity_list_large),<span class="string">'Replace'</span>,false);
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large);
+list = equity_list_large(index_large,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px_large);
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(120:end-5);
+score_pb_ts       = score_pb_ts(120:end-5);
+score_cap_ts      = score_cap_ts(120:end-5);
+score_beta_ts     = score_beta_ts(120:end-5);
+score_quality_ts  = score_quality_ts(120:end-5);
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>There is much less securites than you expeced.</p><pre class="codeinput">figure(2)
+
+score_mat = fts2mat(score_mom_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_pb_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_cap_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_beta_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_quality_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_combined_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_49.png" alt=""> <p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+</pre><p>Performance</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,450,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_50.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.08
+vol is 			 0.21
+return is 		 0.22
+correlation with benchmark_ts is
+    1.0000    0.9379
+    0.9379    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_51.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.44
+vol is 			 0.11
+return is 		 0.15
+correlation with benchmark_ts is
+    1.0000    0.8004
+    0.8004    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_52.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.17
+vol is 			 0.11
+return is 		 0.12
+correlation with benchmark_ts is
+    1.0000    0.8922
+    0.8922    1.0000
+
+</pre><h2>8000 securities with fillts<a name="19"></a></h2><p>take data sample, load data &amp; the list</p><pre class="codeinput">index_large = datasample(1:length(equity_list_large),length(equity_list_large),<span class="string">'Replace'</span>,false);
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large);
+list = equity_list_large(index_large,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px_large);
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(120:end-5);
+score_pb_ts       = score_pb_ts(120:end-5);
+score_cap_ts      = score_cap_ts(120:end-5);
+score_beta_ts     = score_beta_ts(120:end-5);
+score_quality_ts  = score_quality_ts(120:end-5);
+
+score_mom_ts      = fillts(score_mom_ts,0);
+score_pb_ts       = fillts(score_pb_ts,0);
+score_cap_ts      = fillts(score_cap_ts,0);
+score_beta_ts     = fillts(score_beta_ts,0);
+score_quality_ts  = fillts(score_quality_ts,0);
+
+
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5);
+</pre><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>There is much less securites than you expeced.</p><pre class="codeinput">figure(2)
+
+score_mat = fts2mat(score_mom_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_pb_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_cap_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_beta_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_quality_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">on</span>;
+
+score_mat = fts2mat(score_combined_ts);
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2));
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_53.png" alt=""> <p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts);
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,<span class="string">'EqualWeightIndex'</span>);
+</pre><p>Performance</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">on</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,450,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,2.25, 0.7, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_54.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.19
+vol is 			 0.19
+return is 		 0.23
+correlation with benchmark_ts is
+    1.0000    0.9316
+    0.9316    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_55.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_56.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_57.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_58.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_59.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_60.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_61.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_62.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_63.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_64.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_65.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_66.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_67.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_68.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_69.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_70.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_71.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_72.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_73.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_74.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_75.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_76.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_77.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_78.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_79.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_80.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_81.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_82.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_83.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_84.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_85.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_86.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_87.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_88.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_89.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_90.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_91.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_92.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_93.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_94.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_95.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'TPL US Equity'
+    'TZOO US Equity'
+    'TNH US Equity'
+    'APFC US Equity'
+    'IBCP US Equity'
+    'RGR US Equity'
+    'ASPS US Equity'
+    'MKTX US Equity'
+    'LL US Equity'
+    'SPA US Equity'
+    'APAGF US Equity'
+    'JBSS US Equity'
+    'SKX US Equity'
+    'APOG US Equity'
+    'CBM US Equity'
+    'ACET US Equity'
+    'SGC US Equity'
+    'BLLI US Equity'
+    'TLKGY US Equity'
+    'OILT US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_96.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_97.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_98.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'ICTPU US Equity'
+    'ADLR US Equity'
+    'TZOO US Equity'
+    'HDYN US Equity'
+    'RDN US Equity'
+    'IRC US Equity'
+    'XAND US Equity'
+    'ASUR US Equity'
+    'CAPI US Equity'
+    'OSTK US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_99.png" alt=""> <pre class="codeoutput">    0.2342    0.1920
+
+     0     0
+
+    0.2342    0.1920
+
+
+ans =
+
+    0.6770
+
+
+ans =
+
+    1.2221
+
+
+ans =
+
+    1.2221
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_100.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.54
+vol is 			 0.10
+return is 		 0.16
+correlation with benchmark_ts is
+    1.0000    0.7869
+    0.7869    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_101.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_102.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_103.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_104.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_105.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_106.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_107.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_108.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_109.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_110.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_111.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_112.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_113.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_114.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_115.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_116.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_117.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_118.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_119.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_120.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_121.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_122.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_123.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_124.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_125.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_126.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_127.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_128.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_129.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_130.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_131.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_132.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_133.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_134.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_135.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_136.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_137.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_138.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_139.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_140.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_141.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'TZOO US Equity'
+    'TPL US Equity'
+    'TNH US Equity'
+    'APFC US Equity'
+    'RGR US Equity'
+    'IBCP US Equity'
+    'ASPS US Equity'
+    'LL US Equity'
+    'APAGF US Equity'
+    'MKTX US Equity'
+    'SPA US Equity'
+    'ACET US Equity'
+    'APOG US Equity'
+    'JBSS US Equity'
+    'GPOR US Equity'
+    'SGMZ US Equity'
+    'SKX US Equity'
+    'CBM US Equity'
+    'WRLD US Equity'
+    'PLKI US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_142.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_143.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_144.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'ICTPU US Equity'
+    'ADLR US Equity'
+    'TZOO US Equity'
+    'HDYN US Equity'
+    'RDN US Equity'
+    'IRC US Equity'
+    'XAND US Equity'
+    'ASUR US Equity'
+    'CAPI US Equity'
+    'OSTK US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_145.png" alt=""> <pre class="codeoutput">    0.2337    0.1918
+
+   -0.0689    0.0998
+
+    0.1648    0.1034
+
+
+ans =
+
+    0.6770
+
+
+ans =
+
+    1.2203
+
+
+ans =
+
+    1.5960
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_146.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.33
+vol is 			 0.10
+return is 		 0.14
+correlation with benchmark_ts is
+    1.0000    0.8745
+    0.8745    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_147.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_148.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_149.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_150.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_151.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_152.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_153.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_154.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_155.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_156.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_157.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_158.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_159.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_160.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_161.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_162.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_163.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_164.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_165.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_166.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_167.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_168.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_169.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_170.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_171.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_172.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_173.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_174.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_175.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_176.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_177.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_178.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_179.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_180.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_181.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_182.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_183.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_184.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_185.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_186.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_187.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'TPL US Equity'
+    'TZOO US Equity'
+    'TNH US Equity'
+    'IDIX US Equity'
+    'ECOL US Equity'
+    'LL US Equity'
+    'RDN US Equity'
+    'RGR US Equity'
+    'APFC US Equity'
+    'ACET US Equity'
+    'SKX US Equity'
+    'DXCM US Equity'
+    'IBCP US Equity'
+    'SPA US Equity'
+    'APAGF US Equity'
+    'MKTX US Equity'
+    'TARO US Equity'
+    'JBSS US Equity'
+    'GPOR US Equity'
+    'CACC US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_188.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_189.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_190.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'IDIX US Equity'
+    'IDCC US Equity'
+    'ICTPU US Equity'
+    'ADLR US Equity'
+    'TZOO US Equity'
+    'HDYN US Equity'
+    'PRK US Equity'
+    'RDN US Equity'
+    'AN US Equity'
+    'HSNI US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_191.png" alt=""> <pre class="codeoutput">    0.2237    0.1965
+
+   -0.0702    0.0994
+
+    0.1536    0.1039
+
+
+ans =
+
+    0.6770
+
+
+ans =
+
+    1.1406
+
+
+ans =
+
+    1.4807
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_192.png" alt=""> <pre class="codeoutput">sharpe ratio is 	 1.23
+vol is 			 0.27
+return is 		 0.33
+correlation with benchmark_ts is
+    1.0000    0.4940
+    0.4940    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_193.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_194.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_195.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_196.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_197.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_198.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_199.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_200.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_201.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_202.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_203.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_204.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_205.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_206.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_207.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_208.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_209.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_210.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_211.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_212.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_213.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_214.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_215.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_216.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_217.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_218.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_219.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_220.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_221.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_222.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_223.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_224.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_225.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_226.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_227.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_228.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_229.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_230.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_231.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_232.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_233.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'TPL US Equity'
+    'ITSI US Equity'
+    'APFC US Equity'
+    'TZOO US Equity'
+    'TNH US Equity'
+    'IBCP US Equity'
+    'RGR US Equity'
+    'ASPS US Equity'
+    'MKTX US Equity'
+    'LL US Equity'
+    'SPA US Equity'
+    'APAGF US Equity'
+    'SGMZ US Equity'
+    'OILT US Equity'
+    'BLLI US Equity'
+    'APOG US Equity'
+    'JBSS US Equity'
+    'CBM US Equity'
+    'PZZA US Equity'
+    'ACET US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_234.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_235.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_14_236.png" alt=""> <pre class="codeoutput">
+ans = 
+
+    'ICTPU US Equity'
+    'ADLR US Equity'
+    'TZOO US Equity'
+    'HDYN US Equity'
+    'RDN US Equity'
+    'IRC US Equity'
+    'XAND US Equity'
+    'ITSI US Equity'
+    'ASUR US Equity'
+    'CAPI US Equity'
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_14_237.png" alt=""> <pre class="codeoutput">    0.5278    0.4325
+
+   -0.1766    0.3192
+
+    0.3512    0.2684
+
+
+ans =
+
+    0.5019
+
+
+ans =
+
+    1.2223
+
+
+ans =
+
+    1.3107
+
+</pre><p>a few observations with large dataset</p><div><ol><li>the selected securities become much more irratic once sub 1 billion company is admitted, in fact the top 10 is totally different from when the candidacy is controlled at 1000. Company such as LL and Sturm &amp; Ruger are included in 8000 case.</li><li>450 security make the transaction cost unacceptably high... apparently not practical with sub 1mio capital.</li><li>the hedge capital seems very high compare to equity capital.? this is due to the fact that 8000 security equal weight benchmark vol is only 8% (?), is that right? This seems warrant a separate investigation.</li></ol></div><h2>Conclusion<a name="30"></a></h2><p><img vspace="5" hspace="5" src="skywalker.jpg" alt=""> </p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  Large dataset
+% Let's check out what happens when I use a much larger dataset.  
+
+
+%% 1000 securities
+% Let's load the data from ..
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index); 
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%% Baseline case - no momentum normalization, no fillts
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+% score_leverage_ts     =   fillts(score_leverage_ts,0);
+% score_roa_ts          =   fillts(score_roa_ts,0);
+% score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+% score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+score_roa_ts            = score_roa_ts(75:end); 
+score_leverage_ts       = score_leverage_ts(75:end); 
+score_grossmargin_ts    = score_grossmargin_ts(75:end); 
+score_turnover_ts       = score_turnover_ts(75:end); 
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+% score_mom_ts      = fillts(score_mom_ts,0); 
+% score_pb_ts       = fillts(score_pb_ts,0); 
+% score_cap_ts      = fillts(score_cap_ts,0); 
+% score_beta_ts     = fillts(score_beta_ts,0); 
+% score_quality_ts  = fillts(score_quality_ts,0); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+%%
+% There is much less securites than you expeced. 
+figure(2);
+
+score_mat = fts2mat(score_mom_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_pb_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_cap_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_beta_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_quality_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_combined_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold off; 
+snapnow; 
+
+
+
+%%
+% Benchmark
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+%%
+% Performance
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+figure
+show_audit_trail(px,benchmark_ts,list);
+
+
+%% 8000 securities
+% Retrieve the big data
+
+
+load('../Big Data/data_equity_list.mat'); 
+load('../Big Data/data_historical_data_jan16.mat'); 
+
+equity_list = equity_list(1:size(storage0,1),:); 
+
+equity_list_large = equity_list(strcmp(equity_list(:,2),'US'),:); 
+history_large = storage0(strcmp(equity_list(:,2),'US'),:); 
+
+clear storage0; 
+clear equity_list; 
+
+equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:); 
+history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:); 
+
+%%
+% take data sample, load data & the list
+
+index_large = datasample(1:length(equity_list_large),length(equity_list_large),'Replace',false); 
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large); 
+list = equity_list_large(index_large,:); 
+
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px_large); 
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,'pb'); 
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'cap'); 
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,'beta'); 
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,'gm');
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'turnover');
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'roa');
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+
+score_mom_ts      = score_mom_ts(120:end-5); 
+score_pb_ts       = score_pb_ts(120:end-5); 
+score_cap_ts      = score_cap_ts(120:end-5); 
+score_beta_ts     = score_beta_ts(120:end-5); 
+score_quality_ts  = score_quality_ts(120:end-5); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+
+%%
+% There is much less securites than you expeced. 
+figure(2)
+
+score_mat = fts2mat(score_mom_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_pb_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_cap_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_beta_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_quality_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_combined_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold off; 
+snapnow; 
+
+%%
+% Benchmark
+
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+%%
+% Performance
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,450,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+
+%% 8000 securities with fillts 
+% 
+
+%%
+% take data sample, load data & the list
+
+index_large = datasample(1:length(equity_list_large),length(equity_list_large),'Replace',false); 
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large); 
+list = equity_list_large(index_large,:); 
+
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px_large); 
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,'pb'); 
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'cap'); 
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,'beta'); 
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,'gm');
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'turnover');
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'roa');
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+
+score_mom_ts      = score_mom_ts(120:end-5); 
+score_pb_ts       = score_pb_ts(120:end-5); 
+score_cap_ts      = score_cap_ts(120:end-5); 
+score_beta_ts     = score_beta_ts(120:end-5); 
+score_quality_ts  = score_quality_ts(120:end-5); 
+
+score_mom_ts      = fillts(score_mom_ts,0); 
+score_pb_ts       = fillts(score_pb_ts,0); 
+score_cap_ts      = fillts(score_cap_ts,0); 
+score_beta_ts     = fillts(score_beta_ts,0); 
+score_quality_ts  = fillts(score_quality_ts,0); 
+
+
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5); 
+
+%%
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+
+%%
+% There is much less securites than you expeced. 
+figure(2)
+
+score_mat = fts2mat(score_mom_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_pb_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_cap_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_beta_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_quality_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold on; 
+
+score_mat = fts2mat(score_combined_ts); 
+score_mat(not(isnan(score_mat)))=1;
+plot(nansum(score_mat,2)); 
+hold off; 
+snapnow; 
+
+%%
+% Benchmark
+
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+portfolio_rt_ts = fun_portfolio_return(px, portfolio_weight_eq_weight_ts); 
+benchmark = [100; 100*exp(fts2mat(cumsum(portfolio_rt_ts)))];
+benchmark_ts = fints(px.dates, benchmark,'EqualWeightIndex'); 
+
+
+%%
+% Performance
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold on; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.5, false,450,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold off; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,2.25, 0.7, false,150,1,false,false,true);
+
+figure(1);
+plot(log(portfolio_capital_ts)); 
+hold off; 
+snapnow; 
+
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true); 
+
+figure;
+show_audit_trail(px,benchmark_ts,list);
+
+
+%%
+% a few observations with large dataset
+
+%%
+% # the selected securities become much more irratic once sub 1 billion
+% company is admitted, in fact the top 10 is totally different from when
+% the candidacy is controlled at 1000. Company such as LL and Sturm & Ruger
+% are included in 8000 case. 
+% # 450 security make the transaction cost unacceptably high... apparently
+% not practical with sub 1mio capital. 
+% # the hedge capital seems very high compare to equity capital.? this is
+% due to the fact that 8000 security equal weight benchmark vol is only 8%
+% (?), is that right? This seems warrant a separate investigation. 
+
+
+%% Conclusion
+%
+
+%%
+%
+% <<skywalker.jpg>>
+%
+
+##### SOURCE END #####
+--></body></html>
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nion</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>nion</li>
+          <li><a href="mailto:iam@here.now">iam@here.now</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/yuanhangw">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">yuanhangw</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/large">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">large</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">keep it simple :: finish it off :: iterate
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
