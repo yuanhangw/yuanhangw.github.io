@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Combined Factors - Summary</title>
+    <title>Combined Factors Summary</title>
     <meta name="description" content="keep it simple :: finish it off :: iterate
 ">
 
@@ -53,7 +53,7 @@
           
         
           
-          <a class="page-link" href="/html/CombinedFactor_13.html">Combined Factors - Summary</a>
+          <a class="page-link" href="/html/CombinedFactor_13.html">Combined Factors Summary</a>
           
         
           
@@ -302,7 +302,7 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Combined Factors - Summary</h1>
+    <h1 class="post-title">Combined Factors Summary</h1>
   </header>
 
   <article class="post-content">
@@ -373,7 +373,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Combined Factors  -  Summary</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Surprises</a></li><li><a href="#4">Most important thing</a></li></ul></div><p>I picked up the factor portfolio idea about one years ago from a series of AQR papers. The idea is intuitive and simple, and within a couple of months I manage to replicate the results. There are quite a few practical considerations when I decide to implement it for real. Usually when I need to deal with multiple designer considerations, the firstmost importance is to decide the 'maganitude' or 'significance' of each choice towards final results. 20/80 rules applies here, i.e. the top few factor determines the majority of results variations.</p><p>Here is a list of things I found surprising after I went through this exercise.</p><h2>Surprises<a name="3"></a></h2><div><ol><li>[Diversification] in factors is important. Individual factor's signal is pretty weak, to the order of 0.3~0.5 signal to noise ratio, but by combining all those weak signals, I can achieve a strong signal to the magnitude of above 1.0 signal-to-noise ratio.</li><li>[Leverage] Between signal and risk, the first consideration should be risk. As Berkshire's portfolio demonstrated, there is a lot to be gain from take a moderate leverage. The relationship between risk and return is one of most simple, yet one of the most under-appreciated result in investment community.</li><li>[Transaction cost] is surprisingly less than funding cost, and rolling yield in futures contracts is very important.</li><li>optimization is important. Even though a no brainer equal weighted factor loading performed reasonably well, factor loading optimization could improve the performance by 200 bps @ 15% volatility level.</li><li>[Concentration] Good signal strength only presents in the very top tier of the candidates. There is another 20/80 rules here, I want that thin layer of cr&egrave;me de la cr&egrave;me. Avoid dilution is more important than things such as using sector weight or normalize momentum signal. For the same reason fillts give me more securities to select, therefore improved the performance meaningfully.</li><li>In terms of individual factors, SML &amp; BAB is big surprise. HML behaved very different from the rest. MOM and QUAL is the most reliable.</li></ol></div><h2>Most important thing<a name="4"></a></h2><p>The biggest risk factor in transportation system is the human factor. The same applies for investment. Its unintuitive to give up control, human emotion will urge us to intervene exactly at point where we should not. If I allow discretion, instead of abiding guidelines concluded from study the historical portfolio behavior by observing the data, it would decrease the portfolio performance by 1~2% per annual in the long run.</p><p><img vspace="5" hspace="5" src="Pareto.jpg" alt=""> </p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>Combined Factors  -  Summary</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Surprises</a></li><li><a href="#4">Most important thing</a></li></ul></div><p>I picked up the factor portfolio idea about one years ago from a series of AQR papers. The idea is intuitive and simple, and within a couple of months I manage to replicate the results. There are quite a few practical considerations when I decide to implement it for real. Usually when I need to deal with multiple designe considerations, the most important thing is to decide the 'maganitude' or 'significance' of each choice towards final results. 20/80 rules applies here, i.e. the top few factor determines the majority of results variations.</p><p>Here is a list of things I found surprising after I went through this exercise.</p><h2>Surprises<a name="3"></a></h2><div><ol><li>[Diversification] in factors is important. Individual factor's signal is pretty weak, to the order of 0.3~0.5 signal to noise ratio, but by combining all those weak signals, I can achieve a strong signal to the magnitude of above 1.0 signal-to-noise ratio.</li><li>[Leverage] Between signal and risk, the first consideration should be risk. As Berkshire's portfolio demonstrated, there is a lot to be gain from take a moderate leverage. The relationship between risk and return is one of most simple, yet one of the most under-appreciated result in investment community.</li><li>[Transaction cost] is surprisingly less than funding cost, and rolling yield in futures contracts is very important.</li><li>optimization is important. Even though a no brainer equal weighted factor loading performed reasonably well, factor loading optimization could improve the performance by 200 bps @ 15% volatility level.</li><li>[Concentration] Good signal strength only presents in the very top tier of the candidates. There is another 20/80 rules here, I want that thin layer of cr&egrave;me de la cr&egrave;me. Avoid dilution is more important than things such as using sector weight or normalize momentum signal. For the same reason fillts give me more securities to select, therefore improved the performance meaningfully.</li><li>In terms of individual factors, SML &amp; BAB is big surprise. HML behaved very different from the rest. MOM and QUAL is the most reliable.</li></ol></div><h2>Most important thing<a name="4"></a></h2><p>The biggest risk factor in transportation system is the human factor. The same applies for investment. Its unintuitive to give up control, human emotion will urge us to intervene exactly at point where we should not. If I allow discretion, instead of abiding guidelines concluded from study the historical portfolio behavior by observing the data, it would decrease the portfolio performance by 1~2% per annual in the long run.</p><p><img vspace="5" hspace="5" src="Pareto.jpg" alt=""> </p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Combined Factors  -  Summary
 
@@ -381,7 +381,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % I picked up the factor portfolio idea about one years ago from a series of AQR papers.
 % The idea is intuitive and simple, and within a couple of months I manage to replicate the results.  
 % There are quite a few practical considerations when I decide to implement it for real. Usually when I need to 
-% deal with multiple designer considerations, the firstmost importance is to decide the 'maganitude' or 'significance' of 
+% deal with multiple designe considerations, the most important thing is to decide the 'maganitude' or 'significance' of 
 % each choice towards final results. 20/80 rules applies here, i.e. the top few factor determines the majority of results variations. 
 
 %%
