@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Combined Factors - Individual Factor for large dataset</title>
+    <meta name="description" content="keep it simple :: finish it off :: iterate
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://yuanhangw.github.com/html/CombinedFactor_16.html">
+</head>
+
+
+  
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+  
+
+
+    
+    <a class="site-title" href="/"> 
+    <img class ="logo" src="/Mobius.jpg" alt="" height="50" width="50">nion</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      
+      <!--
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_10.html">Combined Factors - Second Descend (neutral)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_11.html">Combined Factors - Minor choices (with leverage)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_12.html">Combined Factors - Minor choices (without leverage)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_13.html">Combined Factors Summary</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_14.html">Combined Factors - Citius, Altius, Fortius</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_15.html">Combined Factors - low volatility index</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_16.html">Combined Factors - Individual Factor for large dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_7.html">Combined Factors - Constant dripping wears away a stone.</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_8.html">Combined Factors - Portfolio Animation</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactor_9.html">Combined Factors - First Descend (Long only)</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_1.html">Combined Factors - Theory mixed with a little bit of reality</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_2.html">Combined Factors - Policy Portfolios</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_3.html">Combined Factors - Policy Portfolios with large dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_4.html">Combined Factors - The Dark Force is Strong</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_5.html">Combined Factors - Fillts() or not Fillts(), That is the questoin</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_6.html">Combined Factors - Detail! Detail! Detail!</a>
+          
+        
+          
+          <a class="page-link" href="/html/CombinedFactors_toolbox.html">Combined Factors - In theory ...</a>
+          
+        
+          
+          <a class="page-link" href="/html/ExpectedMaximumDrawDown.html">Drawdown</a>
+          
+        
+          
+          <a class="page-link" href="/html/FREDData.html">Retrieve data from FRED database</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors.html">Multiple Factors - Load Data</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_1.html">Multiple Factors - HML updated with Risk adjustment</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_2.html">Multiple Factors - SML adjust for risk</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_3.html">Multiple Factors - BAB watch out for correlation</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_4.html">Multiple Factors - QUAL - Quality is underated</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_5.html">Multiple Factors - Revisit MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_6.html">Multiple Factors - Sanity Check</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_7.html">Multiple Factors - All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/MultipleFactors_8.html">Multiple Factors - Bigger All in one</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor.html">Introducing Mother of all Factors - MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_1.html">MOM factor walkforward</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_2.html">MOM too good to be true?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_3.html">MOM 2->N</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_4.html">MOM short Cap weighted index?</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_5.html">MOM walkforward with N securities</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_6.html">MOM sector neutral</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_7.html">MOM alternative MOM</a>
+          
+        
+          
+          <a class="page-link" href="/html/SimpleMomentumFactor_8.html">MOM the bigger the better?</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyDataSet.html">What's in my dataset</a>
+          
+        
+          
+          <a class="page-link" href="/html/WhatInMyEquityList.html">Equity List and Field List</a>
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      -->
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/post.html">Post</a>
+          
+        
+      </div>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Combined Factors - Individual Factor for large dataset</h1>
+  </header>
+
+  <article class="post-content">
+    <!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  Individual factor performance in large dataset</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-19"><meta name="DC.source" content="CombinedFactor_16.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  Individual factor performance in large dataset</h1><!--introduction--><p>let's take a look at how individual factor performed in large dataset setting.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">8000 securities</a></li><li><a href="#6">Combined score</a></li><li><a href="#17">Mini Conclusion(Combined score)</a></li><li><a href="#18">Individual scores MOM</a></li><li><a href="#23">Mini Conclusion (MOM)</a></li><li><a href="#24">All the rest</a></li><li><a href="#35">Mini Conclusion (All the rest)</a></li><li><a href="#36">Smaller dataset</a></li><li><a href="#52">Compare large result with small result</a></li><li><a href="#53">Conclusion</a></li></ul></div><h2>8000 securities<a name="1"></a></h2><p>Retrieve the big data</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
+load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
+
+
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+
+
+equity_list = equity_list(1:size(storage0,1),:);
+
+equity_list_large = equity_list(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+history_large = storage0(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
+
+clear <span class="string">storage0</span>;
+clear <span class="string">equity_list</span>;
+
+equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:);
+history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index_large = datasample(1:length(equity_list_large),length(equity_list_large),<span class="string">'Replace'</span>,false);
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large);
+list = equity_list_large(index_large,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px_large);
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_mom_ts      = score_mom_ts(120:end-5);
+score_pb_ts       = score_pb_ts(120:end-5);
+score_cap_ts      = score_cap_ts(120:end-5);
+score_beta_ts     = score_beta_ts(120:end-5);
+score_quality_ts  = score_quality_ts(120:end-5);
+
+score_mom_ts      = fillts(score_mom_ts,0);
+score_pb_ts       = fillts(score_pb_ts,0);
+score_cap_ts      = fillts(score_cap_ts,0);
+score_beta_ts     = fillts(score_beta_ts,0);
+score_quality_ts  = fillts(score_quality_ts,0);
+
+
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5);
+</pre><h2>Combined score<a name="6"></a></h2><p>Combine score</p><pre class="codeinput">score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+benchmark_ts = fun_sequential_backtest_autoadjust(100,px,spx_ts,portfolio_weight_eq_weight_ts,true);
+</pre><p>Performance</p><pre class="codeinput">portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+</pre><p>risk neutral result</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.88
+vol is 			 0.04
+return is 		 0.07
+correlation with benchmark_ts is
+    1.0000   -0.2526
+   -0.2526    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_01.png" alt=""> <p>capital neutral</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,1,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.59
+vol is 			 0.04
+return is 		 0.06
+correlation with benchmark_ts is
+    1.0000   -0.4030
+   -0.4030    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_02.png" alt=""> <p>market neutral</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.92,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 2.04
+vol is 			 0.04
+return is 		 0.07
+correlation with benchmark_ts is
+    1.0000    0.0331
+    0.0331    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_03.png" alt=""> <p>partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.7,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.73
+vol is 			 0.06
+return is 		 0.10
+correlation with benchmark_ts is
+    1.0000    0.8003
+    0.8003    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_04.png" alt=""> <p>sugical 150 with cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.44
+vol is 			 0.06
+return is 		 0.09
+correlation with benchmark_ts is
+    1.0000   -0.3358
+   -0.3358    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_05.png" alt=""> <p>sugical 500 without cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.82
+vol is 			 0.05
+return is 		 0.08
+correlation with benchmark_ts is
+    1.0000   -0.2462
+   -0.2462    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_06.png" alt=""> <p>sugical 150 with cost spx 0.92 partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.72
+vol is 			 0.06
+return is 		 0.10
+correlation with benchmark_ts is
+    1.0000   -0.0886
+   -0.0886    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_07.png" alt=""> <p>sugical 150 with cost spx 0.7 partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,1, 0.7, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+hold <span class="string">off</span>;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.27
+vol is 			 0.12
+return is 		 0.15
+correlation with benchmark_ts is
+    1.0000    0.4920
+    0.4920    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_08.png" alt=""> <h2>Mini Conclusion(Combined score)<a name="17"></a></h2><p>Uber result. The only blemish is using S&amp;P as a hedge introduced quite a bit of noise to the otherwise uber performance.</p><h2>Individual scores MOM<a name="18"></a></h2><pre class="codeinput">score_weight = [1 0 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.57
+vol is 			 0.06
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.2685
+   -0.2685    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_09.png" alt=""> <p>surgical 150 without cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts));
+snapnow
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_10.png" alt=""> <p>surgical 500 without cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+snapnow
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_11.png" alt=""> <p>surgical 150 with cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts));
+snapnow
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_12.png" alt=""> <p>surgical 150 with cost &amp; spx hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts));
+snapnow
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_13.png" alt=""> <h2>Mini Conclusion (MOM)<a name="23"></a></h2><p>individual signal is so weak that it simply won't survive the cost, number of securities limite  and imperfect hedge. Combine Various factors togather is the only way to take advantage of them.</p><h2>All the rest<a name="24"></a></h2><p>MOM</p><pre class="codeinput">score_weight = [1 0 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+mom_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.57
+vol is 			 0.06
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.2685
+   -0.2685    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_14.png" alt=""> <p>PB</p><pre class="codeinput">score_weight = [0 1 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+pb_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.32
+vol is 			 0.06
+return is 		 0.02
+correlation with benchmark_ts is
+    1.0000    0.0881
+    0.0881    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_15.png" alt=""> <p>SML</p><pre class="codeinput">score_weight = [0 0 1 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+sml_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.71
+vol is 			 0.04
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000    0.0633
+    0.0633    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_16.png" alt=""> <p>BETA</p><pre class="codeinput">score_weight = [0 0 0 1 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+beta_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.37
+vol is 			 0.03
+return is 		 0.01
+correlation with benchmark_ts is
+    1.0000   -0.3958
+   -0.3958    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_17.png" alt=""> <p>QUAL</p><pre class="codeinput">score_weight = [0 0 0 0 1];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+qual_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.95
+vol is 			 0.04
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.2485
+   -0.2485    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_18.png" alt=""> <p>MOM, BETA &amp; QUAL show negative correlation with the benchmark. To see market neutral result:</p><p>MOM Market neutral</p><pre class="codeinput">score_weight = [1 0 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+mom_mn_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.68
+vol is 			 0.07
+return is 		 0.05
+correlation with benchmark_ts is
+    1.0000   -0.0283
+   -0.0283    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_19.png" alt=""> <p>Beta Market neutral</p><pre class="codeinput">score_weight = [0 0 0 1 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+beta_mn_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.67
+vol is 			 0.04
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.0382
+   -0.0382    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_20.png" alt=""> <p>QUAL Market neutral</p><pre class="codeinput">score_weight = [0 0 0 0 1];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.95, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+qual_mn_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.02
+vol is 			 0.04
+return is 		 0.04
+correlation with benchmark_ts is
+    1.0000    0.0323
+    0.0323    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_21.png" alt=""> <p>Magic: simple equal weight</p><pre class="codeinput">score_weight = [0.2 0.2 0.2 0.2 0.2];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.94, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">off</span>;
+snapnow;
+
+eq_mn_large_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.93
+vol is 			 0.04
+return is 		 0.08
+correlation with benchmark_ts is
+    1.0000   -0.0613
+   -0.0613    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_22.png" alt=""> <h2>Mini Conclusion (All the rest)<a name="35"></a></h2><p>Pas mal~</p><h2>Smaller dataset<a name="36"></a></h2><p>let's do it all over again with smaller dataset so that I can compare.</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
+load(<span class="string">'../data_field_list.mat'</span>);
+load(<span class="string">'../data_historical_data_us.mat'</span>);
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">index = datasample(1:1300,1000,<span class="string">'Replace'</span>,false);
+px = fun_load_price(history_us, equity_list_us, index);
+px = fun_clean_data(px);
+list = equity_list_us(index,:);
+</pre><p>load observations</p><pre class="codeinput">mom_ts          = fun_calculate_mom(px);
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,<span class="string">'pb'</span>);
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'cap'</span>);
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,<span class="string">'beta'</span>);
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,<span class="string">'gm'</span>);
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'turnover'</span>);
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,<span class="string">'roa'</span>);
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">score_roa_ts            = score_roa_ts(75:end);
+score_leverage_ts       = score_leverage_ts(75:end);
+score_grossmargin_ts    = score_grossmargin_ts(75:end);
+score_turnover_ts       = score_turnover_ts(75:end);
+
+score_mom_ts      = score_mom_ts(75:end);
+score_pb_ts       = score_pb_ts(75:end);
+score_cap_ts      = score_cap_ts(75:end);
+score_beta_ts     = score_beta_ts(75:end);
+score_quality_ts  = score_quality_ts(75:end);
+
+score_mom_ts      = fillts(score_mom_ts,0);
+score_pb_ts       = fillts(score_pb_ts,0);
+score_cap_ts      = fillts(score_cap_ts,0);
+score_beta_ts     = fillts(score_beta_ts,0);
+score_quality_ts  = fillts(score_quality_ts,0);
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end);
+
+
+
+<span class="comment">% Combine score</span>
+score_weight = [0.2 0 0.4 0.1 0.3];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+
+score_combined_ts = fun_combine_score(score_combined_ts);
+</pre><p>Benchmark</p><pre class="codeinput">portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'equalweight'</span>);
+benchmark_ts = fun_sequential_backtest_autoadjust(100,px,benchmark_ts,portfolio_weight_eq_weight_ts,true);
+</pre><p>MOM</p><pre class="codeinput">score_weight = [1 0 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+mom_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.39
+vol is 			 0.06
+return is 		 0.02
+correlation with benchmark_ts is
+    1.0000   -0.3003
+   -0.3003    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_23.png" alt=""> <p>PB</p><pre class="codeinput">score_weight = [0 1 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+pb_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.24
+vol is 			 0.07
+return is 		 0.02
+correlation with benchmark_ts is
+    1.0000    0.0238
+    0.0238    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_24.png" alt=""> <p>SML</p><pre class="codeinput">score_weight = [0 0 1 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+sml_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.64
+vol is 			 0.05
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000    0.0313
+    0.0313    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_25.png" alt=""> <p>BETA</p><pre class="codeinput">score_weight = [0 0 0 1 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+
+beta_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.14
+vol is 			 0.04
+return is 		 0.01
+correlation with benchmark_ts is
+    1.0000   -0.3749
+   -0.3749    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_26.png" alt=""> <p>QUAL</p><pre class="codeinput">score_weight = [0 0 0 0 1];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+
+qual_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.68
+vol is 			 0.04
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.3064
+   -0.3064    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_27.png" alt=""> <p>MOM, BETA &amp; QUAL show negative correlation with the benchmark. To see market neutral result:</p><p>MOM Market neutral</p><pre class="codeinput">score_weight = [1 0 0 0 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.91, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+mom_mn_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.45
+vol is 			 0.07
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.0686
+   -0.0686    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_28.png" alt=""> <p>Beta Market neutral</p><pre class="codeinput">score_weight = [0 0 0 1 0];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.91, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+beta_mn_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.41
+vol is 			 0.04
+return is 		 0.01
+correlation with benchmark_ts is
+    1.0000   -0.0104
+   -0.0104    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_29.png" alt=""> <p>QUAL Market neutral</p><pre class="codeinput">score_weight = [0 0 0 0 1];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.95, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">on</span>;
+snapnow;
+
+qual_mn_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 0.80
+vol is 			 0.04
+return is 		 0.03
+correlation with benchmark_ts is
+    1.0000   -0.0417
+   -0.0417    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_30.png" alt=""> <p>Magic: simple equal weight</p><pre class="codeinput">score_weight = [0.2 0.2 0.2 0.2 0.2];
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5);
+score_combined_ts = fun_combine_score(score_combined_ts);
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,<span class="string">'longonly'</span>);
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.94, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts));
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold <span class="string">off</span>;
+snapnow;
+
+eq_mn_small_ts = portfolio_capital_ts;
+</pre><pre class="codeoutput">sharpe ratio is 	 1.06
+vol is 			 0.04
+return is 		 0.04
+correlation with benchmark_ts is
+    1.0000   -0.0298
+   -0.0298    1.0000
+
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_31.png" alt=""> <h2>Compare large result with small result<a name="52"></a></h2><pre class="codeinput">figure;
+
+plot(log(mom_large_ts));
+hold <span class="string">on</span>;
+plot(log(mom_small_ts));
+snapnow;
+plot(log(mom_mn_large_ts));
+plot(log(mom_mn_small_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+plot(log(pb_large_ts));
+hold <span class="string">on</span>;
+plot(log(pb_small_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+plot(log(sml_large_ts));
+hold <span class="string">on</span>;
+plot(log(sml_small_ts));
+hold <span class="string">off</span>;
+snapnow;
+
+
+plot(log(beta_large_ts));
+hold <span class="string">on</span>;
+plot(log(beta_small_ts));
+snapnow;
+plot(log(beta_mn_large_ts));
+plot(log(beta_mn_small_ts));
+snapnow;
+hold <span class="string">off</span>;
+
+
+
+plot(log(qual_large_ts));
+hold <span class="string">on</span>;
+plot(log(qual_small_ts));
+snapnow;
+plot(log(qual_mn_large_ts));
+plot(log(qual_mn_small_ts));
+snapnow;
+hold <span class="string">off</span>;
+
+plot(log(eq_mn_large_ts));
+hold <span class="string">on</span>;
+plot(log(eq_mn_small_ts));
+hold <span class="string">off</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="CombinedFactor_16_32.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_33.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_34.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_35.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_36.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_37.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_38.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_39.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_16_40.png" alt=""> <h2>Conclusion<a name="53"></a></h2><p><img vspace="5" hspace="5" src="What.gif" alt=""> </p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  Individual factor performance in large dataset
+% let's take a look at how individual factor performed in large dataset
+% setting. 
+
+
+
+%% 8000 securities
+% Retrieve the big data
+
+
+load('../Big Data/data_equity_list.mat'); 
+load('../Big Data/data_historical_data_jan16.mat'); 
+
+
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+equity_list = equity_list(1:size(storage0,1),:); 
+
+equity_list_large = equity_list(strcmp(equity_list(:,2),'US'),:); 
+history_large = storage0(strcmp(equity_list(:,2),'US'),:); 
+
+clear storage0; 
+clear equity_list; 
+
+equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:); 
+history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:); 
+
+%%
+% take data sample, load data & the list
+
+index_large = datasample(1:length(equity_list_large),length(equity_list_large),'Replace',false); 
+px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+px = fun_clean_data(px_large); 
+list = equity_list_large(index_large,:); 
+
+
+%%
+% load observations
+
+mom_ts          = fun_calculate_mom(px_large); 
+
+pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,'pb'); 
+cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'cap'); 
+beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,'beta'); 
+
+grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,'gm');
+turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'turnover');
+roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'roa');
+leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'leverage');
+
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+
+score_mom_ts      = score_mom_ts(120:end-5); 
+score_pb_ts       = score_pb_ts(120:end-5); 
+score_cap_ts      = score_cap_ts(120:end-5); 
+score_beta_ts     = score_beta_ts(120:end-5); 
+score_quality_ts  = score_quality_ts(120:end-5); 
+
+score_mom_ts      = fillts(score_mom_ts,0); 
+score_pb_ts       = fillts(score_pb_ts,0); 
+score_cap_ts      = fillts(score_cap_ts,0); 
+score_beta_ts     = fillts(score_beta_ts,0); 
+score_quality_ts  = fillts(score_quality_ts,0); 
+
+
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(120:end-5); 
+
+%% Combined score
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+
+%%
+% Benchmark
+
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+benchmark_ts = fun_sequential_backtest_autoadjust(100,px,spx_ts,portfolio_weight_eq_weight_ts,true); 
+
+
+%% 
+% Performance
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+
+%%
+% risk neutral result
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+%%
+% capital neutral
+portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,1,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+%%
+% market neutral
+portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.92,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+
+%%
+% partial hedge
+portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.7,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+%%
+% sugical 150 with cost 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+
+%%
+% sugical 500 without cost 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+%%
+% sugical 150 with cost spx 0.92 partial hedge
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+%%
+% sugical 150 with cost spx 0.7 partial hedge
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,1, 0.7, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+snapnow;
+
+hold off; 
+
+%% Mini Conclusion(Combined score)
+% Uber result. The only blemish is using S&P as a hedge introduced quite a
+% bit of noise to the otherwise uber performance. 
+
+%% Individual scores MOM 
+%
+
+score_weight = [1 0 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+%%
+% surgical 150 without cost 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+snapnow
+%%
+% surgical 500 without cost 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+snapnow
+%%
+% surgical 150 with cost 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts)); 
+snapnow
+
+%%
+% surgical 150 with cost & spx hedge
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
+plot(log(portfolio_capital_ts)); 
+snapnow
+hold off; 
+
+%% Mini Conclusion (MOM)
+% individual signal is so weak that it simply won't survive the cost, number of securities limite  and
+% imperfect hedge. Combine Various factors togather is the only way to take
+% advantage of them. 
+
+
+%% All the rest
+%
+
+%%
+% MOM
+
+
+score_weight = [1 0 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+mom_large_ts = portfolio_capital_ts;
+
+%%
+% PB
+
+
+score_weight = [0 1 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+pb_large_ts = portfolio_capital_ts;
+
+%%
+% SML
+
+
+score_weight = [0 0 1 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+sml_large_ts = portfolio_capital_ts;
+
+
+%%
+% BETA
+
+
+score_weight = [0 0 0 1 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+beta_large_ts = portfolio_capital_ts;
+
+
+%%
+% QUAL
+
+
+score_weight = [0 0 0 0 1]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+qual_large_ts = portfolio_capital_ts;
+
+%%
+% MOM, BETA & QUAL show negative correlation with the benchmark. To see
+% market neutral result:
+
+
+%%
+% MOM Market neutral
+
+
+score_weight = [1 0 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+mom_mn_large_ts = portfolio_capital_ts;
+
+%%
+% Beta Market neutral
+
+
+score_weight = [0 0 0 1 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+beta_mn_large_ts = portfolio_capital_ts;
+
+
+%%
+% QUAL Market neutral
+
+
+score_weight = [0 0 0 0 1]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.95, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+qual_mn_large_ts = portfolio_capital_ts;
+
+%%
+% Magic: simple equal weight
+
+
+score_weight = [0.2 0.2 0.2 0.2 0.2]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.94, false,500,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold off; 
+snapnow;
+
+eq_mn_large_ts = portfolio_capital_ts;
+
+
+%% Mini Conclusion (All the rest)
+% Pas mal~
+
+%% Smaller dataset
+% let's do it all over again with smaller dataset so that I can compare.
+
+
+load('../data_equity_list_us.mat'); 
+load('../data_field_list.mat'); 
+load('../data_historical_data_us.mat'); 
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+
+%%
+% take data sample, load data & the list
+index = datasample(1:1300,1000,'Replace',false); 
+px = fun_load_price(history_us, equity_list_us, index); 
+px = fun_clean_data(px); 
+list = equity_list_us(index,:); 
+
+%% 
+% load observations
+
+mom_ts          = fun_calculate_mom(px); 
+
+pb_ts           = fun_load_observations(history_us, equity_list_us, index,'pb'); 
+cap_ts          = fun_load_observations(history_us, equity_list_us, index,'cap'); 
+beta_ts         = fun_load_observations(history_us, equity_list_us, index,'beta'); 
+
+grossmargin_ts  = fun_load_observations(history_us, equity_list_us, index,'gm');
+turnover_ts     = fun_load_observations(history_us, equity_list_us, index,'turnover');
+roa_ts          = fun_load_observations(history_us, equity_list_us, index,'roa');
+leverage_ts     = fun_load_observations(history_us, equity_list_us, index,'leverage');
+
+%%
+% calculate score
+
+score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+score_leverage_ts     =   fillts(score_leverage_ts,0);
+score_roa_ts          =   fillts(score_roa_ts,0);
+score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+
+score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+%%  
+% Trim
+score_roa_ts            = score_roa_ts(75:end); 
+score_leverage_ts       = score_leverage_ts(75:end); 
+score_grossmargin_ts    = score_grossmargin_ts(75:end); 
+score_turnover_ts       = score_turnover_ts(75:end); 
+
+score_mom_ts      = score_mom_ts(75:end); 
+score_pb_ts       = score_pb_ts(75:end); 
+score_cap_ts      = score_cap_ts(75:end); 
+score_beta_ts     = score_beta_ts(75:end); 
+score_quality_ts  = score_quality_ts(75:end); 
+
+score_mom_ts      = fillts(score_mom_ts,0); 
+score_pb_ts       = fillts(score_pb_ts,0); 
+score_cap_ts      = fillts(score_cap_ts,0); 
+score_beta_ts     = fillts(score_beta_ts,0); 
+score_quality_ts  = fillts(score_quality_ts,0); 
+
+score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+px = px(75:end); 
+
+
+
+% Combine score 
+score_weight = [0.2 0 0.4 0.1 0.3]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+
+%%
+% Benchmark
+
+portfolio_weight_eq_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'equalweight'); 
+benchmark_ts = fun_sequential_backtest_autoadjust(100,px,benchmark_ts,portfolio_weight_eq_weight_ts,true); 
+
+
+
+%%
+% MOM
+
+
+score_weight = [1 0 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+mom_small_ts = portfolio_capital_ts;
+
+%%
+% PB
+
+
+score_weight = [0 1 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+pb_small_ts = portfolio_capital_ts;
+
+
+%%
+% SML
+
+
+score_weight = [0 0 1 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+sml_small_ts = portfolio_capital_ts;
+
+%%
+% BETA
+
+
+score_weight = [0 0 0 1 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+
+beta_small_ts = portfolio_capital_ts;
+
+%%
+% QUAL
+
+
+score_weight = [0 0 0 0 1]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_autoadjust(100000,px,benchmark_ts,portfolio_weight_ts,false); 
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+
+qual_small_ts = portfolio_capital_ts;
+
+%%
+% MOM, BETA & QUAL show negative correlation with the benchmark. To see
+% market neutral result:
+
+
+%%
+% MOM Market neutral
+
+
+score_weight = [1 0 0 0 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.91, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+mom_mn_small_ts = portfolio_capital_ts;
+
+%%
+% Beta Market neutral
+
+
+score_weight = [0 0 0 1 0]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.91, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+beta_mn_small_ts = portfolio_capital_ts;
+
+
+%%
+% QUAL Market neutral
+
+
+score_weight = [0 0 0 0 1]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.95, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold on; 
+snapnow;
+
+qual_mn_small_ts = portfolio_capital_ts;
+
+%%
+% Magic: simple equal weight
+
+
+score_weight = [0.2 0.2 0.2 0.2 0.2]; 
+
+score_combined_ts = score_mom_ts*score_weight(1) + score_pb_ts*score_weight(2) + score_cap_ts*score_weight(3) + score_beta_ts*score_weight(4) + score_quality_ts*score_weight(5); 
+score_combined_ts = fun_combine_score(score_combined_ts); 
+
+portfolio_weight_ts = fun_portfolio_weight_sector_neutral(score_combined_ts,'longonly'); 
+portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.94, false,150,1,true,false,true);
+plot(log(portfolio_capital_ts)); 
+fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
+hold off; 
+snapnow;
+
+eq_mn_small_ts = portfolio_capital_ts;
+
+
+%% Compare large result with small result 
+figure; 
+
+plot(log(mom_large_ts)); 
+hold on; 
+plot(log(mom_small_ts)); 
+snapnow; 
+plot(log(mom_mn_large_ts)); 
+plot(log(mom_mn_small_ts)); 
+hold off; 
+snapnow;  
+
+
+plot(log(pb_large_ts)); 
+hold on; 
+plot(log(pb_small_ts)); 
+hold off; 
+snapnow; 
+
+
+plot(log(sml_large_ts)); 
+hold on; 
+plot(log(sml_small_ts)); 
+hold off; 
+snapnow; 
+
+
+plot(log(beta_large_ts)); 
+hold on; 
+plot(log(beta_small_ts)); 
+snapnow; 
+plot(log(beta_mn_large_ts)); 
+plot(log(beta_mn_small_ts)); 
+snapnow; 
+hold off; 
+
+
+
+plot(log(qual_large_ts)); 
+hold on; 
+plot(log(qual_small_ts)); 
+snapnow; 
+plot(log(qual_mn_large_ts)); 
+plot(log(qual_mn_small_ts)); 
+snapnow; 
+hold off; 
+
+plot(log(eq_mn_large_ts)); 
+hold on; 
+plot(log(eq_mn_small_ts)); 
+hold off; 
+snapnow; 
+
+%% Conclusion
+% 
+
+%%
+%
+% <<What.gif>>
+%
+
+
+
+
+##### SOURCE END #####
+--></body></html>
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nion</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>nion</li>
+          <li><a href="mailto:iam@here.now">iam@here.now</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/yuanhangw">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">yuanhangw</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/large">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">large</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">keep it simple :: finish it off :: iterate
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
