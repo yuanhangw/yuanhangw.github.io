@@ -5,6 +5,7 @@ tag: post
 date: 2016-02-19 16:43:18
 categories: matlab
 ---
+
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head>
@@ -82,6 +83,8 @@ load(<span class="string">'../spx_ts.mat'</span>);
 
 
 equity_list = equity_list(1:size(storage0,1),:);
+equity_list = fun_update_equity_list(storage0,equity_list);
+
 
 equity_list_large = equity_list(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
 history_large = storage0(strcmp(equity_list(:,2),<span class="string">'US'</span>),:);
@@ -155,78 +158,78 @@ plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 hold <span class="string">on</span>;
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.88
+</pre><pre class="codeoutput">sharpe ratio is 	 1.53
 vol is 			 0.04
 return is 		 0.07
 correlation with benchmark_ts is
-    1.0000   -0.2526
-   -0.2526    1.0000
+    1.0000   -0.2584
+   -0.2584    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_01.png" alt=""> <p>capital neutral</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,1,portfolio_weight_ts,false);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.59
-vol is 			 0.04
+</pre><pre class="codeoutput">sharpe ratio is 	 1.14
+vol is 			 0.05
 return is 		 0.06
 correlation with benchmark_ts is
-    1.0000   -0.4030
-   -0.4030    1.0000
+    1.0000   -0.5033
+   -0.5033    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_02.png" alt=""> <p>market neutral</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.92,portfolio_weight_ts,false);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 2.04
+</pre><pre class="codeoutput">sharpe ratio is 	 1.56
 vol is 			 0.04
 return is 		 0.07
 correlation with benchmark_ts is
-    1.0000    0.0331
-    0.0331    1.0000
+    1.0000   -0.1756
+   -0.1756    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_03.png" alt=""> <p>partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_partial(100000,px,benchmark_ts,0.7,portfolio_weight_ts,false);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.73
+</pre><pre class="codeoutput">sharpe ratio is 	 1.69
 vol is 			 0.06
 return is 		 0.10
 correlation with benchmark_ts is
-    1.0000    0.8003
-    0.8003    1.0000
+    1.0000    0.6821
+    0.6821    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_04.png" alt=""> <p>sugical 150 with cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,false,false,true);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.44
-vol is 			 0.06
-return is 		 0.09
+</pre><pre class="codeoutput">sharpe ratio is 	 1.37
+vol is 			 0.07
+return is 		 0.10
 correlation with benchmark_ts is
-    1.0000   -0.3358
-   -0.3358    1.0000
+    1.0000   -0.3461
+   -0.3461    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_05.png" alt=""> <p>sugical 500 without cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,500,1,true,false,true);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.82
-vol is 			 0.05
-return is 		 0.08
+</pre><pre class="codeoutput">sharpe ratio is 	 1.55
+vol is 			 0.06
+return is 		 0.09
 correlation with benchmark_ts is
-    1.0000   -0.2462
-   -0.2462    1.0000
+    1.0000   -0.2902
+   -0.2902    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_06.png" alt=""> <p>sugical 150 with cost spx 0.92 partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 0.92, false,150,1,false,false,true);
 plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.72
-vol is 			 0.06
-return is 		 0.10
+</pre><pre class="codeoutput">sharpe ratio is 	 1.60
+vol is 			 0.07
+return is 		 0.11
 correlation with benchmark_ts is
-    1.0000   -0.0886
-   -0.0886    1.0000
+    1.0000   -0.1576
+   -0.1576    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_07.png" alt=""> <p>sugical 150 with cost spx 0.7 partial hedge</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, spx_ts, rfr_ts, portfolio_weight_ts,list,1, 0.7, false,150,1,false,false,true);
 plot(log(portfolio_capital_ts));
@@ -234,12 +237,12 @@ fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 snapnow;
 
 hold <span class="string">off</span>;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.27
+</pre><pre class="codeoutput">sharpe ratio is 	 1.28
 vol is 			 0.12
-return is 		 0.15
+return is 		 0.16
 correlation with benchmark_ts is
-    1.0000    0.4920
-    0.4920    1.0000
+    1.0000    0.3936
+    0.3936    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_08.png" alt=""> <h2>Mini Conclusion(Combined score)<a name="17"></a></h2><p>Uber result. The only blemish is using S&amp;P as a hedge introduced quite a bit of noise to the otherwise uber performance.</p><h2>Individual scores MOM<a name="18"></a></h2><pre class="codeinput">score_weight = [1 0 0 0 0];
 
@@ -252,12 +255,12 @@ plot(log(portfolio_capital_ts));
 fun_performance_meansure(portfolio_capital_ts,benchmark_ts,true);
 hold <span class="string">on</span>;
 snapnow;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.57
+</pre><pre class="codeoutput">sharpe ratio is 	 0.53
 vol is 			 0.06
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.2685
-   -0.2685    1.0000
+    1.0000   -0.2623
+   -0.2623    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_09.png" alt=""> <p>surgical 150 without cost</p><pre class="codeinput">portfolio_capital_ts = fun_sequential_backtest_surgical_debug(100000, px, benchmark_ts, rfr_ts, portfolio_weight_ts,list,1, 1, false,150,1,true,false,true);
 plot(log(portfolio_capital_ts));
@@ -285,12 +288,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 mom_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.57
+</pre><pre class="codeoutput">sharpe ratio is 	 0.53
 vol is 			 0.06
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.2685
-   -0.2685    1.0000
+    1.0000   -0.2623
+   -0.2623    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_14.png" alt=""> <p>PB</p><pre class="codeinput">score_weight = [0 1 0 0 0];
 
@@ -305,12 +308,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 pb_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.32
+</pre><pre class="codeoutput">sharpe ratio is 	 0.62
 vol is 			 0.06
-return is 		 0.02
+return is 		 0.03
 correlation with benchmark_ts is
-    1.0000    0.0881
-    0.0881    1.0000
+    1.0000    0.0628
+    0.0628    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_15.png" alt=""> <p>SML</p><pre class="codeinput">score_weight = [0 0 1 0 0];
 
@@ -325,12 +328,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 sml_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.71
-vol is 			 0.04
-return is 		 0.03
+</pre><pre class="codeoutput">sharpe ratio is 	 0.65
+vol is 			 0.05
+return is 		 0.04
 correlation with benchmark_ts is
-    1.0000    0.0633
-    0.0633    1.0000
+    1.0000   -0.0350
+   -0.0350    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_16.png" alt=""> <p>BETA</p><pre class="codeinput">score_weight = [0 0 0 1 0];
 
@@ -345,12 +348,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 beta_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.37
-vol is 			 0.03
+</pre><pre class="codeoutput">sharpe ratio is 	 0.30
+vol is 			 0.04
 return is 		 0.01
 correlation with benchmark_ts is
-    1.0000   -0.3958
-   -0.3958    1.0000
+    1.0000   -0.3790
+   -0.3790    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_17.png" alt=""> <p>QUAL</p><pre class="codeinput">score_weight = [0 0 0 0 1];
 
@@ -365,12 +368,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 qual_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.95
-vol is 			 0.04
+</pre><pre class="codeoutput">sharpe ratio is 	 1.09
+vol is 			 0.03
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.2485
-   -0.2485    1.0000
+    1.0000   -0.2617
+   -0.2617    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_18.png" alt=""> <p>MOM, BETA &amp; QUAL show negative correlation with the benchmark. To see market neutral result:</p><p>MOM Market neutral</p><pre class="codeinput">score_weight = [1 0 0 0 0];
 
@@ -385,12 +388,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 mom_mn_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.68
+</pre><pre class="codeoutput">sharpe ratio is 	 0.55
 vol is 			 0.07
-return is 		 0.05
+return is 		 0.04
 correlation with benchmark_ts is
-    1.0000   -0.0283
-   -0.0283    1.0000
+    1.0000   -0.0364
+   -0.0364    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_19.png" alt=""> <p>Beta Market neutral</p><pre class="codeinput">score_weight = [0 0 0 1 0];
 
@@ -405,12 +408,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 beta_mn_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.67
-vol is 			 0.04
+</pre><pre class="codeoutput">sharpe ratio is 	 0.56
+vol is 			 0.05
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.0382
-   -0.0382    1.0000
+    1.0000   -0.0700
+   -0.0700    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_20.png" alt=""> <p>QUAL Market neutral</p><pre class="codeinput">score_weight = [0 0 0 0 1];
 
@@ -425,12 +428,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 qual_mn_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.02
+</pre><pre class="codeoutput">sharpe ratio is 	 1.04
 vol is 			 0.04
 return is 		 0.04
 correlation with benchmark_ts is
-    1.0000    0.0323
-    0.0323    1.0000
+    1.0000    0.0432
+    0.0432    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_21.png" alt=""> <p>Magic: simple equal weight</p><pre class="codeinput">score_weight = [0.2 0.2 0.2 0.2 0.2];
 
@@ -445,12 +448,12 @@ hold <span class="string">off</span>;
 snapnow;
 
 eq_mn_large_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.93
-vol is 			 0.04
-return is 		 0.08
+</pre><pre class="codeoutput">sharpe ratio is 	 1.94
+vol is 			 0.05
+return is 		 0.10
 correlation with benchmark_ts is
-    1.0000   -0.0613
-   -0.0613    1.0000
+    1.0000   -0.1320
+   -0.1320    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_22.png" alt=""> <h2>Mini Conclusion (All the rest)<a name="35"></a></h2><p>Pas mal~</p><h2>Smaller dataset<a name="36"></a></h2><p>let's do it all over again with smaller dataset so that I can compare.</p><pre class="codeinput">load(<span class="string">'../data_equity_list_us.mat'</span>);
 load(<span class="string">'../data_field_list.mat'</span>);
@@ -537,12 +540,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 mom_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.39
-vol is 			 0.06
-return is 		 0.02
+</pre><pre class="codeoutput">sharpe ratio is 	 0.42
+vol is 			 0.07
+return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.3003
-   -0.3003    1.0000
+    1.0000   -0.3047
+   -0.3047    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_23.png" alt=""> <p>PB</p><pre class="codeinput">score_weight = [0 1 0 0 0];
 
@@ -557,12 +560,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 pb_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.24
+</pre><pre class="codeoutput">sharpe ratio is 	 0.17
 vol is 			 0.07
-return is 		 0.02
+return is 		 0.01
 correlation with benchmark_ts is
-    1.0000    0.0238
-    0.0238    1.0000
+    1.0000    0.0443
+    0.0443    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_24.png" alt=""> <p>SML</p><pre class="codeinput">score_weight = [0 0 1 0 0];
 
@@ -581,8 +584,8 @@ sml_small_ts = portfolio_capital_ts;
 vol is 			 0.05
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000    0.0313
-    0.0313    1.0000
+    1.0000    0.0432
+    0.0432    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_25.png" alt=""> <p>BETA</p><pre class="codeinput">score_weight = [0 0 0 1 0];
 
@@ -598,12 +601,12 @@ snapnow;
 
 
 beta_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.14
+</pre><pre class="codeoutput">sharpe ratio is 	 0.05
 vol is 			 0.04
-return is 		 0.01
+return is 		 0.00
 correlation with benchmark_ts is
-    1.0000   -0.3749
-   -0.3749    1.0000
+    1.0000   -0.3484
+   -0.3484    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_26.png" alt=""> <p>QUAL</p><pre class="codeinput">score_weight = [0 0 0 0 1];
 
@@ -619,12 +622,12 @@ snapnow;
 
 
 qual_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.68
+</pre><pre class="codeoutput">sharpe ratio is 	 0.73
 vol is 			 0.04
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.3064
-   -0.3064    1.0000
+    1.0000   -0.3349
+   -0.3349    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_27.png" alt=""> <p>MOM, BETA &amp; QUAL show negative correlation with the benchmark. To see market neutral result:</p><p>MOM Market neutral</p><pre class="codeinput">score_weight = [1 0 0 0 0];
 
@@ -639,12 +642,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 mom_mn_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.45
+</pre><pre class="codeoutput">sharpe ratio is 	 0.46
 vol is 			 0.07
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.0686
-   -0.0686    1.0000
+    1.0000   -0.0719
+   -0.0719    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_28.png" alt=""> <p>Beta Market neutral</p><pre class="codeinput">score_weight = [0 0 0 1 0];
 
@@ -659,12 +662,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 beta_mn_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.41
+</pre><pre class="codeoutput">sharpe ratio is 	 0.25
 vol is 			 0.04
 return is 		 0.01
 correlation with benchmark_ts is
-    1.0000   -0.0104
-   -0.0104    1.0000
+    1.0000    0.0162
+    0.0162    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_29.png" alt=""> <p>QUAL Market neutral</p><pre class="codeinput">score_weight = [0 0 0 0 1];
 
@@ -679,12 +682,12 @@ hold <span class="string">on</span>;
 snapnow;
 
 qual_mn_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 0.80
+</pre><pre class="codeoutput">sharpe ratio is 	 0.86
 vol is 			 0.04
 return is 		 0.03
 correlation with benchmark_ts is
-    1.0000   -0.0417
-   -0.0417    1.0000
+    1.0000   -0.0831
+   -0.0831    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_30.png" alt=""> <p>Magic: simple equal weight</p><pre class="codeinput">score_weight = [0.2 0.2 0.2 0.2 0.2];
 
@@ -699,12 +702,12 @@ hold <span class="string">off</span>;
 snapnow;
 
 eq_mn_small_ts = portfolio_capital_ts;
-</pre><pre class="codeoutput">sharpe ratio is 	 1.06
+</pre><pre class="codeoutput">sharpe ratio is 	 0.96
 vol is 			 0.04
 return is 		 0.04
 correlation with benchmark_ts is
-    1.0000   -0.0298
-   -0.0298    1.0000
+    1.0000   -0.0367
+   -0.0367    1.0000
 
 </pre><img vspace="5" hspace="5" src="CombinedFactor_16_31.png" alt=""> <h2>Compare large result with small result<a name="52"></a></h2><pre class="codeinput">figure;
 
@@ -779,6 +782,8 @@ load('../spx_ts.mat');
 
 
 equity_list = equity_list(1:size(storage0,1),:); 
+equity_list = fun_update_equity_list(storage0,equity_list); 
+
 
 equity_list_large = equity_list(strcmp(equity_list(:,2),'US'),:); 
 history_large = storage0(strcmp(equity_list(:,2),'US'),:); 
