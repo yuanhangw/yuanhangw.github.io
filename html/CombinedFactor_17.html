@@ -1,0 +1,356 @@
+---
+layout: page
+title: Combined Factors - Global (load data)
+tag: post
+date: 2016-02-23 17:55:18
+categories: matlab
+---
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Combined Factors  -  going global(process data)</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-02-23"><meta name="DC.source" content="CombinedFactor_17.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Combined Factors  -  going global(process data)</h1><!--introduction--><p>load the data from all countries.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#9">Data inspection</a></li></ul></div><p>Retrieve the big data</p><pre class="codeinput">load(<span class="string">'../Big Data/data_equity_list.mat'</span>);
+load(<span class="string">'../Big Data/data_historical_data_jan16.mat'</span>);
+
+
+load(<span class="string">'../rfr_ts.mat'</span>);
+load(<span class="string">'../cap_benchmark_ts.mat'</span>);
+load(<span class="string">'../spx_ts.mat'</span>);
+
+
+equity_list = equity_list(1:size(storage0,1),:);
+
+equity_list = fun_update_equity_list(storage0,equity_list);
+</pre><p>Get score and px from different regions in order.</p><pre class="codeinput">selector{1} = strcmp(equity_list(:,2),<span class="string">'GA'</span>)|strcmp(equity_list(:,2),<span class="string">'PL'</span>)|strcmp(equity_list(:,2),<span class="string">'SM'</span>)|strcmp(equity_list(:,2),<span class="string">'AV'</span>);
+selector{2} = strcmp(equity_list(:,2),<span class="string">'DC'</span>)|strcmp(equity_list(:,2),<span class="string">'FH'</span>)|strcmp(equity_list(:,2),<span class="string">'ID'</span>)|strcmp(equity_list(:,2),<span class="string">'NA'</span>)|strcmp(equity_list(:,2),<span class="string">'NO'</span>)|strcmp(equity_list(:,2),<span class="string">'SS'</span>);
+selector{3} = strcmp(equity_list(:,2),<span class="string">'FP'</span>)|strcmp(equity_list(:,2),<span class="string">'GR'</span>)|strcmp(equity_list(:,2),<span class="string">'BB'</span>)|strcmp(equity_list(:,2),<span class="string">'IM'</span>)|strcmp(equity_list(:,2),<span class="string">'LX'</span>)|strcmp(equity_list(:,2),<span class="string">'SW'</span>);
+
+
+selector{4} = strcmp(equity_list(:,2),<span class="string">'CH'</span>);
+selector{5} = strcmp(equity_list(:,2),<span class="string">'HK'</span>);
+selector{6} = strcmp(equity_list(:,2),<span class="string">'JP'</span>);
+selector{7} = strcmp(equity_list(:,2),<span class="string">'KS'</span>);
+selector{8} = strcmp(equity_list(:,2),<span class="string">'SP'</span>);
+selector{9} = strcmp(equity_list(:,2),<span class="string">'TT'</span>);
+
+
+selector{10} = strcmp(equity_list(:,2),<span class="string">'AU'</span>)|strcmp(equity_list(:,2),<span class="string">'NZ'</span>);
+selector{11} = strcmp(equity_list(:,2),<span class="string">'LI'</span>)|strcmp(equity_list(:,2),<span class="string">'LN'</span>);
+selector{12} = strcmp(equity_list(:,2),<span class="string">'CN'</span>);
+selector{13} = strcmp(equity_list(:,2),<span class="string">'US'</span>);
+
+names = [{<span class="string">'SEURO'</span>} {<span class="string">'NEURO'</span>} {<span class="string">'EURO'</span>} {<span class="string">'CHINA'</span>} {<span class="string">'HK'</span>} {<span class="string">'JP'</span>} {<span class="string">'KR'</span>} {<span class="string">'SPORE'</span>} {<span class="string">'TW'</span>} {<span class="string">'AUNZ'</span>} {<span class="string">'LND'</span>} {<span class="string">'CAN'</span>} {<span class="string">'USA'</span>}];
+
+i = 1;
+<span class="keyword">while</span> i&lt;=13
+</pre><pre class="codeinput">  equity_list_large = equity_list(selector{i},:);
+  history_large = storage0(selector{i},:);
+
+  equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:);
+  history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:);
+</pre><p>take data sample, load data &amp; the list</p><pre class="codeinput">  index_large = datasample(1:length(equity_list_large),length(equity_list_large),<span class="string">'Replace'</span>,false);
+  px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+  px = fun_clean_data_alt(px_large,0.01);
+  list = equity_list_large(index_large,:);
+</pre><p>load observations</p><pre class="codeinput">  mom_ts          = fun_calculate_mom(px_large);
+
+  pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'pb'</span>);
+  cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'cap'</span>);
+  beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'beta'</span>);
+
+  grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'gm'</span>);
+  turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'turnover'</span>);
+  roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'roa'</span>);
+  leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,<span class="string">'leverage'</span>);
+</pre><p>calculate score</p><pre class="codeinput">  score_mom_ts          =   fun_calculate_score(mom_ts,list,<span class="string">'sectorsort'</span>,px);
+
+  score_pb_ts           =   -fun_calculate_score(pb_ts,list,<span class="string">'sectorsort'</span>,px);
+  score_cap_ts          =   -fun_calculate_score(cap_ts,list,<span class="string">'sectorsort'</span>,px);
+  score_beta_ts         =   -fun_calculate_score(beta_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+  score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,<span class="string">'sectorsort'</span>,px);
+  score_roa_ts          =   fun_calculate_score(roa_ts,list,<span class="string">'sectorsort'</span>,px);
+  score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,<span class="string">'sectorsort'</span>,px);
+  score_turnover_ts     =   fun_calculate_score(turnover_ts,list,<span class="string">'sectorsort'</span>,px);
+
+
+  score_leverage_ts     =   fillts(score_leverage_ts,0);
+  score_roa_ts          =   fillts(score_roa_ts,0);
+  score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+  score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+  score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+  score_quality_ts      =   fun_combine_score(score_quality_ts);
+</pre><p>Trim</p><pre class="codeinput">  score_mom_ts      = score_mom_ts(120:end-5);
+  score_pb_ts       = score_pb_ts(120:end-5);
+  score_cap_ts      = score_cap_ts(120:end-5);
+  score_beta_ts     = score_beta_ts(120:end-5);
+  score_quality_ts  = score_quality_ts(120:end-5);
+
+  score_mom_ts      = fillts(score_mom_ts,0);
+  score_pb_ts       = fillts(score_pb_ts,0);
+  score_cap_ts      = fillts(score_cap_ts,0);
+  score_beta_ts     = fillts(score_beta_ts,0);
+  score_quality_ts  = fillts(score_quality_ts,0);
+
+
+
+  score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+  px = px(120:end-5);
+
+
+
+  scores{i} = score_ts;
+  pxs{i} = px;
+  lists{i} = list;
+
+  i = i+1;
+</pre><pre class="codeinput"><span class="keyword">end</span>
+
+
+save(<span class="string">'global_data.mat'</span>,<span class="string">'scores'</span>,<span class="string">'pxs'</span>,<span class="string">'lists'</span>,<span class="string">'names'</span>,<span class="string">'rfr_ts'</span>,<span class="string">'spx_ts'</span>);
+</pre><h2>Data inspection<a name="9"></a></h2><pre class="codeinput">j = 1;
+<span class="keyword">while</span> j &lt;= 5
+
+  i = 1;
+  <span class="keyword">while</span> i &lt;= 13
+    subplot(4,4,i)
+    plot((fts2mat(scores{i}{j})));
+    title(names{i});
+
+    i = i+1;
+  <span class="keyword">end</span>
+  snapnow;
+
+  j = j+1;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="CombinedFactor_17_01.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_17_02.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_17_03.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_17_04.png" alt=""> <img vspace="5" hspace="5" src="CombinedFactor_17_05.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Combined Factors  -  going global(process data)
+% load the data from all countries. 
+
+
+
+%% 
+% Retrieve the big data
+
+
+
+load('../Big Data/data_equity_list.mat'); 
+load('../Big Data/data_historical_data_jan16.mat'); 
+
+
+load('../rfr_ts.mat');
+load('../cap_benchmark_ts.mat'); 
+load('../spx_ts.mat'); 
+
+
+equity_list = equity_list(1:size(storage0,1),:); 
+
+equity_list = fun_update_equity_list(storage0,equity_list); 
+
+
+%%
+% Get score and px from different regions in order. 
+
+selector{1} = strcmp(equity_list(:,2),'GA')|strcmp(equity_list(:,2),'PL')|strcmp(equity_list(:,2),'SM')|strcmp(equity_list(:,2),'AV'); 
+selector{2} = strcmp(equity_list(:,2),'DC')|strcmp(equity_list(:,2),'FH')|strcmp(equity_list(:,2),'ID')|strcmp(equity_list(:,2),'NA')|strcmp(equity_list(:,2),'NO')|strcmp(equity_list(:,2),'SS'); 
+selector{3} = strcmp(equity_list(:,2),'FP')|strcmp(equity_list(:,2),'GR')|strcmp(equity_list(:,2),'BB')|strcmp(equity_list(:,2),'IM')|strcmp(equity_list(:,2),'LX')|strcmp(equity_list(:,2),'SW'); 
+
+
+selector{4} = strcmp(equity_list(:,2),'CH'); 
+selector{5} = strcmp(equity_list(:,2),'HK'); 
+selector{6} = strcmp(equity_list(:,2),'JP'); 
+selector{7} = strcmp(equity_list(:,2),'KS'); 
+selector{8} = strcmp(equity_list(:,2),'SP'); 
+selector{9} = strcmp(equity_list(:,2),'TT'); 
+
+
+selector{10} = strcmp(equity_list(:,2),'AU')|strcmp(equity_list(:,2),'NZ'); 
+selector{11} = strcmp(equity_list(:,2),'LI')|strcmp(equity_list(:,2),'LN'); 
+selector{12} = strcmp(equity_list(:,2),'CN'); 
+selector{13} = strcmp(equity_list(:,2),'US'); 
+
+names = [{'SEURO'} {'NEURO'} {'EURO'} {'CHINA'} {'HK'} {'JP'} {'KR'} {'SPORE'} {'TW'} {'AUNZ'} {'LND'} {'CAN'} {'USA'}]; 
+
+i = 1; 
+while i<=13
+
+
+  equity_list_large = equity_list(selector{i},:); 
+  history_large = storage0(selector{i},:); 
+
+  equity_list_large = equity_list_large(not(cellfun(@isempty,history_large(:,1))),:); 
+  history_large = history_large(not(cellfun(@isempty,history_large(:,1))),:); 
+
+  %%
+  % take data sample, load data & the list
+
+  index_large = datasample(1:length(equity_list_large),length(equity_list_large),'Replace',false); 
+  px_large = fun_load_price_large(history_large, equity_list_large, index_large);
+  px = fun_clean_data_alt(px_large,0.01); 
+  list = equity_list_large(index_large,:); 
+
+
+  %%
+  % load observations
+
+  mom_ts          = fun_calculate_mom(px_large); 
+
+  pb_ts           = fun_load_observations_large(history_large, equity_list_large, index_large,'pb'); 
+  cap_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'cap'); 
+  beta_ts         = fun_load_observations_large(history_large, equity_list_large, index_large,'beta'); 
+
+  grossmargin_ts  = fun_load_observations_large(history_large, equity_list_large, index_large,'gm');
+  turnover_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'turnover');
+  roa_ts          = fun_load_observations_large(history_large, equity_list_large, index_large,'roa');
+  leverage_ts     = fun_load_observations_large(history_large, equity_list_large, index_large,'leverage');
+
+
+  %%
+  % calculate score
+
+  score_mom_ts          =   fun_calculate_score(mom_ts,list,'sectorsort',px);
+
+  score_pb_ts           =   -fun_calculate_score(pb_ts,list,'sectorsort',px); 
+  score_cap_ts          =   -fun_calculate_score(cap_ts,list,'sectorsort',px); 
+  score_beta_ts         =   -fun_calculate_score(beta_ts,list,'sectorsort',px);
+
+
+  score_leverage_ts     =   -fun_calculate_score(leverage_ts,list,'sectorsort',px);
+  score_roa_ts          =   fun_calculate_score(roa_ts,list,'sectorsort',px);
+  score_grossmargin_ts  =   fun_calculate_score(grossmargin_ts,list,'sectorsort',px);
+  score_turnover_ts     =   fun_calculate_score(turnover_ts,list,'sectorsort',px);
+
+
+  score_leverage_ts     =   fillts(score_leverage_ts,0);
+  score_roa_ts          =   fillts(score_roa_ts,0);
+  score_grossmargin_ts  =   fillts(score_grossmargin_ts,0);
+  score_turnover_ts     =   fillts(score_turnover_ts,0);
+
+  score_quality_ts      =   score_leverage_ts+score_roa_ts+score_grossmargin_ts+score_turnover_ts;
+  score_quality_ts      =   fun_combine_score(score_quality_ts);
+
+
+
+
+  %%  
+  % Trim
+
+  score_mom_ts      = score_mom_ts(120:end-5); 
+  score_pb_ts       = score_pb_ts(120:end-5); 
+  score_cap_ts      = score_cap_ts(120:end-5); 
+  score_beta_ts     = score_beta_ts(120:end-5); 
+  score_quality_ts  = score_quality_ts(120:end-5); 
+
+  score_mom_ts      = fillts(score_mom_ts,0); 
+  score_pb_ts       = fillts(score_pb_ts,0); 
+  score_cap_ts      = fillts(score_cap_ts,0); 
+  score_beta_ts     = fillts(score_beta_ts,0); 
+  score_quality_ts  = fillts(score_quality_ts,0); 
+
+
+
+  score_ts = {score_mom_ts; score_pb_ts; score_cap_ts; score_beta_ts; score_quality_ts};
+
+  px = px(120:end-5); 
+
+  
+  
+  scores{i} = score_ts; 
+  pxs{i} = px; 
+  lists{i} = list; 
+  
+  i = i+1; 
+
+end
+
+
+save('global_data.mat','scores','pxs','lists','names','rfr_ts','spx_ts'); 
+
+  
+%% Data inspection 
+% 
+j = 1; 
+while j <= 5
+
+  i = 1;
+  while i <= 13
+    subplot(4,4,i)
+    plot((fts2mat(scores{i}{j}))); 
+    title(names{i}); 
+
+    i = i+1; 
+  end   
+  snapnow; 
+  
+  j = j+1; 
+end 
+##### SOURCE END #####
+--></body></html>
